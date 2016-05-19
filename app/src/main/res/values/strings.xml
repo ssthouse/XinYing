@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">XinYing</string>
+    <string name="str_drawer_open">打开</string>
+    <string name="str_drawer_close">关上</string>
 </resources>

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="元气少女"/>
 
-    <item android:title="学弟凝望的地点"/>
+    <group android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/id_menu_main"
+            android:checked="true"
+            android:title="Main" />
 
-    <item android:title="我们"/>
+        <item
+            android:id="@+id/id_menu_energy_girl"
+            android:title="元气少女" />
+
+        <item android:title="学弟凝望的地点" />
+    </group>
 </menu>
