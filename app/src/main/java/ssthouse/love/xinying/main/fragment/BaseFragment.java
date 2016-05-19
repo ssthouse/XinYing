@@ -7,8 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -20,6 +18,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.utils.ImageUtil;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/5/19.
@@ -27,18 +26,17 @@ import ssthouse.love.xinying.utils.ImageUtil;
 public class BaseFragment extends Fragment {
 
 
-    private int screenWidth;
-    private String imageName = "";
+    public static int screenWidth;
+    private String imageNamePrefix = "";
     private int imageNumber = 0;
 
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         //获取屏幕宽度
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     //设置ImageView 资源
@@ -63,11 +61,11 @@ public class BaseFragment extends Fragment {
                     @Override
                     public Bitmap call(Integer integer) {
                         //resource id
-                        int resourceId = ImageUtil.getImageId(getContext(), imageName + (position + 1));
+                        int resourceId = ImageUtil.getImageId(getContext(), imageName);
                         //options
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
-                        //Timber.e("resourceID:  " + resourceId);
+                        Timber.e("resourceID:  " + resourceId);
                         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resourceId, options);
 
                         int requestWidth, requestHeight;
@@ -85,7 +83,7 @@ public class BaseFragment extends Fragment {
                 });
     }
 
-    protected static Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight) {
+    protected Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight) {
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -99,7 +97,7 @@ public class BaseFragment extends Fragment {
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
-    protected static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    protected int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -107,9 +105,9 @@ public class BaseFragment extends Fragment {
 
         if (height > reqHeight || width > reqWidth) {
             if (width > height) {
-                inSampleSize = Math.round((float) height * 10 / (float) reqHeight);
+                inSampleSize = Math.round((float) height * 6 / (float) reqHeight);
             } else {
-                inSampleSize = Math.round((float) width * 10 / (float) reqWidth);
+                inSampleSize = Math.round((float) width * 6 / (float) reqWidth);
             }
         }
         //Timber.e("sampleSize:  " + inSampleSize);
@@ -119,5 +117,29 @@ public class BaseFragment extends Fragment {
     private class ViewHolder {
         ImageView iv;
         TextView tv;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public String getImageNamePrefix() {
+        return imageNamePrefix;
+    }
+
+    public void setImageNamePrefix(String imageNamePrefix) {
+        this.imageNamePrefix = imageNamePrefix;
+    }
+
+    public int getImageNumber() {
+        return imageNumber;
+    }
+
+    public void setImageNumber(int imageNumber) {
+        this.imageNumber = imageNumber;
     }
 }
