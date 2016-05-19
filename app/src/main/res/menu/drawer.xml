@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <group android:checkableBehavior="single"
-        >
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/id_menu_main"
             android:checked="true"
@@ -14,5 +13,9 @@
             android:title="元气少女" />
 
         <item android:title="学弟凝望的地点" />
+
+        <item
+            android:id="@+id/id_menu_fist_impression"
+            android:title="第一印象" />
     </group>
 </menu>

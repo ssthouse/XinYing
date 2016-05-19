@@ -3,6 +3,7 @@ package ssthouse.love.xinying.main;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -57,19 +58,27 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
                     case R.id.id_menu_main:
                         mFragmentManager.beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .replace(R.id.id_fragment_container, mainFragment)
                                 .commit();
                         break;
                     case R.id.id_menu_energy_girl:
                         mFragmentManager.beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .replace(R.id.id_fragment_container, energyGirlFragment)
                                 .commit();
                         break;
+                    case R.id.id_menu_fist_impression:
+                        mFragmentManager.beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .replace(R.id.id_fragment_container, fistImpressionFragment)
+                                .commit();
+                        break;
                 }
-                drawerLayout.closeDrawers();
                 return true;
             }
         });
