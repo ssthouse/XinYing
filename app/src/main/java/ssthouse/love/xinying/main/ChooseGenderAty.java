@@ -1,5 +1,8 @@
 package ssthouse.love.xinying.main;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,6 +12,7 @@ import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
+import ssthouse.love.xinying.utils.BlurUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 import ssthouse.love.xinying.utils.ViewUtil;
 
@@ -20,6 +24,9 @@ public class ChooseGenderAty extends BaseActivity{
     private boolean isCony = true;
 
     private static final float TRANSPARENT_ALPHA = 0.5f;
+
+    @Bind(R.id.id_iv_bg)
+    ImageView ivBg;
 
     @Bind(R.id.id_iv_avatar_cony)
     public ImageView ivCony;
@@ -35,6 +42,15 @@ public class ChooseGenderAty extends BaseActivity{
 
     @Override
     public void init() {
+        //模糊背景
+        //        获取需要被模糊的原图bitmap
+        Resources res = getResources();
+        Bitmap scaledBitmap = BitmapFactory.decodeResource(res, R.drawable.mmexport1458472869885);
+
+        //        scaledBitmap为目标图像，10是缩放的倍数（越大模糊效果越高）
+        Bitmap blurBitmap = BlurUtil.toBlur(scaledBitmap, 3);
+        ivBg.setImageBitmap(blurBitmap);
+
         //跳动文字
         ViewUtil.loadThreeDot(tvWhoILove);
 
