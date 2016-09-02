@@ -25,6 +25,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <!--chooseGender-->
+        <activity
+            android:name=".main.ChooseGenderAty"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".main.ImageViewActivity"
             android:screenOrientation="portrait"/>
     </application>
