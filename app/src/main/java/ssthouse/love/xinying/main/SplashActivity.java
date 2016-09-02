@@ -1,0 +1,68 @@
+package ssthouse.love.xinying.main;
+
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import butterknife.Bind;
+import ssthouse.love.xinying.R;
+import ssthouse.love.xinying.base.BaseActivity;
+import ssthouse.love.xinying.utils.ActivityUtil;
+
+/**
+ * Created by ssthouse on 16/9/2.
+ */
+public class SplashActivity extends BaseActivity {
+
+
+    private static int ANIMATION_TIME = 1500;
+
+    @Bind(R.id.id_tv_hello)
+    public TextView tvHello;
+
+    @Bind(R.id.id_iv_bg)
+    public ImageView ivBg;
+
+    @Bind(R.id.id_iv_logo)
+    public ImageView ivLogo;
+
+    @Override
+    public void init() {
+        //开始动画
+        Animator animatorX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1.0f, 1.15f)
+                .setDuration(ANIMATION_TIME);
+        Animator animatorY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1.0f, 1.15f)
+                .setDuration(ANIMATION_TIME);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                ActivityUtil.startAty(SplashActivity.this, MainActivity.class);
+                finish();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+        animatorSet.playTogether(animatorX, animatorY);
+        animatorSet.start();
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_splash;
+    }
+}

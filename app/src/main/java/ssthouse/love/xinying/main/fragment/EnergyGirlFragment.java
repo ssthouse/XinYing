@@ -15,6 +15,7 @@ import com.etsy.android.grid.StaggeredGridView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ssthouse.love.xinying.R;
+import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.main.ImageViewActivity;
 
 /**

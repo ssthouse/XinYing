@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.fragment;
+package ssthouse.love.xinying.base;
 
 import android.content.Context;
 import android.content.res.Resources;
