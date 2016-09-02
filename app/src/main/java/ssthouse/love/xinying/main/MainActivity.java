@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ssthouse.love.xinying.R;
@@ -28,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.id_drawer_view)
     DrawerLayout drawerLayout;
 
-
     //Fragments
     private FragmentManager mFragmentManager;
     private MainFragment mainFragment;
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("love you so much(⊙_⊙)");
+        String title = "love you so much:kissing_heart:";
+        title = EmojiParser.parseToUnicode(title);
+        getSupportActionBar().setTitle(title);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -89,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
 
         mainFragment = new MainFragment();
-        energyGirlFragment = new EnergyGirlFragment();
-        fistImpressionFragment = new FistImpressionFragment();
+        //energyGirlFragment = new EnergyGirlFragment();
+        //fistImpressionFragment = new FistImpressionFragment();
 
         //填充当前fragment
         getSupportFragmentManager().beginTransaction()
