@@ -13,10 +13,12 @@ public class PreferUtil {
     private Context mContext;
 
 
-    public static PreferUtil initInstance(Context context) {
-        if (mInstance == null) {
+    public static void initInstance(Context context) {
+        if (mInstance == null)
             mInstance = new PreferUtil(context);
-        }
+    }
+
+    public static PreferUtil getInstance(){
         return mInstance;
     }
 
@@ -36,7 +38,7 @@ public class PreferUtil {
      *****************/
     public boolean isFistIn() {
         return mContext.getSharedPreferences(PREFER_FILE_NAME, Context.MODE_PRIVATE)
-                .getBoolean(KEY_IS_FIST_IN, false);
+                .getBoolean(KEY_IS_FIST_IN, true);
     }
 
     public void setIsFistIn(boolean isFistIn) {

@@ -16,5 +16,6 @@ public class App extends Application {
         super.onCreate();
         Timber.plant(new Timber.DebugTree());
         PreferUtil.initInstance(this);
+
     }
 }

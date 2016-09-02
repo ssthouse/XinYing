@@ -11,6 +11,7 @@ import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
+import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
  * Created by ssthouse on 16/9/2.
@@ -18,7 +19,7 @@ import ssthouse.love.xinying.utils.ActivityUtil;
 public class SplashActivity extends BaseActivity {
 
 
-    private static int ANIMATION_TIME = 1500;
+    private static int ANIMATION_TIME = 1800;
 
     @Bind(R.id.id_tv_hello)
     public TextView tvHello;
@@ -45,7 +46,11 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                ActivityUtil.startAty(SplashActivity.this, MainActivity.class);
+                if (PreferUtil.getInstance().isFistIn()) {
+                    ActivityUtil.startAty(SplashActivity.this, ChooseGenderAty.class);
+                } else {
+                    ActivityUtil.startAty(SplashActivity.this, MainActivity.class);
+                }
                 finish();
             }
 

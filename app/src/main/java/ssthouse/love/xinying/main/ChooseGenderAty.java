@@ -1,22 +1,28 @@
 package ssthouse.love.xinying.main;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.frakbot.jumpingbeans.JumpingBeans;
-
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
+import ssthouse.love.xinying.utils.ActivityUtil;
+import ssthouse.love.xinying.utils.PreferUtil;
+import ssthouse.love.xinying.utils.ViewUtil;
 
 /**
  * Created by ssthouse on 16/9/2.
  */
 public class ChooseGenderAty extends BaseActivity{
 
+    private boolean isCony = true;
+
+    private static final float TRANSPARENT_ALPHA = 0.5f;
+
     @Bind(R.id.id_iv_avatar_cony)
-    public ImageView ivCoyny;
+    public ImageView ivCony;
 
     @Bind(R.id.id_iv_avatar_brown)
     public ImageView ivBrown;
@@ -29,9 +35,48 @@ public class ChooseGenderAty extends BaseActivity{
 
     @Override
     public void init() {
-        JumpingBeans.with(btnSure)
-                .appendJumpingDots()
-                .build();
+        //跳动文字
+        ViewUtil.loadThreeDot(tvWhoILove);
+
+        //初始话性别
+        chooseWho(PreferUtil.getInstance().isCony());
+
+        //点击事件
+        ivBrown.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                chooseWho(false);
+            }
+        });
+        ivCony.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseWho(true);
+            }
+        });
+
+        btnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferUtil.getInstance().setIsCony(isCony);
+                ActivityUtil.startAty(ChooseGenderAty.this, MainActivity.class);
+                finish();
+            }
+        });
+    }
+
+    private void chooseWho(boolean isCony) {
+        this.isCony = isCony;
+        if (isCony) {
+            ivCony.setAlpha(1.0f);
+            ivBrown.setAlpha(TRANSPARENT_ALPHA);
+            tvWhoILove.setText(R.string.str_i_love_brown);
+        }else{
+            ivCony.setAlpha(TRANSPARENT_ALPHA);
+            ivBrown.setAlpha(1.0f);
+            tvWhoILove.setText(R.string.str_i_love_cony);
+        }
+        ViewUtil.loadThreeDot(tvWhoILove);
     }
 
     @Override

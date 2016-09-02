@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
 import butterknife.Bind;
@@ -15,6 +16,7 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.main.fragment.EnergyGirlFragment;
 import ssthouse.love.xinying.main.fragment.FistImpressionFragment;
+import ssthouse.love.xinying.utils.PermissionUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -36,6 +38,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        //检查写setting权限
+        PermissionUtil.checkWriteSetting(this);
+
+        //开启友盟推送
+        PushAgent mPushAgent = PushAgent.getInstance(MainActivity.this);
+        mPushAgent.enable();
+
+        //初始化view
         initView();
         initFragment();
     }
@@ -47,7 +57,7 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         setSupportActionBar(toolbar);
-        String title = "love you so much:kissing_heart:";
+        String title = "love you so much :kissing_heart::kissing_heart::kissing_heart:";
         title = EmojiParser.parseToUnicode(title);
         getSupportActionBar().setTitle(title);
 
