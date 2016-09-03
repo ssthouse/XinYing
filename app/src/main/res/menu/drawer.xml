@@ -6,11 +6,11 @@
         <item
             android:id="@+id/id_menu_main"
             android:checked="true"
-            android:title="Main" />
+            android:title="Time" />
 
         <item
-            android:id="@+id/id_menu_energy_girl"
-            android:title="元气少女" />
+            android:id="@+id/id_menu_note_into"
+            android:title="FastNote" />
 
         <item android:title="学弟凝望的地点" />
 

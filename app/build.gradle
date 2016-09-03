@@ -52,4 +52,6 @@ dependencies {
     compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
     compile ('cn.leancloud.android:avoscloud-push:v3.+@aar'){transitive = true}
     compile ('cn.leancloud.android:avoscloud-feedback:v3.+@aar')
+    //颜色拾取器
+    compile 'com.github.QuadFlask:colorpicker:0.0.11'
 }

@@ -39,7 +39,7 @@
         <!--splash-->
         <activity
             android:name=".main.SplashActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,31 +47,48 @@
         </activity>
 
         <!--main-->
-        <activity android:name=".main.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait" />
 
         <!--chooseGender-->
         <activity
             android:name=".main.ChooseGenderAty"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".depresed.ImageViewActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".depresed.ImageViewActivity"
+            android:screenOrientation="portrait" />
+
+        <!--note-->
+        <activity
+            android:name=".main.widget.NoteActivity"
+            android:screenOrientation="portrait" />
+
+        <!--widget-->
+        <receiver android:name=".main.widget.MyWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.ssthouse.update" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_info" />
+        </receiver>
+
+        <service android:name=".main.widget.WidgetService" />
 
         <!--umeng-->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="57c95ee6e0f55a4129000fbd" >
-        </meta-data>
+            android:value="57c95ee6e0f55a4129000fbd" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="e63b514a88d10dcb9d0d1d540b24d206" >
-        </meta-data>
+            android:value="e63b514a88d10dcb9d0d1d540b24d206" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="LOVE_CHANNEL" >
-        </meta-data>
+            android:value="LOVE_CHANNEL" />
     </application>
 
 </manifest>

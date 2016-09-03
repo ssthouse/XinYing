@@ -15,10 +15,9 @@ import com.vdurmont.emoji.EmojiParser;
 
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.base.BaseActivity;
-import ssthouse.love.xinying.depresed.EnergyGirlImageFragment;
-import ssthouse.love.xinying.depresed.FistImpressionImageFragment;
+import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.fragment.MainFragment;
+import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
 import ssthouse.love.xinying.utils.PermissionUtil;
 
 public class MainActivity extends BaseActivity {
@@ -35,8 +34,9 @@ public class MainActivity extends BaseActivity {
     //Fragments
     private FragmentManager mFragmentManager;
     private MainFragment mainFragment;
-    private EnergyGirlImageFragment energyGirlFragment;
-    private FistImpressionImageFragment fistImpressionFragment;
+    private Fragment noteIntoFragment;
+//    private EnergyGirlImageFragment energyGirlFragment;
+//    private FistImpressionImageFragment fistImpressionFragment;
 
     @Override
     public void init() {
@@ -83,11 +83,11 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_main:
                         toFragment = mainFragment;
                         break;
-                    case R.id.id_menu_energy_girl:
-                        toFragment = energyGirlFragment;
+                    case R.id.id_menu_note_into:
+                        toFragment = noteIntoFragment;
                         break;
                     case R.id.id_menu_fist_impression:
-                        toFragment = fistImpressionFragment;
+                        //toFragment = fistImpressionFragment;
                         break;
                     default:
                         toFragment = mainFragment;
@@ -107,6 +107,7 @@ public class MainActivity extends BaseActivity {
         mFragmentManager = getSupportFragmentManager();
 
         mainFragment = new MainFragment();
+        noteIntoFragment = new NoteIntoFragment();
         //energyGirlFragment = new EnergyGirlImageFragment();
         //fistImpressionFragment = new FistImpressionImageFragment();
 

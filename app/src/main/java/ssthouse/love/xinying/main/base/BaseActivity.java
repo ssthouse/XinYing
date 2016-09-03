@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.base;
+package ssthouse.love.xinying.main.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
