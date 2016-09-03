@@ -7,9 +7,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
+import ssthouse.love.xinying.main.widget.PreferenceHelper;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 
@@ -46,7 +49,12 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (PreferUtil.getInstance().isFistIn()) {
+                if (!PreferUtil.getInstance().isFistIn()) {
+                    //初始话note
+                    String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
+                    initialStr = EmojiParser.parseToUnicode(initialStr);
+                    PreferenceHelper.getInstance(SplashActivity.this).saveNote(initialStr);
+                    //启动MainAty
                     ActivityUtil.startAty(SplashActivity.this, ChooseGenderAty.class);
                     PreferUtil.getInstance().setIsFistIn(false);
                 } else {

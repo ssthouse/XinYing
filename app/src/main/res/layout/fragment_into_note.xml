@@ -33,12 +33,11 @@
                         android:text="Step1: 长按桌面添加widget小工具" />
 
                     <ImageView
+                        android:id="@+id/id_iv_1"
                         android:layout_width="240dp"
                         android:layout_height="427dp"
                         android:layout_marginLeft="0dp"
-                        android:layout_marginTop="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/judy" />
+                        android:layout_marginTop="20dp" />
 
                 </LinearLayout>
 
@@ -59,15 +58,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Step1: 长按桌面添加widget小工具" />
+                        android:text="Step2: 拖动控件到空白桌面" />
 
                     <ImageView
+                        android:id="@+id/id_iv_2"
                         android:layout_width="240dp"
                         android:layout_height="427dp"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/judy" />
+                        android:scaleType="centerCrop"/>
 
                 </LinearLayout>
 
@@ -88,23 +87,25 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Step1: 长按桌面添加widget小工具" />
+                        android:text="Step3: 看到这句话你就成功啦" />
 
                     <ImageView
+                        android:id="@+id/id_iv_3"
                         android:layout_width="240dp"
                         android:layout_height="427dp"
                         android:layout_marginLeft="0dp"
                         android:layout_marginTop="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/judy" />
+                        android:scaleType="centerCrop"/>
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
+
+            <!--step4-->
             <android.support.v7.widget.CardView
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -117,15 +118,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Step1: 长按桌面添加widget小工具" />
+                        android:text="Tips:
+                        \n可以长按改变大小
+                        \n点击即可进入编辑
+                        \n编辑界面会自动保存" />
 
-                    <ImageView
-                        android:layout_width="240dp"
-                        android:layout_height="427dp"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginTop="20dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/judy" />
+                    <!--<ImageView-->
+                    <!--android:layout_width="240dp"-->
+                    <!--android:layout_height="427dp"-->
+                    <!--android:layout_marginLeft="0dp"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:scaleType="centerCrop" />-->
 
                 </LinearLayout>
 

@@ -2,21 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/id_action_color_pick"
+    <item
+        android:id="@+id/id_action_color_pick"
         android:orderInCategory="200"
         android:title="颜色拾取"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/id_action_test_intent_service"
-        android:title="测试IntentService"
-        android:orderInCategory="300"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/id_action_test_activity"
-        android:title="测试Activity生命周期"
-        android:orderInCategory="400"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
 </menu>

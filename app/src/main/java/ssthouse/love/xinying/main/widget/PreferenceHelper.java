@@ -2,7 +2,6 @@ package ssthouse.love.xinying.main.widget;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * Created by ssthouse on 2015/12/9.
@@ -34,7 +33,7 @@ public class PreferenceHelper {
     public void saveNote(String note) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_NOTE, note);
-        editor.commit();
+        editor.apply();
     }
 
     public String getNote() {
@@ -51,22 +50,22 @@ public class PreferenceHelper {
     public void setColor(int color) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_COLOR, color);
-        Log.e(TAG, "我现在保存的颜色是:"+Integer.toHexString(color));
-        editor.commit();
+//        Log.e(TAG, "我现在保存的颜色是:"+Integer.toHexString(color));
+        editor.apply();
     }
 
     /**
      * 获取颜色
      */
     public int getColor() {
-        Log.e(TAG, "我现在的颜色是:"+Integer.toHexString(sharedPreferences.getInt(KEY_COLOR, 0xffffff)));
-        return sharedPreferences.getInt(KEY_COLOR, 0xffffff);
+//        Log.e(TAG, "我现在的颜色是:"+Integer.toHexString(sharedPreferences.getInt(KEY_COLOR, 0xffffffff)));
+        return sharedPreferences.getInt(KEY_COLOR, 0xffffffff);
     }
 
     public void setIsFistIn(boolean isFistIn) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(KEY_IS_FIST_IN, isFistIn);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isFistIn(){

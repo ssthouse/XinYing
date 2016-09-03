@@ -54,4 +54,6 @@ dependencies {
     compile ('cn.leancloud.android:avoscloud-feedback:v3.+@aar')
     //颜色拾取器
     compile 'com.github.QuadFlask:colorpicker:0.0.11'
+    //特效Edittext
+    compile 'com.alimuzaffar.lib:animated-edit-text:1.0'
 }

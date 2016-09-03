@@ -3,6 +3,7 @@ package ssthouse.love.xinying.main.widget;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,10 +14,10 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.vdurmont.emoji.EmojiParser;
 
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.utils.Constant;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/9/3.
@@ -30,16 +31,17 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (PreferenceHelper.getInstance(this).isFistIn()) {
             PreferenceHelper.getInstance(this).setIsFistIn(false);
-            PreferenceHelper.getInstance(this).setColor(0xffffffff);
-            PreferenceHelper.getInstance(this).saveNote("begin fast note");
+            String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
+            initialStr = EmojiParser.parseToUnicode(initialStr);
+            PreferenceHelper.getInstance(this).saveNote(initialStr);
         }
         setContentView(R.layout.activity_note);
         initView();
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        Timber.e("window focus changed");
+    public void onWindowFocusChanged(boolean hasFocus) {
+//        Timber.e("window focus changed");
         callback();
         super.onWindowFocusChanged(hasFocus);
     }
@@ -47,7 +49,9 @@ public class NoteActivity extends AppCompatActivity {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Cheer up!");
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            getSupportActionBar().setTitle("Cheer up!");
 
         etMain = (EditText) findViewById(R.id.id_et);
         etMain.setText(PreferenceHelper.getInstance(this).getNote());
@@ -73,7 +77,6 @@ public class NoteActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.id_action_color_pick:
-                //TODO---选择颜色
                 pickColor();
                 break;
         }
@@ -93,7 +96,6 @@ public class NoteActivity extends AppCompatActivity {
                 .setOnColorSelectedListener(new OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int selectedColor) {
-                        // toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
                     }
                 })
                 .setPositiveButton("确定", new ColorPickerClickListener() {

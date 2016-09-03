@@ -10,7 +10,6 @@ import android.widget.RemoteViews;
 
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.utils.Constant;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 2015/12/9.
@@ -27,11 +26,16 @@ public class MyWidgetProvider extends AppWidgetProvider {
     @Override //更新部件时调用，在第1次添加部件时也会调用
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
-        Timber.e("onUpdate");
+//        Timber.e("onUpdate");
+        initWidget(context, appWidgetManager, appWidgetIds);
+    }
+
+    private void initWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Intent intent = new Intent(context, NoteActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
         rv.setOnClickPendingIntent(R.id.id_ll_main, pendingIntent);
+        rv.setTextViewText(R.id.id_tv, PreferenceHelper.getInstance(context).getNote());
         appWidgetManager.updateAppWidget(appWidgetIds, rv);
     }
 
@@ -47,7 +51,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
         }
         ComponentName componentName = new ComponentName(context, MyWidgetProvider.class);
         String content = PreferenceHelper.getInstance(context).getNote();
-        Timber.e(content);
+//        Timber.e(content);
         int[] widgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(componentName);
         for (int i = 0; i < widgetIds.length; i++) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
@@ -58,6 +62,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
                             PendingIntent.FLAG_CANCEL_CURRENT));
             AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews);
         }
-        Timber.e( "note provider 收到了消息!");
+//        Timber.e( "note provider 收到了消息!");
     }
 }
