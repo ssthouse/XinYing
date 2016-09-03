@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main;
+package ssthouse.love.xinying.depresed;
 
 import android.content.Context;
 import android.content.Intent;

@@ -56,7 +56,7 @@
             android:name=".main.ChooseGenderAty"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".main.ImageViewActivity"
+        <activity android:name=".depresed.ImageViewActivity"
             android:screenOrientation="portrait"/>
 
         <!--umeng-->

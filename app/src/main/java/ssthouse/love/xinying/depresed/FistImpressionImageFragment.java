@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.fragment;
+package ssthouse.love.xinying.depresed;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,13 +15,12 @@ import com.etsy.android.grid.StaggeredGridView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.base.BaseFragment;
-import ssthouse.love.xinying.main.ImageViewActivity;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/5/19.
  */
-public class EnergyGirlFragment extends BaseFragment {
+public class FistImpressionImageFragment extends BaseImageFragment {
 
     @Bind(R.id.id_gv)
     StaggeredGridView mGridView;
@@ -29,8 +28,8 @@ public class EnergyGirlFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setImageNamePrefix("energy_girl_");
-        setImageNumber(9);
+        setImageNamePrefix("fist_impression_");
+        setImageNumber(8);
         View rootView = inflater.inflate(R.layout.fragment_energy_girl, container, false);
         ButterKnife.bind(this, rootView);
         initView();
@@ -56,7 +55,7 @@ public class EnergyGirlFragment extends BaseFragment {
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                ViewHolder viewHolder = null;
+                ViewHolder viewHolder;
                 if (convertView == null) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_card, parent, false);
                     viewHolder = new ViewHolder();
@@ -66,6 +65,7 @@ public class EnergyGirlFragment extends BaseFragment {
                 } else {
                     viewHolder = (ViewHolder) convertView.getTag();
                 }
+                Timber.e( getImageNamePrefix() + (position + 1));
                 setImageResource(viewHolder.iv, getImageNamePrefix() + (position + 1), position);
                 viewHolder.tv.setText(getImageNamePrefix() + (position + 1));
                 return convertView;

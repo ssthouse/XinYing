@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vdurmont.emoji.EmojiParser;
+
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
@@ -45,7 +47,7 @@ public class ChooseGenderAty extends BaseActivity{
         //模糊背景
         //        获取需要被模糊的原图bitmap
         Resources res = getResources();
-        Bitmap scaledBitmap = BitmapFactory.decodeResource(res, R.drawable.mmexport1458472869885);
+        Bitmap scaledBitmap = BitmapFactory.decodeResource(res, R.drawable.judy);
 
         //        scaledBitmap为目标图像，10是缩放的倍数（越大模糊效果越高）
         Bitmap blurBitmap = BlurUtil.toBlur(scaledBitmap, 3);
@@ -79,6 +81,7 @@ public class ChooseGenderAty extends BaseActivity{
                 finish();
             }
         });
+        btnSure.setText(EmojiParser.parseToUnicode("SURE :kissing_heart:"));
     }
 
     private void chooseWho(boolean isCony) {

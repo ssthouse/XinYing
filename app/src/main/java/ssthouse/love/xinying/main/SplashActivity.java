@@ -48,6 +48,7 @@ public class SplashActivity extends BaseActivity {
             public void onAnimationEnd(Animator animation) {
                 if (PreferUtil.getInstance().isFistIn()) {
                     ActivityUtil.startAty(SplashActivity.this, ChooseGenderAty.class);
+                    PreferUtil.getInstance().setIsFistIn(false);
                 } else {
                     ActivityUtil.startAty(SplashActivity.this, MainActivity.class);
                 }
