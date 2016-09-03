@@ -56,4 +56,8 @@ dependencies {
     compile 'com.github.QuadFlask:colorpicker:0.0.11'
     //特效Edittext
     compile 'com.alimuzaffar.lib:animated-edit-text:1.0'
+    //action button
+    compile 'com.github.clans:fab:1.6.4'
+    //pull to refresh
+    compile 'com.github.lubeast:PullToRefresh:1.0.1'
 }

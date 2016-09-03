@@ -9,8 +9,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
+import com.squareup.picasso.Picasso;
 import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
@@ -19,10 +22,17 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.fragment.MainFragment;
 import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
+import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.utils.PermissionUtil;
+import ssthouse.love.xinying.utils.PreferUtil;
 
 public class MainActivity extends BaseActivity {
 
+    //drawer
+    private ImageView ivAvatar;
+    private TextView tvName;
+
+    //main
     @Bind(R.id.id_tb)
     Toolbar toolbar;
 
@@ -36,8 +46,7 @@ public class MainActivity extends BaseActivity {
     private FragmentManager mFragmentManager;
     private MainFragment mainFragment;
     private Fragment noteIntoFragment;
-//    private EnergyGirlImageFragment energyGirlFragment;
-//    private FistImpressionImageFragment fistImpressionFragment;
+    private Fragment leaveMsgFragment;
 
     @Override
     public void init() {
@@ -50,6 +59,7 @@ public class MainActivity extends BaseActivity {
 
         //初始化view
         initView();
+        initDrawer();
         initFragment();
 
         AVObject object = new AVObject();
@@ -72,6 +82,25 @@ public class MainActivity extends BaseActivity {
             getSupportActionBar().setTitle(title);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    private void initDrawer(){
+        tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
+        ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+
+        if (PreferUtil.getInstance().isCony()) {
+            tvName.setText("学弟的学姐");
+            Picasso.with(this)
+                    .load(R.drawable.cony_avatar)
+                    .into(ivAvatar);
+        }else{
+            tvName.setText("学弟的学姐");
+            Picasso.with(this)
+                    .load(R.drawable.brown_avatar)
+                    .into(ivAvatar);
+        }
+
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.str_drawer_open,
                 R.string.str_drawer_close);
@@ -90,8 +119,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_note_into:
                         toFragment = noteIntoFragment;
                         break;
-                    case R.id.id_menu_fist_impression:
-                        //toFragment = fistImpressionFragment;
+                    case R.id.id_menu_leave_msg:
+                        toFragment = leaveMsgFragment;
                         break;
                     default:
                         toFragment = mainFragment;
@@ -106,15 +135,12 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-
     private void initFragment() {
         mFragmentManager = getSupportFragmentManager();
 
         mainFragment = new MainFragment();
         noteIntoFragment = new NoteIntoFragment();
-        //energyGirlFragment = new EnergyGirlImageFragment();
-        //fistImpressionFragment = new FistImpressionImageFragment();
-
+        leaveMsgFragment = new LeaveMsgFragment();
         //填充当前fragment
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.id_fragment_container, mainFragment)

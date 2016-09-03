@@ -8,18 +8,20 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/id_iv_avatar"
         android:layout_width="62dp"
         android:layout_height="62dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/avatar"
         app:civ_border_color="#FF000000" />
 
     <TextView
-        android:layout_marginTop="16dp"
+        android:id="@+id/id_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
         android:text="学弟的学姐"
         android:textColor="@color/white"
         android:textSize="14sp" />

@@ -49,7 +49,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (!PreferUtil.getInstance().isFistIn()) {
+                if (PreferUtil.getInstance().isFistIn()) {
                     //初始话note
                     String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
                     initialStr = EmojiParser.parseToUnicode(initialStr);

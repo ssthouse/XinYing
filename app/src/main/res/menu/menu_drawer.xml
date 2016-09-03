@@ -12,7 +12,9 @@
             android:id="@+id/id_menu_note_into"
             android:title="FastNote" />
 
-        <item android:title="学弟凝望的地点" />
+        <item
+            android:id="@+id/id_menu_leave_msg"
+            android:title="leave msg" />
 
         <item
             android:id="@+id/id_menu_fist_impression"
