@@ -4,26 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="142dp"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/id_iv_avatar"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/avatar"
-        app:civ_border_color="#FF000000" />
-
-    <TextView
-        android:id="@+id/id_tv_name"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="16dp"
-        android:text="学弟的学姐"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/id_iv_avatar"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/avatar"
+            app:civ_border_color="#FF000000" />
+
+        <TextView
+            android:id="@+id/id_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="16dp"
+            android:text="学弟的学姐"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|right">
+
+        <Button
+            android:id="@+id/id_btn_sign"
+            android:layout_width="64dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorAccent"
+            android:text="签到"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
 </LinearLayout>

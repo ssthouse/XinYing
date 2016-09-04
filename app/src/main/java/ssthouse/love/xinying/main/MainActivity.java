@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity {
     //drawer
     private ImageView ivAvatar;
     private TextView tvName;
+    private Button btnSign;
 
     //main
     @Bind(R.id.id_tb)
@@ -85,16 +88,17 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private void initDrawer(){
+    private void initDrawer() {
         tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+        btnSign = (Button) navigationView.getHeaderView(0).findViewById(R.id.id_btn_sign);
 
         if (PreferUtil.getInstance().isCony()) {
             tvName.setText("学弟的学姐");
             Picasso.with(this)
                     .load(R.drawable.cony_avatar)
                     .into(ivAvatar);
-        }else{
+        } else {
             tvName.setText("学弟的学姐");
             Picasso.with(this)
                     .load(R.drawable.brown_avatar)
@@ -133,6 +137,35 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+
+        //签到按钮      根据保存的上一天的签到时间
+        updateBtnSign();
+        btnSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
+                if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
+                    btnSign.setBackgroundResource(R.color.grey);
+                    //设置今天的0点
+                    long curTime = System.currentTimeMillis();
+                    curTime = curTime - curTime % 24 * 60 * 60 * 1000;
+                    PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+                }
+            }
+        });
+    }
+
+    private void updateBtnSign(){
+        long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
+        if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
+            btnSign.setBackgroundResource(R.color.colorAccent);
+            //设置今天的0点
+            long curTime = System.currentTimeMillis();
+            curTime = curTime - curTime % 24 * 60 * 60 * 1000;
+            PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+        }else{
+            btnSign.setBackgroundResource(R.color.grey);
+        }
     }
 
     private void initFragment() {

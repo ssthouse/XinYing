@@ -18,7 +18,7 @@ public class PreferUtil {
             mInstance = new PreferUtil(context);
     }
 
-    public static PreferUtil getInstance(){
+    public static PreferUtil getInstance() {
         return mInstance;
     }
 
@@ -32,6 +32,7 @@ public class PreferUtil {
 
     public static final String KEY_IS_FIST_IN = "isFistIn";
 
+    private static final String KEY_LAST_SIGN_TIME_IN_MILLIS = "lastSignTimeInMillis";
 
     /****************
      * 第一次进入
@@ -59,6 +60,15 @@ public class PreferUtil {
     }
 
 
+    /******************最近一次签到天的时间***************************************/
+    public String getLastSignTimeInMillisStr(){
+        return getString(KEY_LAST_SIGN_TIME_IN_MILLIS, "0");
+    }
+
+    public void setLastSignTimeInMillis(String lastSignTimeInMillisStr) {
+        setString(KEY_LAST_SIGN_TIME_IN_MILLIS, lastSignTimeInMillisStr);
+    }
+
     /************************
      * base function
      ********************************/
@@ -73,4 +83,17 @@ public class PreferUtil {
         editor.putBoolean(keyStr, value)
                 .apply();
     }
+
+    public String getString(String keyStr, String defaultValue) {
+        return mContext.getSharedPreferences(PREFER_FILE_NAME, Context.MODE_PRIVATE)
+                .getString(keyStr, defaultValue);
+    }
+
+    public void setString(String keyStr, String value) {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences(PREFER_FILE_NAME, Context.MODE_PRIVATE)
+                .edit();
+        editor.putString(keyStr, value)
+                .apply();
+    }
+
 }
