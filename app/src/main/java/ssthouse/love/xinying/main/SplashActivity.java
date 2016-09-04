@@ -3,6 +3,7 @@ package ssthouse.love.xinying.main;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,9 +13,9 @@ import com.vdurmont.emoji.EmojiParser;
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
-import ssthouse.love.xinying.widget.PreferenceHelper;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
+import ssthouse.love.xinying.widget.PreferenceHelper;
 
 /**
  * Created by ssthouse on 16/9/2.
@@ -35,6 +36,9 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void init() {
+        WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+
         //开始动画
         Animator animatorX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1.0f, 1.15f)
                 .setDuration(ANIMATION_TIME);

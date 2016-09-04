@@ -23,6 +23,7 @@
     <TextView
         android:id="@+id/id_tv_hello"
         android:text="Hello 我的学姐"
+        android:textSize="16sp"
         android:layout_marginLeft="100dp"
         android:textColor="@color/white"
         android:layout_width="wrap_content"

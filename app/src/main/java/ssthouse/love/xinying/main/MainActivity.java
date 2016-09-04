@@ -25,6 +25,7 @@ import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.fragment.MainFragment;
 import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
 import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
+import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 
@@ -126,6 +127,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_leave_msg:
                         toFragment = leaveMsgFragment;
                         break;
+                    case R.id.id_menu_setting:
+                        ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                     default:
                         toFragment = mainFragment;
                         break;
@@ -146,6 +149,7 @@ public class MainActivity extends BaseActivity {
                 long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
                 if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
                     btnSign.setBackgroundResource(R.color.grey);
+                    btnSign.setEnabled(false);
                     //设置今天的0点
                     long curTime = System.currentTimeMillis();
                     curTime = curTime - curTime % 24 * 60 * 60 * 1000;
@@ -159,12 +163,10 @@ public class MainActivity extends BaseActivity {
         long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
         if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
             btnSign.setBackgroundResource(R.color.colorAccent);
-            //设置今天的0点
-            long curTime = System.currentTimeMillis();
-            curTime = curTime - curTime % 24 * 60 * 60 * 1000;
-            PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+            btnSign.setEnabled(true);
         }else{
             btnSign.setBackgroundResource(R.color.grey);
+            btnSign.setEnabled(false);
         }
     }
 

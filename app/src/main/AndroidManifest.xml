@@ -65,6 +65,11 @@
             android:name=".widget.NoteActivity"
             android:screenOrientation="portrait" />
 
+        <!--setting-->
+        <activity
+            android:name=".main.SettingActivity"
+            android:screenOrientation="portrait" />
+
         <!--widget-->
         <receiver android:name=".widget.MyWidgetProvider">
             <intent-filter>
