@@ -60,4 +60,6 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     //pull to refresh
     compile 'com.github.lubeast:PullToRefresh:1.0.1'
+    //dialog
+    compile 'com.orhanobut:dialogplus:1.11@aar'
 }

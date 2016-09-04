@@ -5,8 +5,14 @@ package ssthouse.love.xinying.main.todo;
  */
 public class TodoBean {
 
-    private String todoStr;
 
+    public static final String CLASS_NAME = "TodoBeanList";
+    public static final String KEY_TODO_LIST = "TodoList";
+
+    public static final String KEY_TODO_STR = "todoStr";
+    public static final String KEY_TIME_STR = "timeStr";
+
+    private String todoStr;
     private String timeStr;
 
 

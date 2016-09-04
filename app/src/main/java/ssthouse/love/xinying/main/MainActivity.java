@@ -31,7 +31,7 @@ import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.bean.SignNumber;
-import ssthouse.love.xinying.main.fragment.MainFragment;
+import ssthouse.love.xinying.main.todo.MainFragment;
 import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
 import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.utils.ActivityUtil;
