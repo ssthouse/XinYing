@@ -14,20 +14,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
 import butterknife.Bind;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
+import ssthouse.love.xinying.main.bean.SignNumber;
 import ssthouse.love.xinying.main.fragment.MainFragment;
 import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
 import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
+import ssthouse.love.xinying.utils.ViewUtil;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
 
@@ -153,18 +164,21 @@ public class MainActivity extends BaseActivity {
                     //设置今天的0点
                     long curTime = System.currentTimeMillis();
                     curTime = curTime - curTime % 24 * 60 * 60 * 1000;
-                    PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+                    //PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+
+                    //网络端签到
+                    sign();
                 }
             }
         });
     }
 
-    private void updateBtnSign(){
+    private void updateBtnSign() {
         long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
         if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
             btnSign.setBackgroundResource(R.color.colorAccent);
             btnSign.setEnabled(true);
-        }else{
+        } else {
             btnSign.setBackgroundResource(R.color.grey);
             btnSign.setEnabled(false);
         }
@@ -180,5 +194,58 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.id_fragment_container, mainFragment)
                 .commit();
+    }
+
+    /**
+     * 签到
+     */
+    private void sign() {
+        Observable.just("")
+                .map(new Func1<String, AVObject>() {
+                    @Override
+                    public AVObject call(String s) {
+                        AVQuery<AVObject> query = new AVQuery<>(SignNumber.CLASS_NAME);
+                        AVObject avObject = null;
+                        try {
+                            avObject = query.whereEqualTo(SignNumber.KEY_IS_CONY, PreferUtil.getInstance().isCony())
+                                    .getFirst();
+                        } catch (AVException e) {
+                            e.printStackTrace();
+                        }
+                        return avObject;
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<AVObject>() {
+                    @Override
+                    public void call(AVObject avObject) {
+                        //第一次签到
+                        if (avObject == null) {
+                            String str = "第一次签到哦, 啵 :kissing_heart:";
+                            str = EmojiParser.parseToUnicode(str);
+                            ViewUtil.toast(MainActivity.this, str);
+                            AVObject avobject = new AVObject(SignNumber.CLASS_NAME);
+                            avobject.put(SignNumber.KEY_IS_CONY, PreferUtil.getInstance().isCony());
+                            avobject.put(SignNumber.KEY_SIGN_NUMBER, 1);
+                            avobject.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    Timber.e(e == null ? "保存成功" : "保存失败");
+                                }
+                            });
+                            return;
+                        }
+                        int signNumber = avObject.getInt(SignNumber.KEY_SIGN_NUMBER) + 1;
+                        avObject.put(SignNumber.KEY_SIGN_NUMBER, signNumber);
+                        avObject.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                Timber.e(e == null ? "保存成功" : "保存失败");
+                            }
+                        });
+                        ViewUtil.toast(MainActivity.this, "签到次数: " + signNumber);
+                    }
+                });
     }
 }

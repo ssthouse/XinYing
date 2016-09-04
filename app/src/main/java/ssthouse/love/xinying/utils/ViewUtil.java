@@ -1,6 +1,8 @@
 package ssthouse.love.xinying.utils;
 
+import android.content.Context;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.frakbot.jumpingbeans.JumpingBeans;
 
@@ -13,5 +15,9 @@ public class ViewUtil {
         JumpingBeans.with(textView)
                 .appendJumpingDots()
                 .build();
+    }
+
+    public static void toast(Context context, String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }

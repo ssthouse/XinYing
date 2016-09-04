@@ -33,7 +33,7 @@ public class LeaveMsgFragment extends BaseFragment {
     @Bind(R.id.id_lv)
     ListView listView;
 
-    @Bind(R.id.id_fab_add)
+    @Bind(R.id.id_fab_add_msg)
     FloatingActionButton fabAdd;
 
     @Override
