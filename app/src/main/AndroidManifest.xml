@@ -62,11 +62,11 @@
 
         <!--note-->
         <activity
-            android:name=".main.widget.NoteActivity"
+            android:name=".widget.NoteActivity"
             android:screenOrientation="portrait" />
 
         <!--widget-->
-        <receiver android:name=".main.widget.MyWidgetProvider">
+        <receiver android:name=".widget.MyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.ssthouse.update" />
@@ -77,7 +77,7 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
 
-        <service android:name=".main.widget.WidgetService" />
+        <service android:name=".widget.WidgetService" />
 
         <!--umeng-->
         <meta-data

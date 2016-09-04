@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.widget;
+package ssthouse.love.xinying.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;

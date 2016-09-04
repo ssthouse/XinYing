@@ -12,7 +12,7 @@ public class StringUtils {
     public static String getLoveTimeStr() {
         Calendar beginCalendar = new GregorianCalendar(2016, 2, 14);
         Calendar currentCalendar = GregorianCalendar.getInstance();
-        return "已相爱" + (currentCalendar.getTimeInMillis() - beginCalendar.getTimeInMillis()) / (1000 * 60 * 60 * 24) + "天";
+        return (currentCalendar.getTimeInMillis() - beginCalendar.getTimeInMillis()) / (1000 * 60 * 60 * 24) + "天";
     }
 
 }
