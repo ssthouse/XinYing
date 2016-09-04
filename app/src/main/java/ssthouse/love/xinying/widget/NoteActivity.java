@@ -44,6 +44,9 @@ public class NoteActivity extends AppCompatActivity {
 //        Timber.e("window focus changed");
         callback();
         super.onWindowFocusChanged(hasFocus);
+        if(!hasFocus){
+            finish();
+        }
     }
 
     private void initView() {
