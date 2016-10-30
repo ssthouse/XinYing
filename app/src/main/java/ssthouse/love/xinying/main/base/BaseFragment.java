@@ -14,8 +14,6 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment extends Fragment {
 
-    public abstract int getContentView();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,6 +23,8 @@ public abstract class BaseFragment extends Fragment {
         init();
         return rootView;
     }
+
+    public abstract int getContentView();
 
     public abstract void init();
 }

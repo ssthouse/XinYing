@@ -31,9 +31,9 @@ import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.bean.SignNumber;
-import ssthouse.love.xinying.main.todo.MainFragment;
 import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
 import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
+import ssthouse.love.xinying.main.todo.MainFragment;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
@@ -67,13 +67,11 @@ public class MainActivity extends BaseActivity {
     public void init() {
         //检查写setting权限
         PermissionUtil.checkWriteSetting(this);
-
         //开启友盟推送
         PushAgent mPushAgent = PushAgent.getInstance(MainActivity.this);
         mPushAgent.enable();
-
         //初始化view
-        initView();
+        initActionbar();
         initDrawer();
         initFragment();
     }
@@ -83,24 +81,25 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    private void initView() {
+    private void initActionbar() {
         setSupportActionBar(toolbar);
         String title = "love you so much :kissing_heart::kissing_heart::kissing_heart:";
         title = EmojiParser.parseToUnicode(title);
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             getSupportActionBar().setTitle(title);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     private void initDrawer() {
+        initDrawerNameAndAvatar();
+        initDrawerItem();
+        initSignInButton();
+    }
+
+    private void initDrawerNameAndAvatar() {
         tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
-        btnSign = (Button) navigationView.getHeaderView(0).findViewById(R.id.id_btn_sign);
-
         if (PreferUtil.getInstance().isCony()) {
             tvName.setText("学弟的学姐");
             Picasso.with(this)
@@ -112,7 +111,31 @@ public class MainActivity extends BaseActivity {
                     .load(R.drawable.brown_avatar)
                     .into(ivAvatar);
         }
+    }
 
+    private void initSignInButton() {
+        btnSign = (Button) navigationView.getHeaderView(0).findViewById(R.id.id_btn_sign);
+        updateBtnSign();
+        btnSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
+                if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
+                    btnSign.setBackgroundResource(R.color.grey);
+                    btnSign.setEnabled(false);
+                    //设置今天的0点
+                    long curTime = System.currentTimeMillis();
+                    curTime = curTime - curTime % 24 * 60 * 60 * 1000;
+                    PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+
+                    //网络端签到
+                    sign();
+                }
+            }
+        });
+    }
+
+    private void initDrawerItem() {
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.str_drawer_open,
                 R.string.str_drawer_close);
@@ -145,26 +168,6 @@ public class MainActivity extends BaseActivity {
                         .replace(R.id.id_fragment_container, toFragment)
                         .commit();
                 return true;
-            }
-        });
-
-        //签到按钮      根据保存的上一天的签到时间
-        updateBtnSign();
-        btnSign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
-                if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
-                    btnSign.setBackgroundResource(R.color.grey);
-                    btnSign.setEnabled(false);
-                    //设置今天的0点
-                    long curTime = System.currentTimeMillis();
-                    curTime = curTime - curTime % 24 * 60 * 60 * 1000;
-                    PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
-
-                    //网络端签到
-                    sign();
-                }
             }
         });
     }
