@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
                     btnSign.setEnabled(false);
                     //设置今天的0点
                     long curTime = System.currentTimeMillis();
-                    curTime = curTime - curTime % 24 * 60 * 60 * 1000;
+                    curTime = curTime - curTime % (24 * 60 * 60 * 1000);
                     PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
 
                     //网络端签到
