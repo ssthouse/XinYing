@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 import com.orhanobut.dialogplus.DialogPlus;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import ssthouse.love.xinying.utils.ViewUtil;
 /**
  * Created by ssthouse on 16/5/11.
  */
-public class MainFragment extends BaseFragment implements IView{
+public class MainFragment extends BaseFragment implements IView {
 
     private static final int MSG_UPDATE_TIME = 1000;
 
@@ -46,11 +47,14 @@ public class MainFragment extends BaseFragment implements IView{
 
     private DialogPlus addTodoDialog;
     private EditText etTodo;
-    private Button btnCalcel, btnEnsure;
 
     private TodoPresenter todoPresenter;
 
     private List<TodoBean> curTodoList = new ArrayList<>();
+
+    private CustomHandler handler = new CustomHandler(this);
+
+    private TodoModel mTodoModel = new TodoModel(this.getContext());
 
     @Override
     public int getContentView() {
@@ -60,7 +64,6 @@ public class MainFragment extends BaseFragment implements IView{
     @Override
     public void init() {
         todoPresenter = new TodoPresenter(this, getContext());
-
         //初始话todo dialog
         initAddTodoDialog();
 
@@ -116,7 +119,7 @@ public class MainFragment extends BaseFragment implements IView{
                 viewHolder.ivAvatar = (ImageView) convertView.findViewById(R.id.id_iv);
                 viewHolder.tvTodo = (TextView) convertView.findViewById(R.id.id_tv_todo);
                 convertView.setTag(viewHolder);
-            }else{
+            } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.ivAvatar.setImageResource(R.drawable.avatar);
@@ -141,17 +144,17 @@ public class MainFragment extends BaseFragment implements IView{
         pullToRefreshView.setRefreshing(false);
     }
 
-    private void initAddTodoDialog(){
+    private void initAddTodoDialog() {
         addTodoDialog = DialogPlus.newDialog(getContext())
                 .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.dialog_add_todo))
                 .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
                 .create();
         View view = addTodoDialog.getHolderView();
         etTodo = (EditText) view.findViewById(R.id.id_et_todo);
-        btnCalcel = (Button) view.findViewById(R.id.id_btn_cancel);
-        btnEnsure = (Button) view.findViewById(R.id.id_btn_ensure);
+        Button btnCancel = (Button) view.findViewById(R.id.id_btn_cancel);
+        Button btnEnsure = (Button) view.findViewById(R.id.id_btn_ensure);
 
-        btnCalcel.setOnClickListener(new View.OnClickListener() {
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addTodoDialog.dismiss();
@@ -161,25 +164,37 @@ public class MainFragment extends BaseFragment implements IView{
         btnEnsure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.toast(getContext(), "等大宝宝的下一个版本_(:з」∠)_");
+                ViewUtil.toast(getContext(), getString(R.string.str_wait_next_version));
             }
         });
     }
 
-    class ViewHolder{
+    class ViewHolder {
         ImageView ivAvatar;
         TextView tvTodo;
     }
 
-    private Handler handler = new Handler(){
+    private static class CustomHandler extends Handler {
+
+        WeakReference<MainFragment> mFragmentReference;
+
+        CustomHandler(MainFragment mainFragment) {
+            mFragmentReference = new WeakReference<MainFragment>(mainFragment);
+        }
+
         @Override
         public void handleMessage(Message msg) {
+            final MainFragment mainFragment = mFragmentReference.get();
+            if (mainFragment == null) {
+                return;
+            }
             switch (msg.what) {
                 case MSG_UPDATE_TIME:
-                    tvTime.setText(StringUtils.getLoveTimeStr());
-                    handler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 1000);
+                    mainFragment.tvTime.setText(StringUtils.getLoveTimeStr());
+                    mainFragment.handler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 1000);
                     break;
             }
         }
-    };
+    }
+
 }

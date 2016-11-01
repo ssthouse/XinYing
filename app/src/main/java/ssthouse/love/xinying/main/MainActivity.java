@@ -185,7 +185,6 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         mFragmentManager = getSupportFragmentManager();
-
         mainFragment = new MainFragment();
         noteIntoFragment = new NoteIntoFragment();
         leaveMsgFragment = new LeaveMsgFragment();
