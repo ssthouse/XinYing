@@ -22,8 +22,7 @@ import ssthouse.love.xinying.widget.PreferenceHelper;
  */
 public class SplashActivity extends BaseActivity {
 
-
-    private static int ANIMATION_TIME = 1800;
+    private static final int ANIMATION_TIME = 1500;
 
     @Bind(R.id.id_tv_hello)
     public TextView tvHello;

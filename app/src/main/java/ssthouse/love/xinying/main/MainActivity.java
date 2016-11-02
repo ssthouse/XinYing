@@ -1,9 +1,6 @@
 package ssthouse.love.xinying.main;
 
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,9 +28,6 @@ import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.main.bean.SignNumber;
-import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
-import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
-import ssthouse.love.xinying.main.todo.MainFragment;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
@@ -57,11 +51,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.id_drawer_view)
     DrawerLayout drawerLayout;
 
-    //Fragments
-    private FragmentManager mFragmentManager;
-    private MainFragment mainFragment;
-    private Fragment noteIntoFragment;
-    private Fragment leaveMsgFragment;
+    private MainFragmentManager mFragmentManager;
 
     @Override
     public void init() {
@@ -70,6 +60,7 @@ public class MainActivity extends BaseActivity {
         //开启友盟推送
         PushAgent mPushAgent = PushAgent.getInstance(MainActivity.this);
         mPushAgent.enable();
+        mFragmentManager = new MainFragmentManager(getSupportFragmentManager(), R.id.id_fragment_container);
         //初始化view
         initActionbar();
         initDrawer();
@@ -146,27 +137,24 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
-                Fragment toFragment = null;
+                String toFragmentKey;
                 switch (item.getItemId()) {
                     case R.id.id_menu_main:
-                        toFragment = mainFragment;
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
                         break;
                     case R.id.id_menu_note_into:
-                        toFragment = noteIntoFragment;
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_FAST_NOTE;
                         break;
                     case R.id.id_menu_leave_msg:
-                        toFragment = leaveMsgFragment;
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_LEAVE_MSG;
                         break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                     default:
-                        toFragment = mainFragment;
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
                         break;
                 }
-                mFragmentManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.id_fragment_container, toFragment)
-                        .commit();
+                mFragmentManager.change2Fragment(toFragmentKey);
                 return true;
             }
         });
@@ -184,14 +172,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragment() {
-        mFragmentManager = getSupportFragmentManager();
-        mainFragment = new MainFragment();
-        noteIntoFragment = new NoteIntoFragment();
-        leaveMsgFragment = new LeaveMsgFragment();
-        //填充当前fragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.id_fragment_container, mainFragment)
-                .commit();
+        mFragmentManager.initFragment(MainFragmentManager.KEY_FRAGMENT_TODO);
     }
 
     /**

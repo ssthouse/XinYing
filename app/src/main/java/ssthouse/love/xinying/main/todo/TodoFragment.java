@@ -29,7 +29,7 @@ import ssthouse.love.xinying.utils.ViewUtil;
 /**
  * Created by ssthouse on 16/5/11.
  */
-public class MainFragment extends BaseFragment implements IView {
+public class TodoFragment extends BaseFragment implements IView {
 
     private static final int MSG_UPDATE_TIME = 1000;
 
@@ -176,15 +176,15 @@ public class MainFragment extends BaseFragment implements IView {
 
     private static class CustomHandler extends Handler {
 
-        WeakReference<MainFragment> mFragmentReference;
+        WeakReference<TodoFragment> mFragmentReference;
 
-        CustomHandler(MainFragment mainFragment) {
-            mFragmentReference = new WeakReference<MainFragment>(mainFragment);
+        CustomHandler(TodoFragment mainFragment) {
+            mFragmentReference = new WeakReference<TodoFragment>(mainFragment);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            final MainFragment mainFragment = mFragmentReference.get();
+            final TodoFragment mainFragment = mFragmentReference.get();
             if (mainFragment == null) {
                 return;
             }
