@@ -21,7 +21,6 @@ import ssthouse.love.xinying.main.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
- * TODO:    第一次进来加载引导页面     第二次直接显示文字编辑界面
  * Created by ssthouse on 16/9/3.
  */
 public class ShareNoteFragment extends BaseFragment {
