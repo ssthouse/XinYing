@@ -21,7 +21,7 @@ import ssthouse.love.xinying.utils.ViewUtil;
 /**
  * Created by ssthouse on 16/9/2.
  */
-public class ChooseGenderAty extends BaseActivity{
+public class ChooseGenderAty extends BaseActivity {
 
     private boolean isCony = true;
 
@@ -57,10 +57,10 @@ public class ChooseGenderAty extends BaseActivity{
         ViewUtil.loadThreeDot(tvWhoILove);
 
         //初始话性别
-        chooseWho(PreferUtil.getInstance().isCony());
+        chooseWho(PreferUtil.getInstance(this).isCony());
 
         //点击事件
-        ivBrown.setOnClickListener(new View.OnClickListener(){
+        ivBrown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseWho(false);
@@ -76,7 +76,7 @@ public class ChooseGenderAty extends BaseActivity{
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferUtil.getInstance().setIsCony(isCony);
+                PreferUtil.getInstance(ChooseGenderAty.this).setIsCony(isCony);
                 ActivityUtil.startAty(ChooseGenderAty.this, MainActivity.class);
                 finish();
             }
@@ -90,7 +90,7 @@ public class ChooseGenderAty extends BaseActivity{
             ivCony.setAlpha(1.0f);
             ivBrown.setAlpha(TRANSPARENT_ALPHA);
             tvWhoILove.setText(R.string.str_i_love_brown);
-        }else{
+        } else {
             ivCony.setAlpha(TRANSPARENT_ALPHA);
             ivBrown.setAlpha(1.0f);
             tvWhoILove.setText(R.string.str_i_love_cony);

@@ -60,9 +60,10 @@
             android:name=".depresed.ImageViewActivity"
             android:screenOrientation="portrait" />
 
-        <!--note-->
+        <!--fast note-->
         <activity
-            android:name=".widget.NoteActivity"
+            android:name=".note.FastNoteActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
         <!--setting-->
@@ -71,7 +72,7 @@
             android:screenOrientation="portrait" />
 
         <!--widget-->
-        <receiver android:name=".widget.MyWidgetProvider">
+        <receiver android:name=".note.FastNoteProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.ssthouse.update" />
@@ -81,8 +82,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
         </receiver>
-
-        <service android:name=".widget.WidgetService" />
 
         <!--umeng-->
         <meta-data

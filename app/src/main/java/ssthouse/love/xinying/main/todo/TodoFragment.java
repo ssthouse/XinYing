@@ -24,7 +24,7 @@ import lumenghz.com.pullrefresh.PullToRefreshView;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseFragment;
 import ssthouse.love.xinying.utils.StringUtils;
-import ssthouse.love.xinying.utils.ViewUtil;
+import ssthouse.love.xinying.utils.ToastUtil;
 
 /**
  * Created by ssthouse on 16/5/11.
@@ -164,7 +164,7 @@ public class TodoFragment extends BaseFragment implements IView {
         btnEnsure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.toast(getContext(), getString(R.string.str_wait_next_version));
+                ToastUtil.show(getContext(), getString(R.string.str_wait_next_version));
             }
         });
     }

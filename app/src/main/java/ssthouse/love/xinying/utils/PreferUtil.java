@@ -1,5 +1,7 @@
 package ssthouse.love.xinying.utils;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -8,31 +10,24 @@ import android.content.SharedPreferences;
  */
 public class PreferUtil {
 
-
     private static PreferUtil mInstance;
-    private Context mContext;
+    private Application mContext;
 
+    private static final String PREFER_FILE_NAME = "preference";
+    private static final String KEY_IS_CONY = "isCony";
+    private static final String KEY_IS_FIST_IN = "isFistIn";
+    private static final String KEY_LAST_SIGN_TIME_IN_MILLIS = "lastSignTimeInMillis";
+    private static final String KEY_SHARE_FAST_NOTE = "uploadFastNote";
 
-    public static void initInstance(Context context) {
+    public static PreferUtil getInstance(Activity context) {
         if (mInstance == null)
             mInstance = new PreferUtil(context);
-    }
-
-    public static PreferUtil getInstance() {
         return mInstance;
     }
 
-    public PreferUtil(Context context) {
-        this.mContext = context;
+    private PreferUtil(Activity context) {
+        this.mContext = context.getApplication();
     }
-
-    public static final String PREFER_FILE_NAME = "preference";
-
-    public static final String KEY_IS_CONY = "isCony";
-
-    public static final String KEY_IS_FIST_IN = "isFistIn";
-
-    private static final String KEY_LAST_SIGN_TIME_IN_MILLIS = "lastSignTimeInMillis";
 
     /****************
      * 第一次进入
@@ -60,13 +55,24 @@ public class PreferUtil {
     }
 
 
-    /******************最近一次签到天的时间***************************************/
-    public String getLastSignTimeInMillisStr(){
+    /******************
+     * 最近一次签到天的时间
+     ***************************************/
+    public String getLastSignTimeInMillisStr() {
         return getString(KEY_LAST_SIGN_TIME_IN_MILLIS, "0");
     }
 
     public void setLastSignTimeInMillis(String lastSignTimeInMillisStr) {
         setString(KEY_LAST_SIGN_TIME_IN_MILLIS, lastSignTimeInMillisStr);
+    }
+
+    //是否分享fastnote
+    public boolean isShareFastNote() {
+        return getBoolean(KEY_SHARE_FAST_NOTE, false);
+    }
+
+    public void setShareFastnNote(boolean isShare) {
+        setBoolean(KEY_SHARE_FAST_NOTE, isShare);
     }
 
     /************************
