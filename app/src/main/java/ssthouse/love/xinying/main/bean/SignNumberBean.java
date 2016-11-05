@@ -5,7 +5,7 @@ package ssthouse.love.xinying.main.bean;
  */
 public class SignNumberBean {
 
-    public static final String CLASS_NAME = "SignNumberBean";
+    public static final String CLASS_NAME = "SignNumber";
 
     public static final String KEY_IS_CONY = "isCony";
 

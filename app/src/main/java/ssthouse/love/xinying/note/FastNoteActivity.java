@@ -92,7 +92,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         Intent intent = new Intent(this, FastNoteProvider.class);
         intent.setAction(Constant.ACTION_NOTE_UPDATE);
         sendBroadcast(intent);
-        if (isNoteChanged)
+        if (isNoteChanged && PreferUtil.getInstance(this).isShareFastNote())
             mPresenter.uploadFastNote();
     }
 

@@ -66,9 +66,9 @@ public class PreferUtil {
         setString(KEY_LAST_SIGN_TIME_IN_MILLIS, lastSignTimeInMillisStr);
     }
 
-    //是否分享fastnote
+    //是否分享fastnote 默认为true
     public boolean isShareFastNote() {
-        return getBoolean(KEY_SHARE_FAST_NOTE, false);
+        return getBoolean(KEY_SHARE_FAST_NOTE, true);
     }
 
     public void setShareFastnNote(boolean isShare) {
