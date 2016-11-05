@@ -62,7 +62,7 @@
 
         <!--fast note-->
         <activity
-            android:name=".widget.NoteActivity"
+            android:name=".note.FastNoteActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
@@ -72,7 +72,7 @@
             android:screenOrientation="portrait" />
 
         <!--widget-->
-        <receiver android:name=".widget.MyWidgetProvider">
+        <receiver android:name=".note.MyWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.ssthouse.update" />
@@ -83,7 +83,7 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
 
-        <service android:name=".widget.WidgetService" />
+        <service android:name=".note.WidgetService" />
 
         <!--umeng-->
         <meta-data

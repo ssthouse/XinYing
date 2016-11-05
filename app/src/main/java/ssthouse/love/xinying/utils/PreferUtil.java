@@ -17,7 +17,7 @@ public class PreferUtil {
     private static final String KEY_IS_CONY = "isCony";
     private static final String KEY_IS_FIST_IN = "isFistIn";
     private static final String KEY_LAST_SIGN_TIME_IN_MILLIS = "lastSignTimeInMillis";
-    private static final String KEY_SHARE_FAST_NOTE = "shareFastNote";
+    private static final String KEY_SHARE_FAST_NOTE = "uploadFastNote";
 
     public static PreferUtil getInstance(Activity context) {
         if (mInstance == null)

@@ -27,11 +27,11 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
-import ssthouse.love.xinying.main.bean.SignNumber;
+import ssthouse.love.xinying.main.bean.SignNumberBean;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
-import ssthouse.love.xinying.utils.ViewUtil;
+import ssthouse.love.xinying.utils.ToastUtil;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
@@ -186,10 +186,10 @@ public class MainActivity extends BaseActivity {
                 .map(new Func1<String, AVObject>() {
                     @Override
                     public AVObject call(String s) {
-                        AVQuery<AVObject> query = new AVQuery<>(SignNumber.CLASS_NAME);
+                        AVQuery<AVObject> query = new AVQuery<>(SignNumberBean.CLASS_NAME);
                         AVObject avObject = null;
                         try {
-                            avObject = query.whereEqualTo(SignNumber.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony())
+                            avObject = query.whereEqualTo(SignNumberBean.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony())
                                     .getFirst();
                         } catch (AVException e) {
                             e.printStackTrace();
@@ -206,10 +206,10 @@ public class MainActivity extends BaseActivity {
                         if (avObject == null) {
                             String str = "第一次签到哦, 啵 :kissing_heart:";
                             str = EmojiParser.parseToUnicode(str);
-                            ViewUtil.toast(MainActivity.this, str);
-                            AVObject avobject = new AVObject(SignNumber.CLASS_NAME);
-                            avobject.put(SignNumber.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony());
-                            avobject.put(SignNumber.KEY_SIGN_NUMBER, 1);
+                            ToastUtil.show(MainActivity.this, str);
+                            AVObject avobject = new AVObject(SignNumberBean.CLASS_NAME);
+                            avobject.put(SignNumberBean.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony());
+                            avobject.put(SignNumberBean.KEY_SIGN_NUMBER, 1);
                             avobject.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(AVException e) {
@@ -218,15 +218,15 @@ public class MainActivity extends BaseActivity {
                             });
                             return;
                         }
-                        int signNumber = avObject.getInt(SignNumber.KEY_SIGN_NUMBER) + 1;
-                        avObject.put(SignNumber.KEY_SIGN_NUMBER, signNumber);
+                        int signNumber = avObject.getInt(SignNumberBean.KEY_SIGN_NUMBER) + 1;
+                        avObject.put(SignNumberBean.KEY_SIGN_NUMBER, signNumber);
                         avObject.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(AVException e) {
                                 Timber.e(e == null ? "保存成功" : "保存失败");
                             }
                         });
-                        ViewUtil.toast(MainActivity.this, "签到次数: " + signNumber);
+                        ToastUtil.show(MainActivity.this, "签到次数: " + signNumber);
                     }
                 });
     }

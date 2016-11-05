@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.widget;
+package ssthouse.love.xinying.note;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -31,7 +31,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
     }
 
     private void initWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Intent intent = new Intent(context, NoteActivity.class);
+        Intent intent = new Intent(context, FastNoteActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
         rv.setOnClickPendingIntent(R.id.id_ll_main, pendingIntent);
@@ -58,7 +58,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
             remoteViews.setTextViewText(R.id.id_tv_main, content);
             remoteViews.setTextColor(R.id.id_tv_main, PreferenceHelper.getInstance(context).getColor());
             remoteViews.setOnClickPendingIntent(R.id.id_ll_main,
-                    PendingIntent.getActivity(context, 0, new Intent(context, NoteActivity.class),
+                    PendingIntent.getActivity(context, 0, new Intent(context, FastNoteActivity.class),
                             PendingIntent.FLAG_CANCEL_CURRENT));
             AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews);
         }

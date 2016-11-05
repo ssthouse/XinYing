@@ -15,7 +15,7 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
-import ssthouse.love.xinying.widget.PreferenceHelper;
+import ssthouse.love.xinying.note.PreferenceHelper;
 
 /**
  * Created by ssthouse on 16/9/2.

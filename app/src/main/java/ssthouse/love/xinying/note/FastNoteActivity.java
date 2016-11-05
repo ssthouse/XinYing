@@ -1,9 +1,11 @@
-package ssthouse.love.xinying.widget;
+package ssthouse.love.xinying.note;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -23,7 +25,7 @@ import ssthouse.love.xinying.utils.PreferUtil;
 /**
  * Created by ssthouse on 16/9/3.
  */
-public class NoteActivity extends BaseActivity {
+public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
     @Bind(R.id.id_et_fast_note)
     EditText mEtFastNote;
@@ -31,7 +33,11 @@ public class NoteActivity extends BaseActivity {
     @Bind(R.id.id_tb)
     Toolbar mToolbar;
 
+    private boolean isNoteChanged = false;
+
     private MenuItem mShareFastnoteMenuItem;
+
+    private FastNotePresenter mPresenter = new FastNotePresenter(this, this);
 
     @Override
     public void init() {
@@ -62,6 +68,21 @@ public class NoteActivity extends BaseActivity {
             getSupportActionBar().setTitle("Cheer up!");
 
         mEtFastNote.setText(PreferenceHelper.getInstance(this).getNote());
+        mEtFastNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isNoteChanged = true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void saveCurNote() {
@@ -71,6 +92,8 @@ public class NoteActivity extends BaseActivity {
         Intent intent = new Intent(this, MyWidgetProvider.class);
         intent.setAction(Constant.ACTION_NOTE_UPDATE);
         sendBroadcast(intent);
+        if (isNoteChanged)
+            mPresenter.uploadFastNote();
     }
 
     @Override
@@ -88,7 +111,8 @@ public class NoteActivity extends BaseActivity {
                 showColorPickerDialog();
                 break;
             case R.id.id_action_share_fast_note:
-                item.setChecked(true);
+                item.setChecked(!item.isChecked());
+                PreferUtil.getInstance(this).setShareFastnNote(item.isChecked());
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -116,7 +140,7 @@ public class NoteActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                         //保存选择的颜色
-                        PreferenceHelper.getInstance(NoteActivity.this).setColor(selectedColor);
+                        PreferenceHelper.getInstance(FastNoteActivity.this).setColor(selectedColor);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -132,5 +156,10 @@ public class NoteActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         saveCurNote();
+    }
+
+    @Override
+    public String getFastNoteStr() {
+        return mEtFastNote.getText().toString();
     }
 }

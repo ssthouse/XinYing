@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.widget;
+package ssthouse.love.xinying.note;
 
 import android.app.Service;
 import android.content.Intent;
