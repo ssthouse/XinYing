@@ -21,13 +21,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Activity初始话
+     * Activity初始化
      */
     public abstract void init();
 
     /**
      * 获取layout
-     * @return
+     *
+     * @return layout id
      */
     public abstract int getContentView();
 

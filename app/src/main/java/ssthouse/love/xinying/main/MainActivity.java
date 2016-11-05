@@ -91,17 +91,19 @@ public class MainActivity extends BaseActivity {
     private void initDrawerNameAndAvatar() {
         tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+        int drawableId;
+        String nameStr;
         if (PreferUtil.getInstance().isCony()) {
-            tvName.setText("学弟的学姐");
-            Picasso.with(this)
-                    .load(R.drawable.cony_avatar)
-                    .into(ivAvatar);
+            nameStr = "学弟的学姐";
+            drawableId = R.drawable.cony_avatar;
         } else {
-            tvName.setText("学弟的学姐");
-            Picasso.with(this)
-                    .load(R.drawable.brown_avatar)
-                    .into(ivAvatar);
+            nameStr = "学弟的学姐";
+            drawableId = R.drawable.brown_avatar;
         }
+        Picasso.with(this)
+                .load(drawableId)
+                .into(ivAvatar);
+        tvName.setText(nameStr);
     }
 
     private void initSignInButton() {
@@ -114,16 +116,20 @@ public class MainActivity extends BaseActivity {
                 if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
                     btnSign.setBackgroundResource(R.color.grey);
                     btnSign.setEnabled(false);
-                    //设置今天的0点
-                    long curTime = System.currentTimeMillis();
-                    curTime = curTime - curTime % (24 * 60 * 60 * 1000);
-                    PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+                    //修改本地签到时间
+                    changeLocalTimeStamp();
 
-                    //网络端签到
+                    //签到
                     sign();
                 }
             }
         });
+    }
+
+    private void changeLocalTimeStamp() {
+        long curTime = System.currentTimeMillis();
+        curTime = curTime - curTime % (24 * 60 * 60 * 1000);
+        PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
     }
 
     private void initDrawerItem() {

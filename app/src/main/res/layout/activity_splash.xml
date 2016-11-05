@@ -9,25 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/judy"/>
+        android:src="@drawable/judy" />
 
     <ImageView
         android:id="@+id/id_iv_logo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/logo"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/id_tv_hello"
-        android:text="Hello 我的学姐"
-        android:textSize="16sp"
-        android:layout_marginLeft="100dp"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/id_iv_logo"/>
+        android:layout_alignBottom="@id/id_iv_logo"
+        android:layout_marginLeft="100dp"
+        android:text="Hello my little baby"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>
