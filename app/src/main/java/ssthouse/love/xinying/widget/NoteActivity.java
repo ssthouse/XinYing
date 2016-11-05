@@ -18,6 +18,7 @@ import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.utils.Constant;
+import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
  * Created by ssthouse on 16/9/3.
@@ -29,6 +30,8 @@ public class NoteActivity extends BaseActivity {
 
     @Bind(R.id.id_tb)
     Toolbar mToolbar;
+
+    private MenuItem mShareFastnoteMenuItem;
 
     @Override
     public void init() {
@@ -72,7 +75,8 @@ public class NoteActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_aty_note, menu);
+        getMenuInflater().inflate(R.menu.menu_fast_note, menu);
+        mShareFastnoteMenuItem = menu.getItem(1);
         return true;
     }
 
@@ -81,16 +85,22 @@ public class NoteActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.id_action_color_pick:
-                pickColor();
+                showColorPickerDialog();
+                break;
+            case R.id.id_action_share_fast_note:
+                item.setChecked(true);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * 选择颜色
-     */
-    private void pickColor() {
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        mShareFastnoteMenuItem.setChecked(PreferUtil.getInstance(this).isShareFastNote());
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    private void showColorPickerDialog() {
         ColorPickerDialogBuilder
                 .with(this)
                 .setTitle("Choose color")

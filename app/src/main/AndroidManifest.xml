@@ -60,9 +60,10 @@
             android:name=".depresed.ImageViewActivity"
             android:screenOrientation="portrait" />
 
-        <!--note-->
+        <!--fast note-->
         <activity
             android:name=".widget.NoteActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
 
         <!--setting-->

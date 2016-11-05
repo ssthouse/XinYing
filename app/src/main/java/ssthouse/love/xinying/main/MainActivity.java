@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
         ImageView ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
         int drawableId;
         String nameStr;
-        if (PreferUtil.getInstance().isCony()) {
+        if (PreferUtil.getInstance(this).isCony()) {
             nameStr = "学弟的学姐";
             drawableId = R.drawable.cony_avatar;
         } else {
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity {
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
+                long lastTime = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
                 if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
                     btnSign.setBackgroundResource(R.color.grey);
                     btnSign.setEnabled(false);
@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity {
     private void changeLocalTimeStamp() {
         long curTime = System.currentTimeMillis();
         curTime = curTime - curTime % (24 * 60 * 60 * 1000);
-        PreferUtil.getInstance().setLastSignTimeInMillis(curTime + "");
+        PreferUtil.getInstance(this).setLastSignTimeInMillis(curTime + "");
     }
 
     private void initDrawerItem() {
@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateBtnSign() {
-        long lastTime = Long.parseLong(PreferUtil.getInstance().getLastSignTimeInMillisStr());
+        long lastTime = Long.parseLong(PreferUtil.getInstance(this).getLastSignTimeInMillisStr());
         if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
             btnSign.setBackgroundResource(R.color.colorAccent);
             btnSign.setEnabled(true);
@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity {
                         AVQuery<AVObject> query = new AVQuery<>(SignNumber.CLASS_NAME);
                         AVObject avObject = null;
                         try {
-                            avObject = query.whereEqualTo(SignNumber.KEY_IS_CONY, PreferUtil.getInstance().isCony())
+                            avObject = query.whereEqualTo(SignNumber.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony())
                                     .getFirst();
                         } catch (AVException e) {
                             e.printStackTrace();
@@ -208,7 +208,7 @@ public class MainActivity extends BaseActivity {
                             str = EmojiParser.parseToUnicode(str);
                             ViewUtil.toast(MainActivity.this, str);
                             AVObject avobject = new AVObject(SignNumber.CLASS_NAME);
-                            avobject.put(SignNumber.KEY_IS_CONY, PreferUtil.getInstance().isCony());
+                            avobject.put(SignNumber.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony());
                             avobject.put(SignNumber.KEY_SIGN_NUMBER, 1);
                             avobject.saveInBackground(new SaveCallback() {
                                 @Override

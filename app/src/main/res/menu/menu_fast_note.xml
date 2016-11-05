@@ -5,7 +5,14 @@
     <item
         android:id="@+id/id_action_color_pick"
         android:orderInCategory="200"
-        android:title="颜色拾取"
+        android:title="Pick color"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/id_action_share_fast_note"
+        android:checkable="true"
+        android:orderInCategory="300"
+        android:title="Share fastnote"
         app:showAsAction="never" />
 
 </menu>

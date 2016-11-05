@@ -52,14 +52,14 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (PreferUtil.getInstance().isFistIn()) {
+                if (PreferUtil.getInstance(SplashActivity.this).isFistIn()) {
                     //初始话note
                     String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
                     initialStr = EmojiParser.parseToUnicode(initialStr);
                     PreferenceHelper.getInstance(SplashActivity.this).saveNote(initialStr);
                     //启动MainAty
                     ActivityUtil.startAty(SplashActivity.this, ChooseGenderAty.class);
-                    PreferUtil.getInstance().setIsFistIn(false);
+                    PreferUtil.getInstance(SplashActivity.this).setIsFistIn(false);
                 } else {
                     ActivityUtil.startAty(SplashActivity.this, MainActivity.class);
                 }

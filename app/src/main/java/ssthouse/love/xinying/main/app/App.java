@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
 
-import ssthouse.love.xinying.utils.PreferUtil;
 import timber.log.Timber;
 
 /**
@@ -17,7 +16,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Timber.plant(new Timber.DebugTree());
-        PreferUtil.initInstance(this);
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"al5DXaGvmjcmCByiGKixzBDb-gzGzoHsz","SXrCzX0RMXHDN1HGb8w1oP4i");
     }
