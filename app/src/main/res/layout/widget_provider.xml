@@ -3,13 +3,12 @@
     android:id="@+id/id_ll_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    android:orientation="vertical">
+    android:layout_margin="16dp">
 
     <TextView
         android:id="@+id/id_tv_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/begin_fast_note"
         android:textColor="@color/white"
         android:textSize="20sp" />

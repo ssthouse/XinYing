@@ -13,7 +13,7 @@ import ssthouse.love.xinying.main.base.BaseActivity;
  */
 public class SettingActivity extends BaseActivity {
 
-    @Bind(R.id.id_toolbar)
+    @Bind(R.id.id_tb)
     Toolbar toolbar;
 
     @Bind(R.id.id_lv)
@@ -28,13 +28,10 @@ public class SettingActivity extends BaseActivity {
         }
     }
 
-
-
     @Override
     public int getContentView() {
         return R.layout.activity_setting;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

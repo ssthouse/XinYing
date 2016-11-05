@@ -36,9 +36,6 @@ import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
 
-    //drawer
-    private ImageView ivAvatar;
-    private TextView tvName;
     private Button btnSign;
 
     //main
@@ -89,8 +86,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDrawerNameAndAvatar() {
-        tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
-        ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+        TextView tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
+        ImageView ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
         int drawableId;
         String nameStr;
         if (PreferUtil.getInstance().isCony()) {
