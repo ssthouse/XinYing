@@ -32,7 +32,6 @@ public class FastNotePresenter {
     }
 
     public void uploadFastNote() {
-        //TODO
         final boolean isCony = PreferUtil.getInstance((Activity) mContext).isCony();
         final String fastNoteContent = mFastNoteView.getFastNoteStr();
         Observable.just(isCony)
@@ -60,7 +59,7 @@ public class FastNotePresenter {
                             fastNoteObj = new AVObject(FastNoteBean.CLASS_NAME);
                             fastNoteObj.put(FastNoteBean.KEY_IS_CONY, isCony);
                             fastNoteObj.put(FastNoteBean.KEY_CONTENT, fastNoteContent);
-                        }else{
+                        } else {
                             fastNoteObj.put(FastNoteBean.KEY_CONTENT, fastNoteContent);
                         }
                         try {
@@ -83,20 +82,5 @@ public class FastNotePresenter {
                         }
                     }
                 });
-//        String fastNoteStr = mFastNoteView.getFastNoteStr();
-//        //save to leancloud
-//        AVObject fastNoteObj = new AVObject(FastNoteBean.CLASS_NAME);
-//        fastNoteObj.put(FastNoteBean.KEY_IS_CONY, isCony);
-//        fastNoteObj.put(FastNoteBean.KEY_CONTENT, fastNoteStr);
-//        fastNoteObj.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(AVException e) {
-//                if (e != null) {
-//                    ToastUtil.show(mContext, "fastnote 分享失败");
-//                    return;
-//                }
-//                Timber.e("fastnote上传leancloud成功");
-//            }
-//        });
     }
 }

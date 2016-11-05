@@ -72,7 +72,7 @@
             android:screenOrientation="portrait" />
 
         <!--widget-->
-        <receiver android:name=".note.MyWidgetProvider">
+        <receiver android:name=".note.FastNoteProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.ssthouse.update" />
@@ -82,8 +82,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
         </receiver>
-
-        <service android:name=".note.WidgetService" />
 
         <!--umeng-->
         <meta-data

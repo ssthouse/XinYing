@@ -89,7 +89,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         String str = mEtFastNote.getText() + "";
         PreferenceHelper.getInstance(this).saveNote(str);
         //通知控件更新数据
-        Intent intent = new Intent(this, MyWidgetProvider.class);
+        Intent intent = new Intent(this, FastNoteProvider.class);
         intent.setAction(Constant.ACTION_NOTE_UPDATE);
         sendBroadcast(intent);
         if (isNoteChanged)
