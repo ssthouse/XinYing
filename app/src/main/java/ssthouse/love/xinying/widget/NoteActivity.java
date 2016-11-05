@@ -2,9 +2,7 @@ package ssthouse.love.xinying.widget;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,52 +14,55 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.vdurmont.emoji.EmojiParser;
 
+import butterknife.Bind;
 import ssthouse.love.xinying.R;
+import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.utils.Constant;
 
 /**
  * Created by ssthouse on 16/9/3.
  */
-public class NoteActivity extends AppCompatActivity {
+public class NoteActivity extends BaseActivity {
 
-    private EditText etMain;
+    @Bind(R.id.id_et_fast_note)
+    EditText mEtFastNote;
+
+    @Bind(R.id.id_tb)
+    Toolbar mToolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void init() {
         if (PreferenceHelper.getInstance(this).isFistIn()) {
             PreferenceHelper.getInstance(this).setIsFistIn(false);
             String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
             initialStr = EmojiParser.parseToUnicode(initialStr);
             PreferenceHelper.getInstance(this).saveNote(initialStr);
         }
-        setContentView(R.layout.activity_note);
         initView();
     }
 
     @Override
+    public int getContentView() {
+        return R.layout.activity_fast_note;
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-//        Timber.e("window focus changed");
-        callback();
+        saveCurNote();
         super.onWindowFocusChanged(hasFocus);
-        if(!hasFocus){
-            finish();
-        }
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             getSupportActionBar().setTitle("Cheer up!");
 
-        etMain = (EditText) findViewById(R.id.id_et);
-        etMain.setText(PreferenceHelper.getInstance(this).getNote());
+        mEtFastNote.setText(PreferenceHelper.getInstance(this).getNote());
     }
 
-    private void callback() {
-        String str = etMain.getText() + "";
+    private void saveCurNote() {
+        String str = mEtFastNote.getText() + "";
         PreferenceHelper.getInstance(this).saveNote(str);
         //通知控件更新数据
         Intent intent = new Intent(this, MyWidgetProvider.class);
@@ -120,6 +121,6 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        callback();
+        saveCurNote();
     }
 }
