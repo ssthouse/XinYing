@@ -41,11 +41,11 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
     @Override
     public void init() {
-        if (PreferenceHelper.getInstance(this).isFistIn()) {
-            PreferenceHelper.getInstance(this).setIsFistIn(false);
+        if (PreferUtil.getInstance(this).isFistIn()) {
+            PreferUtil.getInstance(this).setIsFistIn(false);
             String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
             initialStr = EmojiParser.parseToUnicode(initialStr);
-            PreferenceHelper.getInstance(this).saveNote(initialStr);
+            FastNoteConfigUtil.getInstance(this).saveNote(initialStr);
         }
         initView();
     }
@@ -67,7 +67,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         if (actionBar != null)
             getSupportActionBar().setTitle("Cheer up!");
 
-        mEtFastNote.setText(PreferenceHelper.getInstance(this).getNote());
+        mEtFastNote.setText(FastNoteConfigUtil.getInstance(this).getNote());
         mEtFastNote.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,7 +87,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
     private void saveCurNote() {
         String str = mEtFastNote.getText() + "";
-        PreferenceHelper.getInstance(this).saveNote(str);
+        FastNoteConfigUtil.getInstance(this).saveNote(str);
         //通知控件更新数据
         Intent intent = new Intent(this, FastNoteProvider.class);
         intent.setAction(Constant.ACTION_NOTE_UPDATE);
@@ -128,7 +128,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         ColorPickerDialogBuilder
                 .with(this)
                 .setTitle("Choose color")
-                .initialColor(PreferenceHelper.getInstance(this).getColor())
+                .initialColor(FastNoteConfigUtil.getInstance(this).getColor())
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(new OnColorSelectedListener() {
@@ -140,7 +140,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                         //保存选择的颜色
-                        PreferenceHelper.getInstance(FastNoteActivity.this).setColor(selectedColor);
+                        FastNoteConfigUtil.getInstance(FastNoteActivity.this).setColor(selectedColor);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

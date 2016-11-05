@@ -15,7 +15,7 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
-import ssthouse.love.xinying.note.PreferenceHelper;
+import ssthouse.love.xinying.note.FastNoteConfigUtil;
 
 /**
  * Created by ssthouse on 16/9/2.
@@ -56,7 +56,7 @@ public class SplashActivity extends BaseActivity {
                     //初始话note
                     String initialStr = ":kissing_heart::kissing_heart::kissing_heart:";
                     initialStr = EmojiParser.parseToUnicode(initialStr);
-                    PreferenceHelper.getInstance(SplashActivity.this).saveNote(initialStr);
+                    FastNoteConfigUtil.getInstance(SplashActivity.this).saveNote(initialStr);
                     //启动MainAty
                     ActivityUtil.startAty(SplashActivity.this, ChooseGenderAty.class);
                     PreferUtil.getInstance(SplashActivity.this).setIsFistIn(false);

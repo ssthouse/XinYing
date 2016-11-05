@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import ssthouse.love.xinying.main.base.BaseFragmentManager;
-import ssthouse.love.xinying.main.fragment.NoteIntoFragment;
+import ssthouse.love.xinying.main.fragment.ShareNoteFragment;
 import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.main.todo.TodoFragment;
 
@@ -37,7 +37,7 @@ public class MainFragmentManager extends BaseFragmentManager {
         mFragmentKeyList.add(KEY_FRAGMENT_LEAVE_MSG);
         Map<String, Fragment> fragmentMap = new HashMap<>();
         fragmentMap.put(mFragmentKeyList.get(0), new TodoFragment());
-        fragmentMap.put(mFragmentKeyList.get(1), new NoteIntoFragment());
+        fragmentMap.put(mFragmentKeyList.get(1), new ShareNoteFragment());
         fragmentMap.put(mFragmentKeyList.get(2), new LeaveMsgFragment());
         return fragmentMap;
     }
