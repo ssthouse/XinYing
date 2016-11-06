@@ -26,6 +26,12 @@ public class FastNoteProvider extends AppWidgetProvider {
         initWidget(context, appWidgetManager, appWidgetIds);
     }
 
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+        updateWidget(context);
+    }
+
     private void initWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
         setRvClickListener(context, rvs);
@@ -36,6 +42,10 @@ public class FastNoteProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+        updateWidget(context);
+    }
+
+    private void updateWidget(Context context) {
         ComponentName componentName = new ComponentName(context, FastNoteProvider.class);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
         setRvText(context, remoteViews);
