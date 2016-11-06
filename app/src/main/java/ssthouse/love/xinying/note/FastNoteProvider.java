@@ -50,6 +50,7 @@ public class FastNoteProvider extends AppWidgetProvider {
     }
 
     private void setRvText(Context context, RemoteViews rvs) {
-        rvs.setTextViewText(R.id.id_tv_note, FastNoteConfigUtil.getInstance(context).getNote());
+        rvs.setTextViewText(R.id.id_tv_fast_note, FastNoteConfigUtil.getInstance(context).getNote());
+        rvs.setTextColor(R.id.id_tv_fast_note, FastNoteConfigUtil.getInstance(context).getColor());
     }
 }
