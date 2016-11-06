@@ -24,9 +24,10 @@
         </LinearLayout>
     </ScrollView>
 
-    <android.support.v4.widget.Space
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryTrans" />
 
     <ScrollView
         android:layout_width="match_parent"
