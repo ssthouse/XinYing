@@ -18,6 +18,7 @@ import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.main.base.BaseFragment;
 import ssthouse.love.xinying.main.bean.FastNoteBean;
+import ssthouse.love.xinying.note.FastNoteConfigUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
@@ -38,8 +39,12 @@ public class ShareNoteFragment extends BaseFragment {
     ImageView ivStep3;
 
     @Nullable
-    @Bind(R.id.id_tv_fast_note)
-    TextView tvFastNote;
+    @Bind(R.id.id_tv_your_note)
+    TextView tvYourNote;
+
+    @Nullable
+    @Bind(R.id.id_tv_my_note)
+    TextView tvMyNote;
 
     @Override
     public int getContentView() {
@@ -67,7 +72,12 @@ public class ShareNoteFragment extends BaseFragment {
                     .into(ivStep3);
         } else {
             loadSharedFastNote();
+            loadLocalNote();
         }
+    }
+
+    private void loadLocalNote() {
+        tvMyNote.setText(FastNoteConfigUtil.getInstance(getContext()).getNote());
     }
 
     private void loadSharedFastNote() {
@@ -98,7 +108,7 @@ public class ShareNoteFragment extends BaseFragment {
                         } else {
                             fastNoteStr = fastNoteObj.getString(FastNoteBean.KEY_CONTENT);
                         }
-                        tvFastNote.setText(fastNoteStr);
+                        tvYourNote.setText(fastNoteStr);
                     }
                 });
     }
