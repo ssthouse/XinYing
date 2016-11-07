@@ -48,7 +48,7 @@ public class TodoFragment extends BaseFragment implements IView {
     private DialogPlus addTodoDialog;
     private EditText etTodo;
 
-    private TodoPresenter todoPresenter;
+    private TodoPresenter todoPresenter = new TodoPresenter(this, this.getContext());
 
     private List<TodoBean> curTodoList = new ArrayList<>();
 
@@ -63,11 +63,8 @@ public class TodoFragment extends BaseFragment implements IView {
 
     @Override
     public void init() {
-        todoPresenter = new TodoPresenter(this, getContext());
-        //初始话todo dialog
         initAddTodoDialog();
 
-        //开始刷新时间
         tvTime.setText(StringUtils.getLoveTimeStr());
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +72,8 @@ public class TodoFragment extends BaseFragment implements IView {
                 tvTime.setText(StringUtils.getLoveTimeStr());
             }
         });
-        handler.sendEmptyMessage(MSG_UPDATE_TIME);
+
+        startUpdateTimeStr();
 
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
@@ -85,13 +83,10 @@ public class TodoFragment extends BaseFragment implements IView {
         });
 
         listView.setAdapter(mAdapter);
+    }
 
-        fabAddTodo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTodoDialog.show();
-            }
-        });
+    private void startUpdateTimeStr() {
+        handler.sendEmptyMessage(MSG_UPDATE_TIME);
     }
 
     private BaseAdapter mAdapter = new BaseAdapter() {
@@ -165,6 +160,13 @@ public class TodoFragment extends BaseFragment implements IView {
             @Override
             public void onClick(View v) {
                 ToastUtil.show(getContext(), getString(R.string.str_wait_next_version));
+            }
+        });
+
+        fabAddTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTodoDialog.show();
             }
         });
     }
