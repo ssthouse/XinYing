@@ -1,12 +1,11 @@
-package ssthouse.love.xinying.main;
+package ssthouse.love.xinying;
 
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import butterknife.Bind;
-import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseActivity;
+import ssthouse.love.xinying.base.BaseActivity;
 
 /**
  * Created by ssthouse on 16/9/4.

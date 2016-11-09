@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main;
+package ssthouse.love.xinying;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,8 +11,7 @@ import android.widget.TextView;
 import com.vdurmont.emoji.EmojiParser;
 
 import butterknife.Bind;
-import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseActivity;
+import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.BlurUtil;
 import ssthouse.love.xinying.utils.PreferUtil;

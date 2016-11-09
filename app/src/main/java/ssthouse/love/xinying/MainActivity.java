@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main;
+package ssthouse.love.xinying;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -25,9 +25,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseActivity;
-import ssthouse.love.xinying.main.bean.SignNumberBean;
+import ssthouse.love.xinying.base.BaseActivity;
+import ssthouse.love.xinying.bean.SignNumberBean;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
@@ -115,7 +114,6 @@ public class MainActivity extends BaseActivity {
                     btnSign.setEnabled(false);
                     //修改本地签到时间
                     changeLocalTimeStamp();
-
                     //签到
                     sign();
                 }
@@ -165,7 +163,7 @@ public class MainActivity extends BaseActivity {
 
     private void updateBtnSign() {
         long lastTime = Long.parseLong(PreferUtil.getInstance(this).getLastSignTimeInMillisStr());
-        if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
+        if (System.currentTimeMillis() - lastTime > (24 * 60 * 60 * 1000)) {
             btnSign.setBackgroundResource(R.color.colorAccent);
             btnSign.setEnabled(true);
         } else {

@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.msg;
+package ssthouse.love.xinying.msg;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.Bind;
 import lumenghz.com.pullrefresh.PullToRefreshView;
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseFragment;
+import ssthouse.love.xinying.base.BaseFragment;
 
 /**
  * Created by ssthouse on 16/9/3.

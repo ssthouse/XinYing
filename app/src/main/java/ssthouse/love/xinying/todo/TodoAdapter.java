@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.todo;
+package ssthouse.love.xinying.todo;
 
 import android.content.Context;
 import android.view.LayoutInflater;

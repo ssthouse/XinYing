@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.todo;
+package ssthouse.love.xinying.todo;
 
 /**
  * Created by ssthouse on 16/9/3.

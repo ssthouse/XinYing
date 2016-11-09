@@ -17,8 +17,6 @@ buildscript {
     }
 }
 
-//apply plugin: 'com.neenbedankt.android-apt'
-
 allprojects {
     repositories {
         jcenter()
@@ -33,4 +31,9 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task hello <<{
+    println hello
+    println project.getProperties().get("hello")
 }

@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.base;
+package ssthouse.love.xinying.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.msg;
+package ssthouse.love.xinying.msg;
 
 /**
  * Created by ssthouse on 16/9/3.

@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.bean;
+package ssthouse.love.xinying.bean;
 
 /**
  * 保存的是一个List

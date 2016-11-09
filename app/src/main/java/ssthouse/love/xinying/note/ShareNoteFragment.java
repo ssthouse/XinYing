@@ -19,8 +19,8 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseFragment;
-import ssthouse.love.xinying.main.bean.FastNoteBean;
+import ssthouse.love.xinying.base.BaseFragment;
+import ssthouse.love.xinying.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
 
 /**

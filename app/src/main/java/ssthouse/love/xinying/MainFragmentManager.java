@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main;
+package ssthouse.love.xinying;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ssthouse.love.xinying.main.base.BaseFragmentManager;
+import ssthouse.love.xinying.base.BaseFragmentManager;
 import ssthouse.love.xinying.note.ShareNoteFragment;
-import ssthouse.love.xinying.main.msg.LeaveMsgFragment;
-import ssthouse.love.xinying.main.todo.TodoFragment;
+import ssthouse.love.xinying.msg.LeaveMsgFragment;
+import ssthouse.love.xinying.todo.TodoFragment;
 
 /**
  * Created by ssthouse on 01/11/2016.

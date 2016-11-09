@@ -1,7 +1,7 @@
-package ssthouse.love.xinying.main.todo.NewTodoActivity;
+package ssthouse.love.xinying.todo.NewTodoActivity;
 
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.main.base.BaseActivity;
+import ssthouse.love.xinying.base.BaseActivity;
 
 /**
  * Created by ssthouse on 16/9/4.

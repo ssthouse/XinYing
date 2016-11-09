@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.main.msg;
+package ssthouse.love.xinying.msg;
 
 import java.util.ArrayList;
 import java.util.List;
