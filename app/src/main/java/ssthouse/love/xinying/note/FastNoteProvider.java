@@ -21,8 +21,7 @@ public class FastNoteProvider extends AppWidgetProvider {
      * @param appWidgetIds     TODO id?? 是什么
      */
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         initWidget(context, appWidgetManager, appWidgetIds);
     }
 
@@ -32,17 +31,17 @@ public class FastNoteProvider extends AppWidgetProvider {
         updateWidget(context);
     }
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        updateWidget(context);
+    }
+
     private void initWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         RemoteViews rvs = new RemoteViews(context.getPackageName(), R.layout.widget_provider);
         setRvClickListener(context, rvs);
         setRvText(context, rvs);
         appWidgetManager.updateAppWidget(appWidgetIds, rvs);
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-        updateWidget(context);
     }
 
     private void updateWidget(Context context) {

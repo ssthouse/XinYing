@@ -62,11 +62,11 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
     }
 
     private void initView() {
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            getSupportActionBar().setTitle("Cheer up!");
+        initToolbar();
+        initFastNoteEditText();
+    }
 
+    private void initFastNoteEditText() {
         mEtFastNote.setText(FastNoteConfigUtil.getInstance(this).getNote());
         mEtFastNote.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +83,13 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
             }
         });
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            getSupportActionBar().setTitle("Cheer up!");
     }
 
     private void saveCurNote() {

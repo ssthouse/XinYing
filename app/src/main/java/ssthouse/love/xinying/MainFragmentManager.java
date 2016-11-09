@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import ssthouse.love.xinying.base.BaseFragmentManager;
-import ssthouse.love.xinying.note.ShareNoteFragment;
+import ssthouse.love.xinying.note.sharenote.ShareNoteFragment;
 import ssthouse.love.xinying.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.todo.TodoFragment;
 
