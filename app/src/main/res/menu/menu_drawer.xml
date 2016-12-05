@@ -16,6 +16,10 @@
             android:title="leave msg" />
 
         <item
+            android:id="@+id/id_menu_joke"
+            android:title="joke" />
+
+        <item
             android:id="@+id/id_menu_fist_impression"
             android:title="Setting">
             <menu>
