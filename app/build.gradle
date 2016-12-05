@@ -61,4 +61,6 @@ dependencies {
     compile 'com.github.lubeast:PullToRefresh:1.0.1'
     //dialog
     compile 'com.orhanobut:dialogplus:1.11@aar'
+    //network
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
 }
