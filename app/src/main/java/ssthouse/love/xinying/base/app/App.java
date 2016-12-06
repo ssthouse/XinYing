@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.app;
+package ssthouse.love.xinying.base.app;
 
 import android.app.Application;
 

@@ -30,8 +30,7 @@
                 android:id="@+id/id_tv_joke_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:text="Content"
                 android:textSize="18sp" />
         </LinearLayout>
