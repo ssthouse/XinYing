@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso;
 import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
+import java.util.Date;
+
 import butterknife.Bind;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -108,8 +110,7 @@ public class MainActivity extends BaseActivity {
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long lastTime = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
-                if (System.currentTimeMillis() - lastTime > 24 * 60 * 60 * 1000) {
+                if (judgeNextDay()) {
                     btnSign.setBackgroundResource(R.color.grey);
                     btnSign.setEnabled(false);
                     //修改本地签到时间
@@ -121,9 +122,23 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    private boolean judgeNextDay() {
+        long lastTime = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
+        Date lastSignDate = new Date(lastTime);
+        Date currentDate = new Date(System.currentTimeMillis());
+        boolean isOkay = false;
+        if (currentDate.getYear() > lastSignDate.getYear())
+            isOkay = true;
+        if (currentDate.getYear() == lastSignDate.getYear() && currentDate.getMonth() > lastSignDate.getMonth())
+            isOkay = true;
+        if (currentDate.getYear() == lastSignDate.getYear() && currentDate.getMonth() == lastSignDate.getMonth()
+                && currentDate.getDate() > lastSignDate.getDate())
+            isOkay = true;
+        return isOkay;
+    }
+
     private void changeLocalTimeStamp() {
         long curTime = System.currentTimeMillis();
-        curTime = curTime - curTime % (24 * 60 * 60 * 1000);
         PreferUtil.getInstance(this).setLastSignTimeInMillis(curTime + "");
     }
 
@@ -165,8 +180,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateBtnSign() {
-        long lastTime = Long.parseLong(PreferUtil.getInstance(this).getLastSignTimeInMillisStr());
-        if (System.currentTimeMillis() - lastTime > (24 * 60 * 60 * 1000)) {
+        if (judgeNextDay()) {
             btnSign.setBackgroundResource(R.color.colorAccent);
             btnSign.setEnabled(true);
         } else {
