@@ -1,24 +1,17 @@
 package ssthouse.love.xinying.joke;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
-import ssthouse.love.xinying.joke.bean.JokeBean;
-import ssthouse.love.xinying.utils.ToastUtil;
-import timber.log.Timber;
+import ssthouse.love.xinying.joke.jokelist.JokeListFragment;
 
 /**
  * Created by ssthouse on 05/12/2016.
@@ -26,13 +19,13 @@ import timber.log.Timber;
 
 public class JokeFragment extends BaseFragment {
 
-    @Bind(R.id.id_lv_jokes)
-    ListView lvJokes;
+    @Bind(R.id.id_view_pager)
+    ViewPager viewPager;
 
-    private List<JokeBean> jokeBeanList = new ArrayList<>();
+    @Bind(R.id.id_tab_layout)
+    TabLayout tabLayout;
 
-    public JokeFragment() {
-    }
+    private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     public int getContentView() {
@@ -41,64 +34,43 @@ public class JokeFragment extends BaseFragment {
 
     @Override
     public void init() {
-        lvJokes.setAdapter(jokeAdapter);
-
-        //TODO: should save today's joke in disk to save network
-        JokerGenerator.getJokeList(new Callback<List<JokeBean>>() {
-            @Override
-            public void onResponse(Call<List<JokeBean>> call, Response<List<JokeBean>> response) {
-                for (JokeBean jokeBean : response.body()) {
-                    jokeBean.setContent(jokeBean.getContent().replace("<br/><br/>", "\n"));
-                }
-                jokeBeanList.addAll(response.body());
-                jokeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<JokeBean>> call, Throwable t) {
-                Timber.e("error");
-                ToastUtil.show(getContext(), "something is wrong: not network or something else\nplease tell ssthouse");
-            }
-        });
+        initViewPager();
     }
 
-    private BaseAdapter jokeAdapter = new BaseAdapter() {
-        @Override
-        public int getCount() {
-            return jokeBeanList.size();
-        }
+    private void initViewPager() {
+        fragmentList.add(new JokeListFragment());
+        fragmentList.add(new JokeListFragment());
+        fragmentList.add(new JokeListFragment());
 
-        @Override
-        public Object getItem(int position) {
-            return jokeBeanList.get(position);
-        }
+        viewPager.setAdapter(new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
-            if (convertView == null) {
-                viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_joke, parent, false);
-                viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.id_tv_joke_title);
-                viewHolder.tvContent = (TextView) convertView.findViewById(R.id.id_tv_joke_content);
-                convertView.setTag(viewHolder);
-            }else{
-                viewHolder = (ViewHolder) convertView.getTag();
+            @Override
+            public int getCount() {
+                return 3;
             }
-            //set value
-            viewHolder.tvTitle.setText(jokeBeanList.get(position).getTitle());
-            viewHolder.tvContent.setText(jokeBeanList.get(position).getContent());
-            return convertView;
-        }
-    };
 
-    private static class ViewHolder{
-        TextView tvTitle;
-        TextView tvContent;
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position) {
+                    case 0:
+                        return "Joke";
+                    case 1:
+                        return "ZhiHu";
+                    case 2:
+                        return "Giant Baby";
+                }
+                return "";
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return fragmentList.get(position);
+            }
+        });
+
+        for (int i = 0; i < fragmentList.size(); i++) {
+            tabLayout.addTab(tabLayout.newTab());
+        }
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
