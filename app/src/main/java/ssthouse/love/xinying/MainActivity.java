@@ -149,6 +149,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_leave_msg:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_LEAVE_MSG;
                         break;
+                    case R.id.id_menu_joke:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE;
+                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                     default:

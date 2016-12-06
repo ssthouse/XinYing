@@ -18,7 +18,6 @@ public class FastNoteProvider extends AppWidgetProvider {
     /**
      * @param context          上下文
      * @param appWidgetManager widget manager
-     * @param appWidgetIds     TODO id?? 是什么
      */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

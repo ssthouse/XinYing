@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import ssthouse.love.xinying.base.BaseFragmentManager;
+import ssthouse.love.xinying.joke.JokeFragment;
 import ssthouse.love.xinying.note.sharenote.ShareNoteFragment;
 import ssthouse.love.xinying.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.todo.TodoFragment;
@@ -22,8 +23,7 @@ public class MainFragmentManager extends BaseFragmentManager {
     public static final String KEY_FRAGMENT_TODO = "Todo";
     public static final String KEY_FRAGMENT_FAST_NOTE = "FastNode";
     public static final String KEY_FRAGMENT_LEAVE_MSG = "LeaveMsg";
-
-    private List<String> mFragmentKeyList;
+    public static final String KEY_FRAGMENT_JOKE = "joke";
 
     public MainFragmentManager(FragmentManager mFragmentManager, int fragmentId) {
         super(mFragmentManager, fragmentId);
@@ -31,14 +31,16 @@ public class MainFragmentManager extends BaseFragmentManager {
 
     @Override
     protected Map<String, Fragment> initFragmentManager() {
-        mFragmentKeyList = new ArrayList<>();
+        List<String> mFragmentKeyList = new ArrayList<>();
         mFragmentKeyList.add(KEY_FRAGMENT_TODO);
         mFragmentKeyList.add(KEY_FRAGMENT_FAST_NOTE);
         mFragmentKeyList.add(KEY_FRAGMENT_LEAVE_MSG);
+        mFragmentKeyList.add(KEY_FRAGMENT_JOKE);
         Map<String, Fragment> fragmentMap = new HashMap<>();
         fragmentMap.put(mFragmentKeyList.get(0), new TodoFragment());
         fragmentMap.put(mFragmentKeyList.get(1), new ShareNoteFragment());
         fragmentMap.put(mFragmentKeyList.get(2), new LeaveMsgFragment());
+        fragmentMap.put(mFragmentKeyList.get(3), new JokeFragment());
         return fragmentMap;
     }
 
