@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.joke;
+package ssthouse.love.xinying.joke.jokelist;
 
 import java.util.List;
 
@@ -15,16 +15,7 @@ import ssthouse.love.xinying.joke.bean.JokeBean;
  * Created by ssthouse on 05/12/2016.
  */
 
-public class JokerGenerator {
-
-    public static String getTodayJoke() {
-        //check leancloud
-
-        //get from api
-
-        //todo try out api with retrofit
-        return "this is the joke text";
-    }
+public class JokeListGenerator {
 
     public static void getJokeList(Callback<List<JokeBean>> callback) {
         Retrofit retrofit = new Retrofit.Builder()

@@ -16,7 +16,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
-import ssthouse.love.xinying.joke.JokerGenerator;
 import ssthouse.love.xinying.joke.bean.JokeBean;
 import ssthouse.love.xinying.utils.ToastUtil;
 import timber.log.Timber;
@@ -43,7 +42,7 @@ public class JokeListFragment extends BaseFragment {
         lvJokes.setAdapter(jokeAdapter);
 
         //TODO: should save today's joke in disk to save network
-        JokerGenerator.getJokeList(new Callback<List<JokeBean>>() {
+        JokeListGenerator.getJokeList(new Callback<List<JokeBean>>() {
             @Override
             public void onResponse(Call<List<JokeBean>> call, Response<List<JokeBean>> response) {
                 for (JokeBean jokeBean : response.body()) {

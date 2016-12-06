@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.joke;
+package ssthouse.love.xinying.joke.jokelist;
 
 import java.util.List;
 

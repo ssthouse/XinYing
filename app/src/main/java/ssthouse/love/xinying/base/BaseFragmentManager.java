@@ -2,6 +2,7 @@ package ssthouse.love.xinying.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import java.util.Map;
 
@@ -28,8 +29,14 @@ public abstract class BaseFragmentManager {
     public void initFragment(String key) {
         if (!mFragmentMap.keySet().contains(key))
             return;
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        for (String strKey : mFragmentMap.keySet()) {
+            fragmentTransaction.add(mFragmentId, mFragmentMap.get(strKey))
+                    .hide(mFragmentMap.get(strKey));
+        }
+        fragmentTransaction.commit();
         mFragmentManager.beginTransaction()
-                .replace(mFragmentId, mFragmentMap.get(key))
+                .show(mFragmentMap.get(key))
                 .commit();
     }
 
@@ -37,7 +44,15 @@ public abstract class BaseFragmentManager {
         if (!mFragmentMap.keySet().contains(key))
             return;
         mFragmentManager.beginTransaction()
-                .replace(mFragmentId, mFragmentMap.get(key))
+                .show(mFragmentMap.get(key))
+                .commit();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        for (String strKey : mFragmentMap.keySet()) {
+            fragmentTransaction.hide(mFragmentMap.get(strKey));
+        }
+        fragmentTransaction.commit();
+        mFragmentManager.beginTransaction()
+                .show(mFragmentMap.get(key))
                 .commit();
     }
 }
