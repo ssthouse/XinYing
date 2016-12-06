@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <ListView
+        android:divider="@null"
+        android:id="@+id/id_lv_jokes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="this is joke" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
