@@ -1,5 +1,6 @@
 package ssthouse.love.xinying.joke.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class ZhiHuBean {
         this.top_stories = top_stories;
     }
 
-    public static class StoriesBean {
+    public static class StoriesBean implements Serializable{
         private int type;
         private int id;
         private String ga_prefix;

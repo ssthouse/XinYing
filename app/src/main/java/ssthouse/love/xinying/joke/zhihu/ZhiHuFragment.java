@@ -1,8 +1,10 @@
 package ssthouse.love.xinying.joke.zhihu;
 
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,6 +49,7 @@ public class ZhiHuFragment extends BaseFragment {
                 for (ZhiHuBean.StoriesBean storiesBean : response.body().getStories()) {
                     Timber.e(storiesBean.getTitle());
                 }
+                storiesBeanList.clear();
                 storiesBeanList.addAll(response.body().getStories());
                 lvAdapter.notifyDataSetChanged();
             }
@@ -58,7 +61,14 @@ public class ZhiHuFragment extends BaseFragment {
         });
 
         lvZhihu.setAdapter(lvAdapter);
+
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        }
+    };
 
     private BaseAdapter lvAdapter = new BaseAdapter() {
         @Override
@@ -77,17 +87,24 @@ public class ZhiHuFragment extends BaseFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_zhihu, parent, false);
                 viewHolder = new ViewHolder();
+                viewHolder.cardView = (CardView) convertView.findViewById(R.id.id_card_view);
                 viewHolder.ivThumbnail = (ImageView) convertView.findViewById(R.id.id_iv_thumbnail);
                 viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.id_tv_title);
                 convertView.setTag(viewHolder);
             }else{
                 viewHolder = (ViewHolder) convertView.getTag();
             }
+            viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ZhiHuDetailAty.start(getActivity(), storiesBeanList.get(position));
+                }
+            });
             viewHolder.tvTitle.setText(storiesBeanList.get(position).getTitle());
             Picasso.with(getContext())
                     .load(storiesBeanList.get(position).getImages().get(0))
@@ -97,6 +114,7 @@ public class ZhiHuFragment extends BaseFragment {
     };
 
     private static class ViewHolder{
+        CardView cardView;
         ImageView ivThumbnail;
         TextView tvTitle;
     }

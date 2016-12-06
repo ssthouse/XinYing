@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/id_lv_zhihu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null" />
+    <include layout="@layout/toolbar" />
 
+    <WebView
+        android:id="@+id/id_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

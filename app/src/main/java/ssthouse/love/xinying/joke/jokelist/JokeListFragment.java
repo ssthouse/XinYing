@@ -48,6 +48,7 @@ public class JokeListFragment extends BaseFragment {
                 for (JokeBean jokeBean : response.body()) {
                     jokeBean.setContent(jokeBean.getContent().replace("<br/><br/>", "\n"));
                 }
+                jokeBeanList.clear();
                 jokeBeanList.addAll(response.body());
                 jokeAdapter.notifyDataSetChanged();
             }

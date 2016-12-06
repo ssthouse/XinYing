@@ -67,6 +67,10 @@
             android:name=".SettingActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".joke.zhihu.ZhiHuDetailAty"
+            android:screenOrientation="portrait" />
+
         <!--widget-->
         <receiver android:name=".note.FastNoteProvider">
             <intent-filter>
