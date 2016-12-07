@@ -17,6 +17,7 @@ import retrofit2.Response;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.joke.bean.JuheJokeBean;
+import ssthouse.love.xinying.utils.TimeUtil;
 import ssthouse.love.xinying.utils.ToastUtil;
 import timber.log.Timber;
 
@@ -40,29 +41,45 @@ public class JokeListFragment extends BaseFragment {
     @Override
     public void init() {
         lvJokes.setAdapter(jokeAdapter);
+        loadJokeList();
+    }
 
-        //TODO: should save today's joke in disk to save network
-        JuHeGenerator.getJuHeJoke(new Callback<JuheJokeBean>() {
-            @Override
-            public void onResponse(Call<JuheJokeBean> call, Response<JuheJokeBean> response) {
-                Timber.e(response.body().toString());
-                if (!response.isSuccessful() || response.body() == null
-                        || response.body().getError_code() != 0) {
-                    ToastUtil.show(getContext(), "Something is wrong\ntell your giant baby");
-                    return;
+    private void loadJokeList() {
+        //judge joke time stamp
+        long lastJokeTimeStamp = TodayJokeRecorder.getInstance(getContext()).getTimeStamp();
+        //load local jokes
+        if (!TimeUtil.isAfterDays(System.currentTimeMillis(), lastJokeTimeStamp)) {
+            List<JuheJokeBean.ResultBean> resultBeanList = TodayJokeRecorder.getInstance(getContext())
+                    .getResultBeanList();
+            jokeBeanList.clear();
+            jokeBeanList.addAll(resultBeanList);
+            jokeAdapter.notifyDataSetChanged();
+            Timber.e("what is wrong");
+        } else {
+            JuHeGenerator.getJuHeJoke(getContext(), new Callback<JuheJokeBean>() {
+                @Override
+                public void onResponse(Call<JuheJokeBean> call, Response<JuheJokeBean> response) {
+                    Timber.e(response.body().toString());
+                    if (!response.isSuccessful() || response.body() == null
+                            || response.body().getError_code() != 0) {
+                        ToastUtil.showCommonWrong(getContext());
+                        return;
+                    }
+                    jokeBeanList.clear();
+                    jokeBeanList.addAll(response.body().getResult());
+                    jokeAdapter.notifyDataSetChanged();
+                    //save jokes to local
+                    TodayJokeRecorder.getInstance(getContext()).setTimeStamp(System.currentTimeMillis());
+                    TodayJokeRecorder.getInstance(getContext()).setJokeResultBeanList(jokeBeanList);
                 }
-                jokeBeanList.clear();
-                jokeBeanList.addAll(response.body().getResult());
-                jokeAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onFailure(Call<JuheJokeBean> call, Throwable t) {
-                Timber.e("error");
-                Timber.e(t.getMessage());
-                ToastUtil.show(getContext(), "something is wrong: not network or something else\nplease tell ssthouse");
-            }
-        });
+                @Override
+                public void onFailure(Call<JuheJokeBean> call, Throwable t) {
+                    Timber.e("error: %s", t.getMessage());
+                    ToastUtil.showCommonWrong(getContext());
+                }
+            });
+        }
     }
 
     private BaseAdapter jokeAdapter = new BaseAdapter() {

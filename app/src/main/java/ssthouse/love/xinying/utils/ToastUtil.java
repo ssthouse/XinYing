@@ -9,7 +9,13 @@ import android.widget.Toast;
 
 public class ToastUtil {
 
+    private static final String COMMON_WRONG_STR = "Something is wrong\n better tell your giant baby";
+
     public static void show(Context context, String content) {
         Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showCommonWrong(Context context) {
+        show(context, COMMON_WRONG_STR);
     }
 }

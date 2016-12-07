@@ -1,5 +1,7 @@
 package ssthouse.love.xinying.joke.jokelist;
 
+import android.content.Context;
+
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -11,7 +13,8 @@ import ssthouse.love.xinying.joke.bean.JuheJokeBean;
 
 public class JuHeGenerator {
 
-    public static void getJuHeJoke(Callback<JuheJokeBean> callback) {
+    public static void getJuHeJoke(Context context, Callback<JuheJokeBean> callback) {
+        //load from internet
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(JuHeService.BASIC_URL)
                 .addConverterFactory(GsonConverterFactory.create())
