@@ -24,7 +24,8 @@
                 android:paddingLeft="16dp"
                 android:text="Title"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/id_tv_joke_content"

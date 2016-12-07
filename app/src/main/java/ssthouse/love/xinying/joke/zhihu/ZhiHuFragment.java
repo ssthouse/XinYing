@@ -46,9 +46,6 @@ public class ZhiHuFragment extends BaseFragment {
         ZhiHuGenerator.getStories(new Callback<ZhiHuBean>() {
             @Override
             public void onResponse(Call<ZhiHuBean> call, Response<ZhiHuBean> response) {
-                for (ZhiHuBean.StoriesBean storiesBean : response.body().getStories()) {
-                    Timber.e(storiesBean.getTitle());
-                }
                 storiesBeanList.clear();
                 storiesBeanList.addAll(response.body().getStories());
                 lvAdapter.notifyDataSetChanged();

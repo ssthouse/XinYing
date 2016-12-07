@@ -1,8 +1,5 @@
 package ssthouse.love.xinying.joke;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,7 +10,6 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.joke.jokelist.JokeListFragment;
 import ssthouse.love.xinying.joke.zhihu.ZhiHuFragment;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 05/12/2016.
@@ -41,24 +37,6 @@ public class JokeFragment extends BaseFragment {
     @Override
     public void init() {
         initViewPager();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Timber.e("oncreate");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Timber.e("resume");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Timber.e("onattach");
     }
 
     private void initViewPager() {
@@ -118,17 +96,5 @@ public class JokeFragment extends BaseFragment {
         if (giantBabyJokeFragment == null)
             giantBabyJokeFragment = new GiantBabyJokeFragment();
         return giantBabyJokeFragment;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Timber.e("detatch");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Timber.e("destory");
     }
 }

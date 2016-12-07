@@ -15,7 +15,6 @@ import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.joke.bean.ZhiHuBean;
 import ssthouse.love.xinying.joke.bean.ZhiHuDetailBean;
 import ssthouse.love.xinying.utils.ToastUtil;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 06/12/2016.
@@ -55,7 +54,6 @@ public class ZhiHuDetailAty extends BaseActivity {
         ZhiHuGenerator.getStortDetailBean(mStoriesBean.getId() + "", new Callback<ZhiHuDetailBean>() {
             @Override
             public void onResponse(Call<ZhiHuDetailBean> call, Response<ZhiHuDetailBean> response) {
-                Timber.e(response.body().getBody());
                 mZhiHuDetailBean = response.body();
                 loadHtmlWithCss();
             }
@@ -88,7 +86,6 @@ public class ZhiHuDetailAty extends BaseActivity {
         sb.append(String.format(header, mZhiHuDetailBean.getCss().get(0)));
         sb.append(mZhiHuDetailBean.getBody());
         sb.append(footer);
-        Timber.e(sb.toString());
         return sb.toString().replace("class=\"img-place-holder\"", "");
     }
 
