@@ -19,8 +19,6 @@ import com.squareup.picasso.Picasso;
 import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
-import java.util.Date;
-
 import butterknife.Bind;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,6 +30,7 @@ import ssthouse.love.xinying.bean.SignNumberBean;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
+import ssthouse.love.xinying.utils.TimeUtil;
 import ssthouse.love.xinying.utils.ToastUtil;
 import timber.log.Timber;
 
@@ -110,7 +109,8 @@ public class MainActivity extends BaseActivity {
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (judgeNextDay()) {
+                long lastSignTimeInMillis = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
+                if (TimeUtil.isAfterDays(System.currentTimeMillis(), lastSignTimeInMillis)) {
                     btnSign.setBackgroundResource(R.color.grey);
                     btnSign.setEnabled(false);
                     //修改本地签到时间
@@ -120,21 +120,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    private boolean judgeNextDay() {
-        long lastTime = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
-        Date lastSignDate = new Date(lastTime);
-        Date currentDate = new Date(System.currentTimeMillis());
-        boolean isOkay = false;
-        if (currentDate.getYear() > lastSignDate.getYear())
-            isOkay = true;
-        if (currentDate.getYear() == lastSignDate.getYear() && currentDate.getMonth() > lastSignDate.getMonth())
-            isOkay = true;
-        if (currentDate.getYear() == lastSignDate.getYear() && currentDate.getMonth() == lastSignDate.getMonth()
-                && currentDate.getDate() > lastSignDate.getDate())
-            isOkay = true;
-        return isOkay;
     }
 
     private void changeLocalTimeStamp() {
@@ -180,7 +165,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateBtnSign() {
-        if (judgeNextDay()) {
+        long lastSignTimeInMillis = Long.parseLong(PreferUtil.getInstance(MainActivity.this).getLastSignTimeInMillisStr());
+        if (TimeUtil.isAfterDays(System.currentTimeMillis(), lastSignTimeInMillis)) {
             btnSign.setBackgroundResource(R.color.colorAccent);
             btnSign.setEnabled(true);
         } else {

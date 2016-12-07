@@ -94,7 +94,6 @@ public class JokeListFragment extends BaseFragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             //set value
-//            viewHolder.tvTitle.setText(jokeBeanList.get(position).get());
             viewHolder.tvContent.setText(jokeBeanList.get(position).getContent());
             return convertView;
         }
