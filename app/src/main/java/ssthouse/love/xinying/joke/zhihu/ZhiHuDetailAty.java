@@ -47,6 +47,11 @@ public class ZhiHuDetailAty extends BaseActivity {
     }
 
     @Override
+    public int getContentView() {
+        return R.layout.activity_zhihu_detail;
+    }
+
+    @Override
     public void init() {
         mStoriesBean = (ZhiHuBean.StoriesBean) getIntent().getSerializableExtra(KEY_STORY_BEAN);
         if (mStoriesBean == null) {
@@ -82,10 +87,6 @@ public class ZhiHuDetailAty extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(mStoriesBean.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Picasso.with(this)
-                .load(mStoriesBean.getImages().get(0))
-                .into(ivLogo);
     }
 
     private void loadHtmlWithCss() {
@@ -104,11 +105,6 @@ public class ZhiHuDetailAty extends BaseActivity {
         sb.append(mZhiHuDetailBean.getBody());
         sb.append(footer);
         return sb.toString().replace("class=\"img-place-holder\"", "");
-    }
-
-    @Override
-    public int getContentView() {
-        return R.layout.activity_zhihu_detail;
     }
 
     @Override
