@@ -12,12 +12,12 @@
             android:title="FastNote" />
 
         <item
-            android:id="@+id/id_menu_leave_msg"
-            android:title="leave msg" />
+            android:id="@+id/id_menu_joke"
+            android:title="For fun" />
 
         <item
-            android:id="@+id/id_menu_joke"
-            android:title="for fun" />
+            android:id="@+id/id_menu_leave_msg"
+            android:title="Leave msg" />
 
         <item
             android:id="@+id/id_menu_fist_impression"

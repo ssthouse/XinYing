@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import ssthouse.love.xinying.todo.bean.TodoBean;
+
 /**
  * 数据操作Model
  * Created by ssthouse on 30/10/2016.

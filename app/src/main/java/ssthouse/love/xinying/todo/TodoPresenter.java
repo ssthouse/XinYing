@@ -16,6 +16,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import ssthouse.love.xinying.todo.bean.TodoBean;
 import timber.log.Timber;
 
 /**

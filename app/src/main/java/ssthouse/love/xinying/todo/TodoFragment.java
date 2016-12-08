@@ -23,6 +23,7 @@ import butterknife.Bind;
 import lumenghz.com.pullrefresh.PullToRefreshView;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
+import ssthouse.love.xinying.todo.bean.TodoBean;
 import ssthouse.love.xinying.utils.StringUtils;
 import ssthouse.love.xinying.utils.ToastUtil;
 

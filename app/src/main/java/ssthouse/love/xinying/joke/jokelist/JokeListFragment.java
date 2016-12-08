@@ -54,7 +54,6 @@ public class JokeListFragment extends BaseFragment {
             jokeBeanList.clear();
             jokeBeanList.addAll(resultBeanList);
             jokeAdapter.notifyDataSetChanged();
-            Timber.e("what is wrong");
         } else {
             JuHeGenerator.getJuHeJoke(getContext(), new Callback<JuheJokeBean>() {
                 @Override

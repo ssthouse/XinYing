@@ -17,7 +17,7 @@ import ssthouse.love.xinying.joke.zhihu.ZhiHuFragment;
 
 public class JokeFragment extends BaseFragment {
 
-    private static final int TAB_SIZE = 3;
+    private static final int TAB_SIZE = 2;
 
     @Bind(R.id.id_view_pager)
     ViewPager viewPager;
@@ -27,7 +27,6 @@ public class JokeFragment extends BaseFragment {
 
     private JokeListFragment jokeListFragment;
     private ZhiHuFragment zhiHuFragment;
-    private GiantBabyJokeFragment giantBabyJokeFragment;
 
     @Override
     public int getContentView() {
@@ -44,18 +43,16 @@ public class JokeFragment extends BaseFragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return TAB_SIZE;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
                     case 0:
-                        return "Joke";
+                        return "ZHIHU";
                     case 1:
-                        return "ZhiHu";
-                    case 2:
-                        return "Giant Baby";
+                        return "JOKE";
                 }
                 return "";
             }
@@ -64,11 +61,9 @@ public class JokeFragment extends BaseFragment {
             public Fragment getItem(int position) {
                 switch (position) {
                     case 0:
-                        return getJokeListFragment();
-                    case 1:
                         return getZhiHuFragment();
-                    case 2:
-                        return getGiantBabyJokeFragment();
+                    case 1:
+                        return getJokeListFragment();
                 }
                 return null;
             }
@@ -92,9 +87,4 @@ public class JokeFragment extends BaseFragment {
         return zhiHuFragment;
     }
 
-    public GiantBabyJokeFragment getGiantBabyJokeFragment() {
-        if (giantBabyJokeFragment == null)
-            giantBabyJokeFragment = new GiantBabyJokeFragment();
-        return giantBabyJokeFragment;
-    }
 }
