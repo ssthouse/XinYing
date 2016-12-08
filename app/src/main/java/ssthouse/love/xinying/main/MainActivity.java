@@ -1,4 +1,4 @@
-package ssthouse.love.xinying;
+package ssthouse.love.xinying.main;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -25,8 +25,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import ssthouse.love.xinying.R;
+import ssthouse.love.xinying.SettingActivity;
 import ssthouse.love.xinying.base.BaseActivity;
-import ssthouse.love.xinying.bean.SignNumberBean;
+import ssthouse.love.xinying.main.bean.SignNumberBean;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
