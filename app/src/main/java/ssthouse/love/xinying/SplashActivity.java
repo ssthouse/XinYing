@@ -12,6 +12,7 @@ import com.vdurmont.emoji.EmojiParser;
 
 import butterknife.Bind;
 import ssthouse.love.xinying.base.BaseActivity;
+import ssthouse.love.xinying.main.MainActivity;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 import ssthouse.love.xinying.note.FastNoteConfigUtil;

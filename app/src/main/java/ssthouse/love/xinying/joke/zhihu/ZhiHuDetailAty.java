@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -25,6 +28,9 @@ public class ZhiHuDetailAty extends BaseActivity {
     @Bind(R.id.id_tb)
     Toolbar mToolbar;
 
+    @Bind(R.id.id_iv_logo)
+    ImageView ivLogo;
+
     @Bind(R.id.id_web_view)
     WebView mWebView;
 
@@ -38,6 +44,11 @@ public class ZhiHuDetailAty extends BaseActivity {
         Intent intent = new Intent(activity, ZhiHuDetailAty.class);
         intent.putExtra(KEY_STORY_BEAN, storiesBean);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public int getContentView() {
+        return R.layout.activity_zhihu_detail;
     }
 
     @Override
@@ -56,6 +67,7 @@ public class ZhiHuDetailAty extends BaseActivity {
             public void onResponse(Call<ZhiHuDetailBean> call, Response<ZhiHuDetailBean> response) {
                 mZhiHuDetailBean = response.body();
                 loadHtmlWithCss();
+                loadHdLogo();
             }
 
             @Override
@@ -63,6 +75,12 @@ public class ZhiHuDetailAty extends BaseActivity {
 
             }
         });
+    }
+
+    private void loadHdLogo() {
+        Picasso.with(this)
+                .load(mZhiHuDetailBean.getImage())
+                .into(ivLogo);
     }
 
     private void initActionbar() {
@@ -87,11 +105,6 @@ public class ZhiHuDetailAty extends BaseActivity {
         sb.append(mZhiHuDetailBean.getBody());
         sb.append(footer);
         return sb.toString().replace("class=\"img-place-holder\"", "");
-    }
-
-    @Override
-    public int getContentView() {
-        return R.layout.activity_zhihu_detail;
     }
 
     @Override

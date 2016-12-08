@@ -17,7 +17,7 @@
 
         <item
             android:id="@+id/id_menu_joke"
-            android:title="joke" />
+            android:title="for fun" />
 
         <item
             android:id="@+id/id_menu_fist_impression"

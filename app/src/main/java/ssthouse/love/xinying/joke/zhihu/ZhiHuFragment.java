@@ -1,5 +1,6 @@
 package ssthouse.love.xinying.joke.zhihu;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +31,13 @@ import timber.log.Timber;
 
 public class ZhiHuFragment extends BaseFragment {
 
-    @Bind(R.id.id_lv_zhihu)
-    ListView lvZhihu;
+    @Bind(R.id.id_swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
-    private List<ZhiHuBean.StoriesBean> storiesBeanList = new ArrayList<>();
+    @Bind(R.id.id_lv_zhihu)
+    ListView mLvZhihu;
+
+    private List<ZhiHuBean.StoriesBean> mStoriesBeanList = new ArrayList<>();
 
     @Override
     public int getContentView() {
@@ -42,23 +46,36 @@ public class ZhiHuFragment extends BaseFragment {
 
     @Override
     public void init() {
+        initZhiHuData();
+
+        mLvZhihu.setAdapter(lvAdapter);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initZhiHuData();
+            }
+        });
+    }
+
+    private void initZhiHuData() {
         //init zhihu data
         ZhiHuGenerator.getStories(new Callback<ZhiHuBean>() {
             @Override
             public void onResponse(Call<ZhiHuBean> call, Response<ZhiHuBean> response) {
-                storiesBeanList.clear();
-                storiesBeanList.addAll(response.body().getStories());
+                mStoriesBeanList.clear();
+                mStoriesBeanList.addAll(response.body().getStories());
                 lvAdapter.notifyDataSetChanged();
+                //stop refresh
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<ZhiHuBean> call, Throwable t) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 Timber.e("error");
             }
         });
-
-        lvZhihu.setAdapter(lvAdapter);
-
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -70,7 +87,7 @@ public class ZhiHuFragment extends BaseFragment {
     private BaseAdapter lvAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return storiesBeanList.size();
+            return mStoriesBeanList.size();
         }
 
         @Override
@@ -93,24 +110,24 @@ public class ZhiHuFragment extends BaseFragment {
                 viewHolder.ivThumbnail = (ImageView) convertView.findViewById(R.id.id_iv_thumbnail);
                 viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.id_tv_title);
                 convertView.setTag(viewHolder);
-            }else{
+            } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ZhiHuDetailAty.start(getActivity(), storiesBeanList.get(position));
+                    ZhiHuDetailAty.start(getActivity(), mStoriesBeanList.get(position));
                 }
             });
-            viewHolder.tvTitle.setText(storiesBeanList.get(position).getTitle());
+            viewHolder.tvTitle.setText(mStoriesBeanList.get(position).getTitle());
             Picasso.with(getContext())
-                    .load(storiesBeanList.get(position).getImages().get(0))
+                    .load(mStoriesBeanList.get(position).getImages().get(0))
                     .into(viewHolder.ivThumbnail);
             return convertView;
         }
     };
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         CardView cardView;
         ImageView ivThumbnail;
         TextView tvTitle;

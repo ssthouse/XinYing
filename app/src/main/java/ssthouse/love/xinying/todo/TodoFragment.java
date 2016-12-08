@@ -58,13 +58,24 @@ public class TodoFragment extends BaseFragment implements IView {
 
     @Override
     public int getContentView() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_todo;
     }
 
     @Override
     public void init() {
         initAddTodoDialog();
+        initLoveTime();
+        startUpdateTimeStr();
+        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                todoPresenter.refreshTodoBeanList();
+            }
+        });
+        listView.setAdapter(mAdapter);
+    }
 
+    private void initLoveTime() {
         tvTime.setText(StringUtils.getLoveTimeStr());
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +83,6 @@ public class TodoFragment extends BaseFragment implements IView {
                 tvTime.setText(StringUtils.getLoveTimeStr());
             }
         });
-
-        startUpdateTimeStr();
-
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                todoPresenter.refreshTodoBeanList();
-            }
-        });
-
-        listView.setAdapter(mAdapter);
     }
 
     private void startUpdateTimeStr() {

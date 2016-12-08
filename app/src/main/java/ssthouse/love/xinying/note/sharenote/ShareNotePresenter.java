@@ -13,7 +13,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
-import ssthouse.love.xinying.bean.FastNoteBean;
+import ssthouse.love.xinying.note.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
