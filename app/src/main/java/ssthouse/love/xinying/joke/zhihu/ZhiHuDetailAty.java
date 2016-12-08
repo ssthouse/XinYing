@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import retrofit2.Call;
@@ -24,6 +27,9 @@ public class ZhiHuDetailAty extends BaseActivity {
 
     @Bind(R.id.id_tb)
     Toolbar mToolbar;
+
+    @Bind(R.id.id_iv_logo)
+    ImageView ivLogo;
 
     @Bind(R.id.id_web_view)
     WebView mWebView;
@@ -56,6 +62,7 @@ public class ZhiHuDetailAty extends BaseActivity {
             public void onResponse(Call<ZhiHuDetailBean> call, Response<ZhiHuDetailBean> response) {
                 mZhiHuDetailBean = response.body();
                 loadHtmlWithCss();
+                loadHdLogo();
             }
 
             @Override
@@ -65,10 +72,20 @@ public class ZhiHuDetailAty extends BaseActivity {
         });
     }
 
+    private void loadHdLogo() {
+        Picasso.with(this)
+                .load(mZhiHuDetailBean.getImage())
+                .into(ivLogo);
+    }
+
     private void initActionbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(mStoriesBean.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Picasso.with(this)
+                .load(mStoriesBean.getImages().get(0))
+                .into(ivLogo);
     }
 
     private void loadHtmlWithCss() {
