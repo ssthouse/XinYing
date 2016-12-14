@@ -93,10 +93,10 @@ public class MainActivity extends BaseActivity {
         int drawableId;
         String nameStr;
         if (PreferUtil.getInstance(this).isCony()) {
-            nameStr = "学弟的学姐";
+            nameStr = "大宝的小宝";
             drawableId = R.drawable.cony_avatar;
         } else {
-            nameStr = "学弟的学姐";
+            nameStr = "小宝的大宝";
             drawableId = R.drawable.brown_avatar;
         }
         Picasso.with(this)
