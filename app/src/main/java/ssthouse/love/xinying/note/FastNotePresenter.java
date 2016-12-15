@@ -56,17 +56,15 @@ public class FastNotePresenter {
                     public Exception call(AVObject fastNoteObj) {
                         Exception exception = null;
                         if (fastNoteObj == null) {
-                            fastNoteObj = new AVObject(FastNoteBean.CLASS_NAME);
-                            fastNoteObj.put(FastNoteBean.KEY_IS_CONY, isCony);
-                            fastNoteObj.put(FastNoteBean.KEY_CONTENT, fastNoteContent);
+                            return null;
                         } else {
                             fastNoteObj.put(FastNoteBean.KEY_CONTENT, fastNoteContent);
-                        }
-                        try {
-                            fastNoteObj.save();
-                        } catch (AVException e) {
-                            exception = e;
-                            e.printStackTrace();
+                            try {
+                                fastNoteObj.save();
+                            } catch (AVException e) {
+                                exception = e;
+                                e.printStackTrace();
+                            }
                         }
                         return exception;
                     }

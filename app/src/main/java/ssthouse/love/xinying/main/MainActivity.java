@@ -207,18 +207,6 @@ public class MainActivity extends BaseActivity {
                     public void call(AVObject avObject) {
                         //第一次签到
                         if (avObject == null) {
-                            String str = "第一次签到哦, 啵 :kissing_heart:";
-                            str = EmojiParser.parseToUnicode(str);
-                            ToastUtil.show(MainActivity.this, str);
-                            AVObject avobject = new AVObject(SignNumberBean.CLASS_NAME);
-                            avobject.put(SignNumberBean.KEY_IS_CONY, PreferUtil.getInstance(MainActivity.this).isCony());
-                            avobject.put(SignNumberBean.KEY_SIGN_NUMBER, 1);
-                            avobject.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(AVException e) {
-                                    Timber.e(e == null ? "保存成功" : "保存失败");
-                                }
-                            });
                             return;
                         }
                         int signNumber = avObject.getInt(SignNumberBean.KEY_SIGN_NUMBER) + 1;
@@ -229,7 +217,9 @@ public class MainActivity extends BaseActivity {
                                 Timber.e(e == null ? "保存成功" : "保存失败");
                             }
                         });
-                        ToastUtil.show(MainActivity.this, "签到次数: " + signNumber);
+                        String toastStr = "签到次数: " + signNumber + " 啵 :kissing_heart:";
+                        toastStr = EmojiParser.parseToUnicode(toastStr);
+                        ToastUtil.show(MainActivity.this, toastStr);
                     }
                 });
     }
