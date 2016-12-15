@@ -2,6 +2,7 @@ package ssthouse.love.xinying.base.app;
 
 import android.app.Application;
 
+import com.activeandroid.ActiveAndroid;
 import com.avos.avoscloud.AVOSCloud;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -23,5 +24,6 @@ public class App extends Application {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
+        ActiveAndroid.initialize(this   );
     }
 }

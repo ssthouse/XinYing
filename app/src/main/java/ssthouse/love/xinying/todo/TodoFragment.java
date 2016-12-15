@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.orhanobut.dialogplus.DialogPlus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -21,16 +18,19 @@ import java.util.List;
 
 import butterknife.Bind;
 import lumenghz.com.pullrefresh.PullToRefreshView;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.todo.bean.TodoBean;
 import ssthouse.love.xinying.utils.StringUtils;
-import ssthouse.love.xinying.utils.ToastUtil;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/5/11.
  */
-public class TodoFragment extends BaseFragment implements IView {
+public class TodoFragment extends BaseFragment {
 
     private static final int MSG_UPDATE_TIME = 1000;
 
@@ -46,11 +46,6 @@ public class TodoFragment extends BaseFragment implements IView {
     @Bind(R.id.id_fab_add)
     FloatingActionButton fabAddTodo;
 
-    private DialogPlus addTodoDialog;
-    private EditText etTodo;
-
-    private TodoPresenter todoPresenter = new TodoPresenter(this, this.getContext());
-
     private List<TodoBean> curTodoList = new ArrayList<>();
 
     private CustomHandler handler = new CustomHandler(this);
@@ -64,16 +59,45 @@ public class TodoFragment extends BaseFragment implements IView {
 
     @Override
     public void init() {
-        initAddTodoDialog();
         initLoveTime();
         startUpdateTimeStr();
+
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                todoPresenter.refreshTodoBeanList();
+                mTodoModel.getTodoList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<List<TodoBean>>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onNext(List<TodoBean> todoBeanList) {
+                                Timber.e("what is wrong");
+                                for (TodoBean todoBean : todoBeanList) {
+                                    Timber.e(todoBean.content + todoBean.date.toString());
+                                }
+                            }
+                        });
             }
         });
+
         listView.setAdapter(mAdapter);
+
+        fabAddTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTodoModel.saveSomeTestTodoBean();
+            }
+        });
     }
 
     private void initLoveTime() {
@@ -119,58 +143,10 @@ public class TodoFragment extends BaseFragment implements IView {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.ivAvatar.setImageResource(R.drawable.avatar);
-            viewHolder.tvTodo.setText(curTodoList.get(position).getTodoStr());
+            viewHolder.tvTodo.setText(curTodoList.get(position).getContent());
             return convertView;
         }
     };
-
-    @Override
-    public void refreshTodoList(List<TodoBean> beanList) {
-        curTodoList = beanList;
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void startPullRefresh() {
-        pullToRefreshView.setRefreshing(true);
-    }
-
-    @Override
-    public void stopPullRefresh() {
-        pullToRefreshView.setRefreshing(false);
-    }
-
-    private void initAddTodoDialog() {
-        addTodoDialog = DialogPlus.newDialog(getContext())
-                .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.dialog_add_todo))
-                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
-                .create();
-        View view = addTodoDialog.getHolderView();
-        etTodo = (EditText) view.findViewById(R.id.id_et_todo);
-        Button btnCancel = (Button) view.findViewById(R.id.id_btn_cancel);
-        Button btnEnsure = (Button) view.findViewById(R.id.id_btn_ensure);
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTodoDialog.dismiss();
-            }
-        });
-
-        btnEnsure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.show(getContext(), getString(R.string.str_wait_next_version));
-            }
-        });
-
-        fabAddTodo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTodoDialog.show();
-            }
-        });
-    }
 
     class ViewHolder {
         ImageView ivAvatar;

@@ -13,8 +13,10 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
+import ssthouse.love.xinying.note.FastNoteConfigUtil;
 import ssthouse.love.xinying.note.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
+import ssthouse.love.xinying.utils.ToastUtil;
 
 /**
  * Created by ssthouse on 09/11/2016.
@@ -60,6 +62,42 @@ public class ShareNotePresenter {
                             fastNoteStr = fastNoteObj.getString(FastNoteBean.KEY_CONTENT);
                         }
                         mShareNoteView.setYourNoteText(fastNoteStr);
+                    }
+                });
+    }
+
+    public void restoreFastNoteFromCloud() {
+        final boolean isCony = PreferUtil.getInstance((Activity) mContext).isCony();
+        Observable.just(isCony)
+                .subscribeOn(Schedulers.newThread())
+                .map(new Func1<Boolean, String>() {
+                    @Override
+                    public String call(Boolean aBoolean) {
+                        AVQuery<AVObject> fastNoteQuery = new AVQuery<AVObject>(FastNoteBean.CLASS_NAME);
+                        fastNoteQuery.whereEqualTo(FastNoteBean.KEY_IS_CONY, isCony);
+                        AVObject fastNoteObj = null;
+                        try {
+                            fastNoteObj = fastNoteQuery.getFirst();
+                        } catch (AVException e) {
+                            e.printStackTrace();
+                        }
+                        if (fastNoteObj == null) {
+                            return null;
+                        } else {
+                            return fastNoteObj.getString(FastNoteBean.KEY_CONTENT);
+                        }
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String myNote) {
+                        if (myNote == null) {
+                            ToastUtil.show(mContext, "上传成功");
+                        } else {
+                            FastNoteConfigUtil.getInstance(mContext).saveNote(myNote);
+                            ToastUtil.show(mContext, "上传成功");
+                        }
                     }
                 });
     }

@@ -1,40 +1,46 @@
 package ssthouse.love.xinying.todo.bean;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+import java.util.Date;
+
 /**
  * Created by ssthouse on 16/9/3.
  */
-public class TodoBean {
+@Table(name = "Todo")
+public class TodoBean extends Model {
 
+    @Column(name = "content")
+    public String content;
 
-    public static final String CLASS_NAME = "TodoBeanList";
-    public static final String KEY_TODO_LIST = "TodoList";
+    @Column(name = "time")
+    public Date date;
 
-    public static final String KEY_TODO_STR = "todoStr";
-    public static final String KEY_TIME_STR = "timeStr";
-
-    private String todoStr;
-    private String timeStr;
-
-
-    public TodoBean(String todoStr, String timeStr) {
-        this.todoStr = todoStr;
-        this.timeStr = timeStr;
+    public TodoBean() {
+        super();
     }
 
-
-    public String getTodoStr() {
-        return todoStr;
+    public TodoBean(String content, Date date) {
+        super();
+        this.content = content;
+        this.date = date;
     }
 
-    public void setTodoStr(String todoStr) {
-        this.todoStr = todoStr;
+    public String getContent() {
+        return content;
     }
 
-    public String getTimeStr() {
-        return timeStr;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public void setTimeStr(String timeStr) {
-        this.timeStr = timeStr;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

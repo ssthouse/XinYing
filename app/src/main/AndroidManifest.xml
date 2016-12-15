@@ -93,6 +93,12 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="LOVE_CHANNEL" />
+
+        <meta-data android:name="AA_DB_NAME" android:value="xinying.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="ssthouse.love.xinying.todo.bean.TodoBean" />
     </application>
 
 </manifest>
