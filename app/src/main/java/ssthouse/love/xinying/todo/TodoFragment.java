@@ -5,12 +5,13 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -25,10 +26,12 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.todo.bean.TodoBean;
 import ssthouse.love.xinying.utils.StringUtils;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/5/11.
+ * TODO:
+ * 点击 item --->  弹出 dialog 显示数据   可以编辑
+ * 左滑显示删除按钮  ---> 点击删除 item
  */
 public class TodoFragment extends BaseFragment {
 
@@ -38,7 +41,7 @@ public class TodoFragment extends BaseFragment {
     TextView tvTime;
 
     @Bind(R.id.id_pull_to_refresh)
-    PullToRefreshView pullToRefreshView;
+    PullToRefreshView mPullToRefreshView;
 
     @Bind(R.id.id_lv)
     ListView listView;
@@ -46,7 +49,7 @@ public class TodoFragment extends BaseFragment {
     @Bind(R.id.id_fab_add)
     FloatingActionButton fabAddTodo;
 
-    private List<TodoBean> curTodoList = new ArrayList<>();
+    private List<TodoBean> mTodoBeanList = new ArrayList<>();
 
     private CustomHandler handler = new CustomHandler(this);
 
@@ -62,7 +65,7 @@ public class TodoFragment extends BaseFragment {
         initLoveTime();
         startUpdateTimeStr();
 
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mTodoModel.getTodoList()
@@ -81,16 +84,22 @@ public class TodoFragment extends BaseFragment {
 
                             @Override
                             public void onNext(List<TodoBean> todoBeanList) {
-                                Timber.e("what is wrong");
-                                for (TodoBean todoBean : todoBeanList) {
-                                    Timber.e(todoBean.content + todoBean.date.toString());
-                                }
+                                mTodoBeanList.clear();
+                                mTodoBeanList.addAll(todoBeanList);
+                                mAdapter.notifyDataSetChanged();
+                                mPullToRefreshView.setRefreshing(false);
                             }
                         });
             }
         });
 
         listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showTodoBeanDIalog(mTodoBeanList.get(position));
+            }
+        });
 
         fabAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,12 +126,12 @@ public class TodoFragment extends BaseFragment {
     private BaseAdapter mAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return curTodoList.size();
+            return mTodoBeanList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return curTodoList.get(position);
+            return mTodoBeanList.get(position);
         }
 
         @Override
@@ -136,21 +145,41 @@ public class TodoFragment extends BaseFragment {
             if (convertView == null) {
                 viewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_todo, parent, false);
-                viewHolder.ivAvatar = (ImageView) convertView.findViewById(R.id.id_iv);
                 viewHolder.tvTodo = (TextView) convertView.findViewById(R.id.id_tv_todo);
+                viewHolder.tvTimeLabel = (TextView) convertView.findViewById(R.id.id_tv_time_label);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.ivAvatar.setImageResource(R.drawable.avatar);
-            viewHolder.tvTodo.setText(curTodoList.get(position).getContent());
+            viewHolder.tvTodo.setText(mTodoBeanList.get(position).getContent());
+            viewHolder.tvTimeLabel.setText(mTodoBeanList.get(position).getDate().toString());
             return convertView;
         }
     };
 
     class ViewHolder {
-        ImageView ivAvatar;
         TextView tvTodo;
+        TextView tvTimeLabel;
+    }
+
+    private void showTodoBeanDIalog(TodoBean todoBean) {
+        DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
+                .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.dialog_todo_item))
+                .create();
+        dialogPlus.show();
+//        dialogPlus.findViewById(R.id.id_btn_cancel).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Timber.e("cancel");
+//            }
+//        });
+//
+//        dialogPlus.findViewById(R.id.id_btn_ensure).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Timber.e("ensure");
+//            }
+//        });
     }
 
     private static class CustomHandler extends Handler {
