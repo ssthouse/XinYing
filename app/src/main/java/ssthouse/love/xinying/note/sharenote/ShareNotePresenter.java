@@ -45,6 +45,7 @@ public class ShareNotePresenter {
                         try {
                             fastNoteObj = fastNoteQuery.getFirst();
                         } catch (AVException e) {
+                            ToastUtil.show(mContext, e.getMessage());
                             e.printStackTrace();
                         }
                         return fastNoteObj;

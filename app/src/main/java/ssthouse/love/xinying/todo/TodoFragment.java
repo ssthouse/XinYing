@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.orhanobut.dialogplus.DialogPlus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class TodoFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showTodoBeanDIalog(mTodoBeanList.get(position));
+                TodoDetailAty.start(getContext(), mTodoBeanList.get(position));
             }
         });
 
@@ -160,26 +159,6 @@ public class TodoFragment extends BaseFragment {
     class ViewHolder {
         TextView tvTodo;
         TextView tvTimeLabel;
-    }
-
-    private void showTodoBeanDIalog(TodoBean todoBean) {
-        DialogPlus dialogPlus = DialogPlus.newDialog(getContext())
-                .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.dialog_todo_item))
-                .create();
-        dialogPlus.show();
-//        dialogPlus.findViewById(R.id.id_btn_cancel).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Timber.e("cancel");
-//            }
-//        });
-//
-//        dialogPlus.findViewById(R.id.id_btn_ensure).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Timber.e("ensure");
-//            }
-//        });
     }
 
     private static class CustomHandler extends Handler {
