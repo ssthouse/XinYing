@@ -1,11 +1,12 @@
 package ssthouse.love.xinying.note.sharenote;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -13,6 +14,8 @@ import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.note.FastNoteConfigUtil;
+import ssthouse.love.xinying.note.FastNoteProvider;
+import ssthouse.love.xinying.utils.Constant;
 import ssthouse.love.xinying.utils.PreferUtil;
 
 /**
@@ -34,11 +37,11 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
 
     @Nullable
     @Bind(R.id.id_tv_your_note)
-    TextView tvYourNote;
+    WebView tvYourNote;
 
     @Nullable
     @Bind(R.id.id_tv_my_note)
-    TextView tvMyNote;
+    WebView tvMyNote;
 
     private ShareNotePresenter mPresenter;
 
@@ -69,6 +72,9 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
                     .resize(480, 854)
                     .into(ivStep3);
         } else {
+            //init the webview setting
+            tvYourNote.getSettings().setDefaultFontSize(18);
+            tvMyNote.getSettings().setDefaultFontSize(18);
             mPresenter.loadSharedFastNote();
             loadLocalNote();
         }
@@ -89,18 +95,24 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
         if (item.getItemId() == R.id.id_action_refresh) {
             mPresenter.loadSharedFastNote();
             loadLocalNote();
+            //TODO
+            //通知控件更新数据
+            Intent intent = new Intent(getContext(), FastNoteProvider.class);
+            intent.setAction(Constant.ACTION_NOTE_UPDATE);
+            getContext().sendBroadcast(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void loadLocalNote() {
-        tvMyNote.setText(FastNoteConfigUtil.getInstance(getContext()).getNote());
+        tvMyNote.loadData(FastNoteConfigUtil.getInstance(getContext()).getNote(), "text/html", "UTF-8");
+//        tvMyNote.setText(Html.fromHtml(FastNoteConfigUtil.getInstance(getContext()).getNote()));
     }
 
     @Override
     public void setYourNoteText(String noteStr) {
         if (noteStr == null)
             return;
-        tvYourNote.setText(noteStr);
+        tvYourNote.loadData(noteStr, "text/html", "UTF-8");
     }
 }

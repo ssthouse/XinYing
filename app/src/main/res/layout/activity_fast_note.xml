@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -7,13 +8,78 @@
 
     <include layout="@layout/toolbar" />
 
-    <EditText
+    <io.github.mthli.knife.KnifeText
         android:id="@+id/id_et_fast_note"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"
-        android:gravity="top|left"
-        android:padding="16dp"
-        android:text="begin fast note" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="top|start"
+        android:hint="begin your fast note :)"
+        android:paddingEnd="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:scrollbars="vertical"
+        android:text="begin fast note"
+        app:bulletColor="@color/colorPrimary"
+        app:bulletGapWidth="8dp"
+        app:bulletRadius="2dp"
+        app:historyEnable="true"
+        app:historySize="99" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransDark"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/id_btn_strikethrough"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_strikethrough" />
+
+        <ImageButton
+            android:id="@+id/id_btn_bold"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_bold" />
+
+        <ImageButton
+            android:id="@+id/id_btn_italic"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_italic" />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/id_btn_clear"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_clear" />
+
+        <ImageButton
+            android:id="@+id/id_btn_bullet"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_bullet" />
+
+        <ImageButton
+            android:id="@+id/id_btn_underline"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_format_underline" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/id_btn_undo"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_action_undo" />
+
+        <ImageButton
+            android:id="@+id/id_btn_redo"
+            style="@style/FastNoteBtn"
+            android:src="@drawable/ic_action_redo" />
+    </LinearLayout>
 
 </LinearLayout>

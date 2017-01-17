@@ -6,9 +6,16 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.text.Html;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 
+import io.github.mthli.knife.KnifeText;
 import ssthouse.love.xinying.R;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 2015/12/9.
@@ -41,6 +48,7 @@ public class FastNoteProvider extends AppWidgetProvider {
         setRvClickListener(context, rvs);
         setRvText(context, rvs);
         appWidgetManager.updateAppWidget(appWidgetIds, rvs);
+        Timber.e("init widget");
     }
 
     private void updateWidget(Context context) {
@@ -49,6 +57,7 @@ public class FastNoteProvider extends AppWidgetProvider {
         setRvText(context, remoteViews);
         setRvClickListener(context, remoteViews);
         AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews);
+        Timber.e("update widget");
     }
 
     private void setRvClickListener(Context context, RemoteViews rvs) {
@@ -58,7 +67,20 @@ public class FastNoteProvider extends AppWidgetProvider {
     }
 
     private void setRvText(Context context, RemoteViews rvs) {
-        rvs.setTextViewText(R.id.id_tv_fast_note, FastNoteConfigUtil.getInstance(context).getNote());
+        rvs.setTextViewText(R.id.id_tv_fast_note, Html.fromHtml(FastNoteConfigUtil.getInstance(context).getNote()));
         rvs.setTextColor(R.id.id_tv_fast_note, FastNoteConfigUtil.getInstance(context).getColor());
+
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();
+        KnifeText customView = new KnifeText(context);
+//        rvs.ge
+        customView.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+        customView.layout(0, 0, width - 32, height);
+        customView.fromHtml(FastNoteConfigUtil.getInstance(context).getNote());
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        customView.draw(new Canvas(bitmap));
+        rvs.setImageViewBitmap(R.id.id_iv_fast_note, bitmap);
     }
 }

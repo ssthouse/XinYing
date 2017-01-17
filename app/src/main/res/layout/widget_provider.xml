@@ -3,12 +3,24 @@
     android:id="@+id/id_ll_fast_note"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:src="@drawable/fist_impression_1"
+        android:background="@color/colorPrimary"
+        android:scaleType="matrix"
+        android:id="@+id/id_iv_fast_note"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/id_tv_fast_note"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="@string/begin_fast_note"
         android:textColor="@color/white"
         android:textSize="20sp" />
