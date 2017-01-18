@@ -159,8 +159,11 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.id_action_color_pick:
+            case R.id.id_action_text_color:
                 showColorPickerDialog();
+                break;
+            case R.id.id_action_background_color:
+                showBgColorPicker();
                 break;
             case R.id.id_action_share_fast_note:
                 item.setChecked(!item.isChecked());
@@ -179,7 +182,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
     private void showColorPickerDialog() {
         ColorPickerDialogBuilder
                 .with(this)
-                .setTitle("Choose color")
+                .setTitle("Choose text color")
                 .initialColor(FastNoteConfigUtil.getInstance(this).getColor())
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
@@ -193,6 +196,34 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                         //保存选择的颜色
                         FastNoteConfigUtil.getInstance(FastNoteActivity.this).setColor(selectedColor);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .build()
+                .show();
+    }
+
+    private void showBgColorPicker(){
+        ColorPickerDialogBuilder
+                .with(this)
+                .setTitle("Choose background color")
+                .initialColor(FastNoteConfigUtil.getInstance(this).getColor())
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                    }
+                })
+                .setPositiveButton("确定", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        //保存选择的颜色
+                        FastNoteConfigUtil.getInstance(FastNoteActivity.this).setBgColor(selectedColor);
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

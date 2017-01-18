@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
@@ -67,20 +67,19 @@ public class FastNoteProvider extends AppWidgetProvider {
     }
 
     private void setRvText(Context context, RemoteViews rvs) {
-        rvs.setTextViewText(R.id.id_tv_fast_note, Html.fromHtml(FastNoteConfigUtil.getInstance(context).getNote()));
-        rvs.setTextColor(R.id.id_tv_fast_note, FastNoteConfigUtil.getInstance(context).getColor());
-
-
+        //create the custom view ==> KnifeText
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        KnifeText customView = new KnifeText(context);
-//        rvs.ge
-        customView.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-        customView.layout(0, 0, width - 32, height);
+        KnifeText customView = (KnifeText) LayoutInflater.from(context).inflate(R.layout.item_knif_text, null);
+        //config custom view
+        customView.setLayoutParams(new LinearLayout.LayoutParams(width - 64, height));
+        customView.layout(0, 0, width - 64, height);
         customView.fromHtml(FastNoteConfigUtil.getInstance(context).getNote());
+        customView.setTextColor(FastNoteConfigUtil.getInstance(context).getColor());
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         customView.draw(new Canvas(bitmap));
         rvs.setImageViewBitmap(R.id.id_iv_fast_note, bitmap);
+        rvs.setInt(R.id.id_iv_fast_note, "setBackgroundColor", FastNoteConfigUtil.getInstance(context).getBgColor());
     }
 }

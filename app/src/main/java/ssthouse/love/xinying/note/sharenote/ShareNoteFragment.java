@@ -37,11 +37,11 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
 
     @Nullable
     @Bind(R.id.id_tv_your_note)
-    WebView tvYourNote;
+    WebView wbYourNote;
 
     @Nullable
     @Bind(R.id.id_tv_my_note)
-    WebView tvMyNote;
+    WebView wvMyNote;
 
     private ShareNotePresenter mPresenter;
 
@@ -73,8 +73,8 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
                     .into(ivStep3);
         } else {
             //init the webview setting
-            tvYourNote.getSettings().setDefaultFontSize(18);
-            tvMyNote.getSettings().setDefaultFontSize(18);
+            wbYourNote.getSettings().setDefaultFontSize(18);
+            wvMyNote.getSettings().setDefaultFontSize(18);
             mPresenter.loadSharedFastNote();
             loadLocalNote();
         }
@@ -95,7 +95,6 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
         if (item.getItemId() == R.id.id_action_refresh) {
             mPresenter.loadSharedFastNote();
             loadLocalNote();
-            //TODO
             //通知控件更新数据
             Intent intent = new Intent(getContext(), FastNoteProvider.class);
             intent.setAction(Constant.ACTION_NOTE_UPDATE);
@@ -105,14 +104,15 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
     }
 
     private void loadLocalNote() {
-        tvMyNote.loadData(FastNoteConfigUtil.getInstance(getContext()).getNote(), "text/html", "UTF-8");
-//        tvMyNote.setText(Html.fromHtml(FastNoteConfigUtil.getInstance(getContext()).getNote()));
+        if (wvMyNote != null)
+            wvMyNote.loadData(FastNoteConfigUtil.getInstance(getContext()).getNote(), "text/html", "utf-8");
     }
 
     @Override
     public void setYourNoteText(String noteStr) {
         if (noteStr == null)
             return;
-        tvYourNote.loadData(noteStr, "text/html", "UTF-8");
+        if (wbYourNote != null)
+            wbYourNote.loadData(noteStr, "text/html", "UTF-8");
     }
 }

@@ -30,6 +30,7 @@ public class FastNoteConfigUtil {
 
     private static final String KEY_NOTE = "note";
     private static final String KEY_COLOR = "color";
+    private static final String KEY_BG_COLOR = "bgColor";
     private static final String PREFER_FILE_NAME = "preference";
 
     private FastNoteConfigUtil(Context context) {
@@ -64,6 +65,15 @@ public class FastNoteConfigUtil {
         return sharedPreferences.getInt(KEY_COLOR, 0xffffffff);
     }
 
+    public void setBgColor(int color) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_BG_COLOR, color);
+        editor.apply();
+    }
+
+    public int getBgColor(){
+        return sharedPreferences.getInt(KEY_BG_COLOR, 0x00ffffff);
+    }
 
     public void pullFastNoteFromCloud() {
         final boolean isCony = PreferUtil.getInstance((Activity) mContext).isCony();
