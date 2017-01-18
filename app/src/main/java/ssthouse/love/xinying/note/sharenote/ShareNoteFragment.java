@@ -113,6 +113,6 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
         if (noteStr == null)
             return;
         if (wbYourNote != null)
-            wbYourNote.loadData(noteStr, "text/html", "UTF-8");
+            wbYourNote.loadData(noteStr, "text/html", "utf-8");
     }
 }

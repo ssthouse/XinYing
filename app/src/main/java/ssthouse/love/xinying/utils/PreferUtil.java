@@ -68,7 +68,8 @@ public class PreferUtil {
 
     //是否分享fastnote 默认为true
     public boolean isShareFastNote() {
-        return getBoolean(KEY_SHARE_FAST_NOTE, true);
+        //TODO: 为什么要有关闭选项呢?
+        return true;
     }
 
     public void setShareFastnNote(boolean isShare) {

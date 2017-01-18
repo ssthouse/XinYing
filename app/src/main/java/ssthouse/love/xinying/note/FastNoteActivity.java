@@ -243,6 +243,6 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
     @Override
     public String getFastNoteStr() {
-        return mEtFastNote.getText().toString();
+        return mEtFastNote.toHtml();
     }
 }
