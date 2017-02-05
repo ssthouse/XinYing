@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,12 +65,6 @@ public class TodoFragment extends BaseFragment {
         startUpdateTimeStr();
 
         listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TodoDetailAty.start(getContext(), mTodoModel.getTodoBeanList().get(position).getId());
-            }
-        });
 
         fabAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +123,7 @@ public class TodoFragment extends BaseFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
                 viewHolder = new ViewHolder();
@@ -143,6 +137,13 @@ public class TodoFragment extends BaseFragment {
             TodoBean bean = mTodoModel.getTodoBeanList().get(position);
             viewHolder.tvTodo.setText(bean.getContent());
             viewHolder.tvTimeLabel.setText(DateFormat.format("yyyy-MM-dd", bean.getDate()));
+            CardView cvItem = (CardView) convertView.findViewById(R.id.id_card_view);
+            cvItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TodoDetailAty.start(getContext(), mTodoModel.getTodoBeanList().get(position).getId());
+                }
+            });
             return convertView;
         }
     };
