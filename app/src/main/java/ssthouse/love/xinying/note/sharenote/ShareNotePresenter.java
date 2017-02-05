@@ -12,7 +12,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.note.FastNoteConfigUtil;
 import ssthouse.love.xinying.note.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
@@ -33,7 +32,8 @@ public class ShareNotePresenter {
     }
 
     public void loadSharedFastNote() {
-        mShareNoteView.setYourNoteText(mContext.getString(R.string.str_load_your_note));
+        //直接设置 raw string ===> 正在加载哦 :)
+        mShareNoteView.setYourNoteText(" &#27491;&#22312;&#21152;&#36733;&#21734; :)");
         Observable.just(PreferUtil.getInstance((Activity) mContext).isCony())
                 .subscribeOn(Schedulers.newThread())
                 .map(new Func1<Boolean, AVObject>() {
