@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.todo.bean;
+package ssthouse.love.xinying.time.bean;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

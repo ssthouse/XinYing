@@ -72,7 +72,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".todo.TodoDetailAty"
+            android:name=".time.TodoDetailAty"
             android:screenOrientation="portrait" />
 
         <!--widget-->

@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.todo;
+package ssthouse.love.xinying.time;
 
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +23,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
-import ssthouse.love.xinying.todo.bean.TodoBean;
+import ssthouse.love.xinying.time.bean.TodoBean;
 import ssthouse.love.xinying.utils.StringUtils;
 
 /**

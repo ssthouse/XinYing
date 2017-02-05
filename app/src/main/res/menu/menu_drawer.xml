@@ -17,7 +17,8 @@
 
         <item
             android:id="@+id/id_menu_leave_msg"
-            android:title="Leave msg" />
+            android:title="Leave msg"
+            android:visible="false" />
 
         <item
             android:id="@+id/id_menu_fist_impression"

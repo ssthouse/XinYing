@@ -1,4 +1,4 @@
-package ssthouse.love.xinying.todo;
+package ssthouse.love.xinying.time;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -19,7 +19,7 @@ import java.util.Date;
 import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
-import ssthouse.love.xinying.todo.bean.TodoBean;
+import ssthouse.love.xinying.time.bean.TodoBean;
 import ssthouse.love.xinying.utils.TimeUtil;
 import timber.log.Timber;
 
