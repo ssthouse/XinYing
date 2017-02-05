@@ -48,7 +48,7 @@ public class FastNoteProvider extends AppWidgetProvider {
         setRvClickListener(context, rvs);
         setRvText(context, rvs);
         appWidgetManager.updateAppWidget(appWidgetIds, rvs);
-        Timber.e("init widget");
+        // Timber.e("init widget");
     }
 
     private void updateWidget(Context context) {

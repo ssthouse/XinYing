@@ -17,7 +17,6 @@ public class PreferUtil {
     private static final String KEY_IS_CONY = "isCony";
     private static final String KEY_IS_FIST_IN = "isFistIn";
     private static final String KEY_LAST_SIGN_TIME_IN_MILLIS = "lastSignTimeInMillis";
-    private static final String KEY_SHARE_FAST_NOTE = "uploadFastNote";
 
     public static PreferUtil getInstance(Activity context) {
         if (mInstance == null)
@@ -64,16 +63,6 @@ public class PreferUtil {
 
     public void setLastSignTimeInMillis(String lastSignTimeInMillisStr) {
         setString(KEY_LAST_SIGN_TIME_IN_MILLIS, lastSignTimeInMillisStr);
-    }
-
-    //是否分享fastnote 默认为true
-    public boolean isShareFastNote() {
-        //TODO: 为什么要有关闭选项呢?
-        return true;
-    }
-
-    public void setShareFastnNote(boolean isShare) {
-        setBoolean(KEY_SHARE_FAST_NOTE, isShare);
     }
 
     /************************

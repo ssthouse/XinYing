@@ -33,8 +33,6 @@ import static ssthouse.love.xinying.time.TodoDetailAty.SUFFIX;
 
 /**
  * Created by ssthouse on 16/5/11.
- * TODO:
- * 点击 item --->  弹出 dialog 显示数据   可以编辑
  * 左滑显示删除按钮  ---> 点击删除 item
  */
 public class TodoFragment extends BaseFragment {

@@ -37,8 +37,6 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
 
     private boolean isNoteChanged = false;
 
-    private MenuItem mShareFastnoteMenuItem;
-
     private FastNotePresenter mPresenter = new FastNotePresenter(this, this);
 
     @Override
@@ -120,7 +118,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
     }
 
     @OnClick(R.id.id_btn_underline)
-    public void onUnserlineClick() {
+    public void onUnderlineClick() {
         mEtFastNote.underline(!mEtFastNote.contains(KnifeText.FORMAT_UNDERLINED));
     }
 
@@ -144,14 +142,13 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         Intent intent = new Intent(this, FastNoteProvider.class);
         intent.setAction(Constant.ACTION_NOTE_UPDATE);
         sendBroadcast(intent);
-        if (isNoteChanged && PreferUtil.getInstance(this).isShareFastNote())
+        if (isNoteChanged)
             mPresenter.uploadFastNote();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_fast_note, menu);
-        mShareFastnoteMenuItem = menu.getItem(1);
         return true;
     }
 
@@ -165,18 +162,8 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
             case R.id.id_action_background_color:
                 showBgColorPicker();
                 break;
-            case R.id.id_action_share_fast_note:
-                item.setChecked(!item.isChecked());
-                PreferUtil.getInstance(this).setShareFastnNote(item.isChecked());
-                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onMenuOpened(int featureId, Menu menu) {
-        mShareFastnoteMenuItem.setChecked(PreferUtil.getInstance(this).isShareFastNote());
-        return super.onMenuOpened(featureId, menu);
     }
 
     private void showColorPickerDialog() {
@@ -207,7 +194,7 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
                 .show();
     }
 
-    private void showBgColorPicker(){
+    private void showBgColorPicker() {
         ColorPickerDialogBuilder
                 .with(this)
                 .setTitle("Choose background color")

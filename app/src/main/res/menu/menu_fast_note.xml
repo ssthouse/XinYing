@@ -19,6 +19,6 @@
         android:checkable="true"
         android:orderInCategory="300"
         android:title="Share fastnote"
-        app:showAsAction="never" />
+        android:visible="false" />
 
 </menu>
