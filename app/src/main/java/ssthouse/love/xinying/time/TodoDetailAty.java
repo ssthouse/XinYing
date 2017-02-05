@@ -14,6 +14,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Date;
 
 import butterknife.Bind;
@@ -21,7 +25,6 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.time.bean.TodoBean;
 import ssthouse.love.xinying.utils.TimeUtil;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 17/12/2016.
@@ -43,13 +46,13 @@ public class TodoDetailAty extends BaseActivity {
 
     private TodoBean mTodoBean;
 
-    private static final String KEY_TODO_BEAN = "todoBean";
+    private static final String KEY_TODO_BEAN_ID = "todoBeanId";
 
-    private static final String DAY_PREFIX = "天";
+    private static final String SUFFIX = "天";
 
-    public static void start(Context context, TodoBean todoBean) {
+    public static void start(Context context, Long todoBeanId) {
         Intent intent = new Intent(context, TodoDetailAty.class);
-        intent.putExtra(KEY_TODO_BEAN, todoBean);
+        intent.putExtra(KEY_TODO_BEAN_ID, todoBeanId);
         context.startActivity(intent);
     }
 
@@ -57,7 +60,11 @@ public class TodoDetailAty extends BaseActivity {
     public void init() {
         initToolbar();
 
-        mTodoBean = (TodoBean) getIntent().getSerializableExtra(KEY_TODO_BEAN);
+        long todoBeanId = getIntent().getLongExtra(KEY_TODO_BEAN_ID, 0);
+        mTodoBean = new Select()
+                .from(TodoBean.class)
+                .where("id = ?", todoBeanId)
+                .executeSingle();
         if (mTodoBean == null) {
             return;
         }
@@ -76,10 +83,8 @@ public class TodoDetailAty extends BaseActivity {
                 new DatePickerDialog(TodoDetailAty.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mTodoBean.getDate().setYear(year - 1900);
-                        mTodoBean.getDate().setMonth(monthOfYear);
-                        mTodoBean.getDate().setDate(dayOfMonth );
-                        Timber.e("set date");
+                        mTodoBean.setDate(new Date(year - 1900, monthOfYear, dayOfMonth));
+                        // Timber.e("set date: " + mTodoBean.getDate().toString());
                         refreshUI();
                     }
                 }, curDate.getYear() + 1900, curDate.getMonth(), curDate.getDate() - 1).show();
@@ -114,7 +119,7 @@ public class TodoDetailAty extends BaseActivity {
         //update ui according to the new date
         Date curDate = new Date();
         mTvTime.setText(DateFormat.format("yyyy-MM-dd", mTodoBean.getDate()));
-        mTvDays.setText(TimeUtil.dayInterval(mTodoBean.getDate(), curDate) + DAY_PREFIX);
+        mTvDays.setText(TimeUtil.dayInterval(mTodoBean.getDate(), curDate) + SUFFIX);
     }
 
     @Override
@@ -136,6 +141,7 @@ public class TodoDetailAty extends BaseActivity {
                 break;
             case R.id.id_action_save:
                 mTodoBean.save();
+                EventBus.getDefault().post(new TodoFragment.TodoItemChangEvent());
                 finish();
                 break;
         }

@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rx.Observable;
-import rx.functions.Func1;
 import ssthouse.love.xinying.time.bean.TodoBean;
-import timber.log.Timber;
 
 /**
  * 数据操作Model:
@@ -23,27 +20,28 @@ public class TodoModel {
 
     private Context mContext;
 
+    private List<TodoBean> mTodoBeanList;
+
     public TodoModel(Context mContext) {
         this.mContext = mContext;
     }
 
-    // TODO: 30/10/2016
-    public Observable<List<TodoBean>> getTodoList() {
-        List<TodoBean> todoBeanList = new Select()
-                .from(TodoBean.class)
-                .execute();
-        Timber.e(todoBeanList.toString());
+    public List<TodoBean> getTodoBeanList() {
+        if (mTodoBeanList == null) {
+            mTodoBeanList = new Select()
+                    .from(TodoBean.class)
+                    .orderBy("time DESC")
+                    .execute();
 
-        return Observable.just("").map(new Func1<String, List<TodoBean>>() {
-            @Override
-            public List<TodoBean> call(String s) {
-                List<TodoBean> todoBeanList = new Select()
-                        .from(TodoBean.class)
-                        .execute();
-                Timber.e(todoBeanList.toString());
-                return todoBeanList;
-            }
-        });
+        }
+        return mTodoBeanList;
+    }
+
+    public void reloadTodoBeanList() {
+        mTodoBeanList = new Select()
+                .from(TodoBean.class)
+                .orderBy("time DESC")
+                .execute();
     }
 
     public void saveSomeTestTodoBean() {

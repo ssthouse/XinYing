@@ -1,7 +1,10 @@
 package ssthouse.love.xinying.time;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +15,14 @@ import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import lumenghz.com.pullrefresh.PullToRefreshView;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.time.bean.TodoBean;
@@ -48,8 +50,6 @@ public class TodoFragment extends BaseFragment {
     @Bind(R.id.id_fab_add)
     FloatingActionButton fabAddTodo;
 
-    private List<TodoBean> mTodoBeanList = new ArrayList<>();
-
     private CustomHandler handler = new CustomHandler(this);
 
     private TodoModel mTodoModel = new TodoModel(this.getContext());
@@ -64,48 +64,33 @@ public class TodoFragment extends BaseFragment {
         initLoveTime();
         startUpdateTimeStr();
 
-        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mTodoModel.getTodoList()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<TodoBean>>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                e.printStackTrace();
-                            }
-
-                            @Override
-                            public void onNext(List<TodoBean> todoBeanList) {
-                                mTodoBeanList.clear();
-                                mTodoBeanList.addAll(todoBeanList);
-                                mAdapter.notifyDataSetChanged();
-                                mPullToRefreshView.setRefreshing(false);
-                            }
-                        });
-            }
-        });
-
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TodoDetailAty.start(getContext(), mTodoBeanList.get(position));
+                TodoDetailAty.start(getContext(), mTodoModel.getTodoBeanList().get(position).getId());
             }
         });
 
         fabAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTodoModel.saveSomeTestTodoBean();
+                //TODO
             }
         });
+
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshTodoItemList();
+            }
+        });
+    }
+
+    private void refreshTodoItemList() {
+        mTodoModel.reloadTodoBeanList();
+        mAdapter.notifyDataSetChanged();
+        mPullToRefreshView.setRefreshing(false);
     }
 
     private void initLoveTime() {
@@ -118,6 +103,11 @@ public class TodoFragment extends BaseFragment {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTodoItemChangeEvent(TodoItemChangEvent event) {
+        refreshTodoItemList();
+    }
+
     private void startUpdateTimeStr() {
         handler.sendEmptyMessage(MSG_UPDATE_TIME);
     }
@@ -125,12 +115,12 @@ public class TodoFragment extends BaseFragment {
     private BaseAdapter mAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
-            return mTodoBeanList.size();
+            return mTodoModel.getTodoBeanList().size();
         }
 
         @Override
         public Object getItem(int position) {
-            return mTodoBeanList.get(position);
+            return mTodoModel.getTodoBeanList().get(position);
         }
 
         @Override
@@ -150,8 +140,9 @@ public class TodoFragment extends BaseFragment {
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.tvTodo.setText(mTodoBeanList.get(position).getContent());
-            viewHolder.tvTimeLabel.setText(mTodoBeanList.get(position).getDate().toString());
+            TodoBean bean = mTodoModel.getTodoBeanList().get(position);
+            viewHolder.tvTodo.setText(bean.getContent());
+            viewHolder.tvTimeLabel.setText(DateFormat.format("yyyy-MM-dd", bean.getDate()));
             return convertView;
         }
     };
@@ -184,4 +175,21 @@ public class TodoFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 表示 TodoItem 数据有变化的 event
+     * Created by ssthouse on 05/02/2017.
+     */
+    public static class TodoItemChangEvent {
+    }
 }

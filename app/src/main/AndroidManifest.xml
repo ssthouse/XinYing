@@ -106,7 +106,7 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="ssthouse.love.xinying.todo.bean.TodoBean" />
+            android:value="ssthouse.love.xinying.time.bean.TodoBean" />
     </application>
 
 </manifest>

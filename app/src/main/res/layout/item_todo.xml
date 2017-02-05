@@ -17,10 +17,12 @@
 
             <TextView
                 android:id="@+id/id_tv_todo"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:text="TODO"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="TODwealjkgnwejkgnewjakgO"
                 android:textSize="18sp" />
 
             <android.support.v4.widget.Space
