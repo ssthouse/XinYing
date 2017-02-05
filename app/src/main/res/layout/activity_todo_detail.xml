@@ -103,6 +103,21 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/id_tv_delete"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/btn_round_accent"
+                android:gravity="center"
+                android:text="DELETE"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

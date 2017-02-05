@@ -41,7 +41,7 @@ public class TimeUtil {
             }
             // Timber.e(date.getYear() + "  " + date.getMonth() + "  " + date.getDate() + "   " + date.getTime());
         }
-        return (int) ((fistDate.getTime() - secDate.getTime()) / (24 * 60 * 60 * 1000));
+        return (int) ((dates[0].getTime() - dates[1].getTime()) / (24 * 60 * 60 * 1000));
     }
 
 }

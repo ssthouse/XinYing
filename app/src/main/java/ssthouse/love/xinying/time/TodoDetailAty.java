@@ -25,6 +25,8 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.time.bean.TodoBean;
 import ssthouse.love.xinying.utils.TimeUtil;
+import ssthouse.love.xinying.utils.ToastUtil;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 17/12/2016.
@@ -44,11 +46,17 @@ public class TodoDetailAty extends BaseActivity {
     @Bind(R.id.id_tv_days)
     TextView mTvDays;
 
+    @Bind(R.id.id_tv_delete)
+    TextView tvDelete;
+
     private TodoBean mTodoBean;
 
-    private static final String KEY_TODO_BEAN_ID = "todoBeanId";
+    private boolean isNewTodoItem = false;
 
-    private static final String SUFFIX = "天";
+    private static final String KEY_TODO_BEAN_ID = "todoBeanId";
+    public static final long NEW_TODO_ITEM_ID = -1;
+
+    public static final String SUFFIX = "天";
 
     public static void start(Context context, Long todoBeanId) {
         Intent intent = new Intent(context, TodoDetailAty.class);
@@ -59,20 +67,36 @@ public class TodoDetailAty extends BaseActivity {
     @Override
     public void init() {
         initToolbar();
-
-        long todoBeanId = getIntent().getLongExtra(KEY_TODO_BEAN_ID, 0);
-        mTodoBean = new Select()
-                .from(TodoBean.class)
-                .where("id = ?", todoBeanId)
-                .executeSingle();
-        if (mTodoBean == null) {
-            return;
+        // 取得 TodoItem 实例
+        long todoBeanId = getIntent().getLongExtra(KEY_TODO_BEAN_ID, -1);
+        if (todoBeanId == -1) {
+            isNewTodoItem = true;
+            mTodoBean = new TodoBean("say something", new Date());
+        } else {
+            mTodoBean = new Select()
+                    .from(TodoBean.class)
+                    .where("id = ?", todoBeanId)
+                    .executeSingle();
+            if (mTodoBean == null) {
+                ToastUtil.show(this, "Something is wrong, better call your giant baby :)");
+                finish();
+            }
         }
-
-        refreshUI();
-        mEtContent.setText(mTodoBean.getContent());
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isNewTodoItem) {
+                    return;
+                }
+                mTodoBean.delete();
+                ToastUtil.show(TodoDetailAty.this, "deleted");
+                EventBus.getDefault().post(new TodoFragment.TodoItemChangEvent());
+                finish();
+            }
+        });
 
         initTimeChooser();
+        refreshUI();
     }
 
     private void initTimeChooser() {
@@ -83,11 +107,15 @@ public class TodoDetailAty extends BaseActivity {
                 new DatePickerDialog(TodoDetailAty.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mTodoBean.setDate(new Date(year - 1900, monthOfYear, dayOfMonth));
-                        // Timber.e("set date: " + mTodoBean.getDate().toString());
+                        Date newDate = new Date();
+                        newDate.setYear(year - 1900);
+                        newDate.setMonth(monthOfYear);
+                        newDate.setDate(dayOfMonth);
+                        mTodoBean.setDate(newDate);
+                         Timber.e("set date: " + mTodoBean.getDate().toString());
                         refreshUI();
                     }
-                }, curDate.getYear() + 1900, curDate.getMonth(), curDate.getDate() - 1).show();
+                }, curDate.getYear() + 1900, curDate.getMonth(), curDate.getDate()).show();
             }
         });
 
@@ -111,15 +139,15 @@ public class TodoDetailAty extends BaseActivity {
 
     private void initToolbar() {
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Title");
+        getSupportActionBar().setTitle("Time flies");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void refreshUI() {
         //update ui according to the new date
-        Date curDate = new Date();
         mTvTime.setText(DateFormat.format("yyyy-MM-dd", mTodoBean.getDate()));
-        mTvDays.setText(TimeUtil.dayInterval(mTodoBean.getDate(), curDate) + SUFFIX);
+        mTvDays.setText(TimeUtil.dayInterval(mTodoBean.getDate(), new Date()) + SUFFIX);
+        mEtContent.setText(mTodoBean.getContent());
     }
 
     @Override

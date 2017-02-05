@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
+import java.util.Date;
 
 import butterknife.Bind;
 import lumenghz.com.pullrefresh.PullToRefreshView;
@@ -27,6 +27,9 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.time.bean.TodoBean;
 import ssthouse.love.xinying.utils.StringUtils;
+import ssthouse.love.xinying.utils.TimeUtil;
+
+import static ssthouse.love.xinying.time.TodoDetailAty.SUFFIX;
 
 /**
  * Created by ssthouse on 16/5/11.
@@ -69,7 +72,7 @@ public class TodoFragment extends BaseFragment {
         fabAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                TodoDetailAty.start(getContext(), TodoDetailAty.NEW_TODO_ITEM_ID);
             }
         });
 
@@ -136,7 +139,8 @@ public class TodoFragment extends BaseFragment {
             }
             TodoBean bean = mTodoModel.getTodoBeanList().get(position);
             viewHolder.tvTodo.setText(bean.getContent());
-            viewHolder.tvTimeLabel.setText(DateFormat.format("yyyy-MM-dd", bean.getDate()));
+            //显示天数
+            viewHolder.tvTimeLabel.setText(TimeUtil.dayInterval(bean.getDate(), new Date()) + SUFFIX);
             CardView cvItem = (CardView) convertView.findViewById(R.id.id_card_view);
             cvItem.setOnClickListener(new View.OnClickListener() {
                 @Override
