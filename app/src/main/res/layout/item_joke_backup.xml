@@ -26,17 +26,35 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/id_btn_remove"
-                android:layout_width="72dp"
-                android:layout_height="28dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/btn_round_accent"
-                android:src="@drawable/ic_action_cancel"
-                android:text="Remove"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/id_btn_remove"
+                    android:layout_width="72dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/btn_round_accent"
+                    android:src="@drawable/ic_action_cancel"
+                    android:text="Remove"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/id_btn_copy"
+                    android:layout_width="72dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/btn_round_accent"
+                    android:src="@drawable/ic_action_cancel"
+                    android:text="Copy"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

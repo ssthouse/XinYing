@@ -1,5 +1,8 @@
 package ssthouse.love.xinying.jokebackup;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +86,7 @@ public class JokeBackupFragment extends BaseFragment {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.item_joke_backup, parent, false);
                 viewHolder.tvJokeContent = (TextView) convertView.findViewById(R.id.id_tv_joke_content);
                 viewHolder.btnRemove = (Button) convertView.findViewById(R.id.id_btn_remove);
+                viewHolder.btnCopy = (Button) convertView.findViewById(R.id.id_btn_copy);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -96,6 +100,15 @@ public class JokeBackupFragment extends BaseFragment {
                     mJokeListAdapter.notifyDataSetChanged();
                 }
             });
+            viewHolder.btnCopy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData jokeData = ClipData.newPlainText("simple text", mJokeList.get(position));
+                    clipboardManager.setPrimaryClip(jokeData);
+                    ToastUtil.show(getContext(), "Copied!");
+                }
+            });
             return convertView;
         }
     };
@@ -103,5 +116,6 @@ public class JokeBackupFragment extends BaseFragment {
     class ViewHolder {
         TextView tvJokeContent;
         Button btnRemove;
+        Button btnCopy;
     }
 }

@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 dependencies {
@@ -46,9 +49,9 @@ dependencies {
     //permission
     compile 'com.mylhyl:acp:1.1.6'
     //leancloud: 基础包, 推送与实时聊天需要的包,  用户反馈包
-    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
-    compile ('cn.leancloud.android:avoscloud-push:v3.+@aar'){transitive = true}
-    compile ('cn.leancloud.android:avoscloud-feedback:v3.+@aar')
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
+    compile('cn.leancloud.android:avoscloud-push:v3.+@aar') { transitive = true }
+    compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
     //颜色拾取器
     compile 'com.github.QuadFlask:colorpicker:0.0.11'
     //特效Edittext
