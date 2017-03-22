@@ -20,6 +20,12 @@
             android:title="Leave msg"
             android:visible="false" />
 
+        <!--only for giant baby to see-->
+        <item
+            android:id="@+id/id_menu_joke_backup"
+            android:title="JokeBackup"
+            android:visible="false" />
+
         <item
             android:id="@+id/id_menu_fist_impression"
             android:title="Setting">

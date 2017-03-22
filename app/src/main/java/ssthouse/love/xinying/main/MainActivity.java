@@ -154,6 +154,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_joke:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE;
                         break;
+                    case R.id.id_menu_joke_backup:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE_BACKUP;
+                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                     default:
@@ -164,6 +167,9 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        // 显示JokeBackUp选项
+        boolean isGiantBaby = !PreferUtil.getInstance(this).isCony();
+        navigationView.getMenu().findItem(R.id.id_menu_joke_backup).setVisible(isGiantBaby);
     }
 
     private void updateBtnSign() {
