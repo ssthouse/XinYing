@@ -4,8 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <EditText
+        android:id="@+id/id_et_joke_input"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="JokeBackup" />
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:hint="Input the good joke." />
+
+    <Button
+        android:id="@+id/id_btn_ensure"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_round_accent"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/id_lv_joke_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1" />
 </LinearLayout>

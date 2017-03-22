@@ -22,7 +22,6 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.utils.Constant;
 import ssthouse.love.xinying.utils.PreferUtil;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 16/9/3.
@@ -136,7 +135,6 @@ public class FastNoteActivity extends BaseActivity implements IFastNoteView {
         String str = mEtFastNote.toHtml();
         str = str.replace("<del>", "<strike>");
         str = str.replace("</del>", "</strike>");
-        Timber.e(str);
         FastNoteConfigUtil.getInstance(this).saveNote(str);
         //通知控件更新数据
         Intent intent = new Intent(this, FastNoteProvider.class);

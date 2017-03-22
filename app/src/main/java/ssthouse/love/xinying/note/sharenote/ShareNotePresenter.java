@@ -16,6 +16,7 @@ import ssthouse.love.xinying.note.FastNoteConfigUtil;
 import ssthouse.love.xinying.note.bean.FastNoteBean;
 import ssthouse.love.xinying.utils.PreferUtil;
 import ssthouse.love.xinying.utils.ToastUtil;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 09/11/2016.
@@ -45,7 +46,7 @@ public class ShareNotePresenter {
                         try {
                             fastNoteObj = fastNoteQuery.getFirst();
                         } catch (AVException e) {
-                            ToastUtil.show(mContext, e.getMessage());
+                            Timber.e(e.getMessage());
                             e.printStackTrace();
                         }
                         return fastNoteObj;
@@ -59,10 +60,12 @@ public class ShareNotePresenter {
                         if (fastNoteObj == null) {
                             fastNoteStr = "获取" + (PreferUtil.getInstance((Activity) mContext).isCony() ? "大宝宝" : "小宝宝")
                                     + "的fastnote失败";
+                            ToastUtil.show(mContext, fastNoteStr);
                         } else {
                             fastNoteStr = fastNoteObj.getString(FastNoteBean.KEY_CONTENT);
+                            mShareNoteView.setYourNoteText(fastNoteStr);
+
                         }
-                        mShareNoteView.setYourNoteText(fastNoteStr);
                     }
                 });
     }

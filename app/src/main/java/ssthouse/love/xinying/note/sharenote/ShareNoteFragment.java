@@ -56,6 +56,33 @@ public class ShareNoteFragment extends BaseFragment implements IShareNoteView {
 
     @Override
     public void init() {
+//        mPresenter = new ShareNotePresenter(getContext(), this);
+//        initFragmentMenu();
+//        if (PreferUtil.getInstance(getActivity()).isFistIn()) {
+//            Picasso.with(getContext())
+//                    .load(R.drawable.step_1)
+//                    .resize(480, 854)
+//                    .into(ivStep1);
+//            Picasso.with(getContext())
+//                    .load(R.drawable.step_2)
+//                    .resize(480, 854)
+//                    .into(ivStep2);
+//            Picasso.with(getContext())
+//                    .load(R.drawable.step_3)
+//                    .resize(480, 854)
+//                    .into(ivStep3);
+//        } else {
+//            //init the webview setting
+//            wbYourNote.getSettings().setDefaultFontSize(18);
+//            wvMyNote.getSettings().setDefaultFontSize(18);
+//            mPresenter.loadSharedFastNote();
+//            loadLocalNote();
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mPresenter = new ShareNotePresenter(getContext(), this);
         initFragmentMenu();
         if (PreferUtil.getInstance(getActivity()).isFistIn()) {
