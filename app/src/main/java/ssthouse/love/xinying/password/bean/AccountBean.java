@@ -12,13 +12,24 @@ public class AccountBean extends RealmObject {
     @PrimaryKey
     private int id;
 
+    private String serviceName;
+
     private String description;
 
     private String username;
 
     private String password;
 
+
     // getter setter
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
     public int getId() {
         return id;
     }
