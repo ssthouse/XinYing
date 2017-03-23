@@ -26,6 +26,12 @@
             android:title="JokeBackup"
             android:visible="false" />
 
+        <!--only for giant baby to see-->
+        <item
+            android:id="@+id/id_menu_password"
+            android:title="Password"
+            android:visible="false" />
+
         <item
             android:id="@+id/id_menu_fist_impression"
             android:title="Setting">

@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
-                String toFragmentKey;
+                String toFragmentKey = "";
                 switch (item.getItemId()) {
                     case R.id.id_menu_main:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
@@ -157,8 +157,12 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_joke_backup:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE_BACKUP;
                         break;
+                    case R.id.id_menu_password:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_PASSWORD;
+                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
+                        break;
                     default:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
                         break;
@@ -170,6 +174,7 @@ public class MainActivity extends BaseActivity {
         // 显示JokeBackUp选项
         boolean isGiantBaby = !PreferUtil.getInstance(this).isCony();
         navigationView.getMenu().findItem(R.id.id_menu_joke_backup).setVisible(isGiantBaby);
+        navigationView.getMenu().findItem(R.id.id_menu_password).setVisible(isGiantBaby);
     }
 
     private void updateBtnSign() {
