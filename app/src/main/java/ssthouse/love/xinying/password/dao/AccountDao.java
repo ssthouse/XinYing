@@ -17,8 +17,10 @@ public class AccountDao {
     }
 
     public RealmResults<AccountBean> getAllAccounts() {
-        //TODO
+        //TODO to be judged
         return mRealm.where(AccountBean.class)
-                .findAll();
+                .findAllSorted("serviceName");
     }
+
+
 }

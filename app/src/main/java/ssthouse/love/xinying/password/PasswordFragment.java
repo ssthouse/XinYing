@@ -66,12 +66,21 @@ public class PasswordFragment extends BaseFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //TODO filter the display list
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //TODO filter the display list
+                //clear former list
+                mDisplayAccountBeanList.clear();
+                //judge every account
+                for (AccountBean accountBean : mAccountBeanList) {
+                    if (accountBean.getServiceName().contains(s) || accountBean.getDescription().contains(s)) {
+                        mDisplayAccountBeanList.add(accountBean);
+                    }
+                }
+                //refresh ui
+                mAccountAdapter.notifyDataSetChanged();
             }
         });
 
