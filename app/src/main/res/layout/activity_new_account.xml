@@ -126,14 +126,14 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/id_btn_ensure"
+                android:id="@+id/id_btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_round_accent"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="Ensure"
+                android:text="Delete"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>

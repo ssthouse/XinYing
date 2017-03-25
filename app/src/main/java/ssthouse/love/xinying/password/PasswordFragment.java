@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.password.bean.AccountBean;
 import ssthouse.love.xinying.password.dao.AccountDao;
+import timber.log.Timber;
 
 /**
  * Created by ssthouse on 23/03/2017.
@@ -44,7 +46,7 @@ public class PasswordFragment extends BaseFragment {
 
     @OnClick(R.id.id_btn_add_account)
     public void onAddAccountClicked() {
-        NewAccountActivity.start(getContext());
+        NewAccountActivity.start(getContext(), NewAccountActivity.DEFAULT_ACCOUNT_BEAN_ID);
     }
 
     @Override
@@ -85,6 +87,12 @@ public class PasswordFragment extends BaseFragment {
         });
 
         mLvAccount.setAdapter(mAccountAdapter);
+        mLvAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Timber.e("**************on item clicked");
+            }
+        });
     }
 
     private BaseAdapter mAccountAdapter = new BaseAdapter() {

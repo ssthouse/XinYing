@@ -12,7 +12,7 @@
         android:hint="Input the good joke." />
 
     <Button
-        android:id="@+id/id_btn_ensure"
+        android:id="@+id/id_btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_gravity="right"

@@ -90,6 +90,9 @@ public class MainActivity extends BaseActivity {
     private void initDrawerNameAndAvatar() {
         TextView tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ImageView ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+        if (ivAvatar == null) {
+            Timber.e("what the fuck!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         int drawableId;
         String nameStr;
         if (PreferUtil.getInstance(this).isCony()) {

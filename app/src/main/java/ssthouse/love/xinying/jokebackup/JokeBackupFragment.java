@@ -37,7 +37,7 @@ public class JokeBackupFragment extends BaseFragment {
 
     private JokeBackupManager mJokeManager;
 
-    @OnClick(R.id.id_btn_ensure)
+    @OnClick(R.id.id_btn_delete)
     public void onEnsureClick() {
         String curJoke = mEtJokeInput.getText().toString();
         if (TextUtils.isEmpty(curJoke)) {

@@ -23,4 +23,15 @@ public class AccountDao {
     }
 
 
+    public AccountBean getAccountBean(int accountBeanId) {
+        return mRealm.where(AccountBean.class)
+                .equalTo("id", accountBeanId)
+                .findFirst();
+    }
+
+    public static int getNextId() {
+        Number num = Realm.getDefaultInstance().where(AccountBean.class).max("id");
+        int result = num == null ? 0 : num.intValue() + 1;
+        return result;
+    }
 }
