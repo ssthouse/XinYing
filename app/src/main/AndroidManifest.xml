@@ -76,7 +76,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".password.NewAccountActivity"
+            android:name=".password.AccountDetailActivity"
             android:screenOrientation="portrait" />
 
         <!--widget-->

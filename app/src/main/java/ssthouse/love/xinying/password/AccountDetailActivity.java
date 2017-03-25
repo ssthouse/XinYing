@@ -27,7 +27,7 @@ import timber.log.Timber;
  * Created by ssthouse on 23/03/2017.
  */
 
-public class NewAccountActivity extends BaseActivity {
+public class AccountDetailActivity extends BaseActivity {
 
     @Bind(R.id.id_tb)
     Toolbar mToolbar;
@@ -53,7 +53,7 @@ public class NewAccountActivity extends BaseActivity {
     private AccountBean mAccountBean;
 
     public static void start(Context context, int accountBeanId) {
-        Intent intent = new Intent(context, NewAccountActivity.class);
+        Intent intent = new Intent(context, AccountDetailActivity.class);
         intent.putExtra(KEY_ACCOUNT_KEY, accountBeanId);
         context.startActivity(intent);
     }
@@ -85,7 +85,8 @@ public class NewAccountActivity extends BaseActivity {
                     @Override
                     public void execute(Realm realm) {
                         mAccountBean.deleteFromRealm();
-                        ToastUtil.show(NewAccountActivity.this, "成功移除账号 :)");
+                        ToastUtil.show(AccountDetailActivity.this, "成功移除账号 :)");
+                        EventBus.getDefault().post(new AccountChangeEvent());
                         finish();
                     }
                 });
@@ -101,7 +102,7 @@ public class NewAccountActivity extends BaseActivity {
 
     @Override
     public int getContentView() {
-        return R.layout.activity_new_account;
+        return R.layout.activity_account_detail;
     }
 
     @Override
@@ -121,7 +122,6 @@ public class NewAccountActivity extends BaseActivity {
     }
 
     private void saveAccountBean() {
-        //TODO: 赋值给一个新的
         Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -132,7 +132,7 @@ public class NewAccountActivity extends BaseActivity {
                 } else {
                     realm.copyToRealmOrUpdate(fillInAccountBean());
                 }
-                ToastUtil.show(NewAccountActivity.this, "保存成功");
+                ToastUtil.show(AccountDetailActivity.this, "保存成功");
                 EventBus.getDefault().post(new AccountChangeEvent());
                 finish();
             }
