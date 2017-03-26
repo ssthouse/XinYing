@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by ssthouse on 01/11/2016.
  */
@@ -41,11 +43,12 @@ public abstract class BaseFragmentManager {
     }
 
     public void change2Fragment(String key) {
+        Timber.e(key + "*****************");
         if (!mFragmentMap.keySet().contains(key))
             return;
-        mFragmentManager.beginTransaction()
-                .show(mFragmentMap.get(key))
-                .commit();
+//        mFragmentManager.beginTransaction()
+//                .show(mFragmentMap.get(key))
+//                .commit();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         for (String strKey : mFragmentMap.keySet()) {
             fragmentTransaction.hide(mFragmentMap.get(strKey));
@@ -54,5 +57,17 @@ public abstract class BaseFragmentManager {
         mFragmentManager.beginTransaction()
                 .show(mFragmentMap.get(key))
                 .commit();
+    }
+
+    public void changeFragment(String key, Fragment fragment) {
+        if (!mFragmentMap.keySet().contains(key)) {
+            return;
+        }
+        Fragment formerFragment = mFragmentMap.get(key);
+        mFragmentManager.beginTransaction()
+                .remove(formerFragment)
+                .add(mFragmentId, fragment)
+                .commit();
+        mFragmentMap.put(key, fragment);
     }
 }

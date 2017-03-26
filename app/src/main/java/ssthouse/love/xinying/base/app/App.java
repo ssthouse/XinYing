@@ -6,6 +6,8 @@ import com.activeandroid.ActiveAndroid;
 import com.avos.avoscloud.AVOSCloud;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import timber.log.Timber;
 
 /**
@@ -24,6 +26,11 @@ public class App extends Application {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
-        ActiveAndroid.initialize(this   );
+        //TODO change from activeAndroid to Realm later
+        ActiveAndroid.initialize(this);
+        //Realm
+        Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 }

@@ -75,6 +75,10 @@
             android:name=".time.TodoDetailAty"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".password.AccountDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!--widget-->
         <receiver android:name=".note.FastNoteProvider">
             <intent-filter>

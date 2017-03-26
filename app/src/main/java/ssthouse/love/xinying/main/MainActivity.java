@@ -1,5 +1,7 @@
 package ssthouse.love.xinying.main;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -19,6 +21,10 @@ import com.squareup.picasso.Picasso;
 import com.umeng.message.PushAgent;
 import com.vdurmont.emoji.EmojiParser;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.Bind;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,6 +35,9 @@ import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.SettingActivity;
 import ssthouse.love.xinying.base.BaseActivity;
 import ssthouse.love.xinying.main.bean.SignNumberBean;
+import ssthouse.love.xinying.password.PasswordFragment;
+import ssthouse.love.xinying.password.UserVerifyFragment;
+import ssthouse.love.xinying.password.bean.ChangePasswordFragmentEvent;
 import ssthouse.love.xinying.utils.ActivityUtil;
 import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
@@ -90,6 +99,9 @@ public class MainActivity extends BaseActivity {
     private void initDrawerNameAndAvatar() {
         TextView tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ImageView ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
+        if (ivAvatar == null) {
+            Timber.e("what the fuck!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         int drawableId;
         String nameStr;
         if (PreferUtil.getInstance(this).isCony()) {
@@ -140,7 +152,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
-                String toFragmentKey;
+                String toFragmentKey = "";
                 switch (item.getItemId()) {
                     case R.id.id_menu_main:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
@@ -157,8 +169,12 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_joke_backup:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE_BACKUP;
                         break;
+                    case R.id.id_menu_password:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_PASSWORD;
+                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
+                        break;
                     default:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
                         break;
@@ -170,6 +186,7 @@ public class MainActivity extends BaseActivity {
         // 显示JokeBackUp选项
         boolean isGiantBaby = !PreferUtil.getInstance(this).isCony();
         navigationView.getMenu().findItem(R.id.id_menu_joke_backup).setVisible(isGiantBaby);
+        navigationView.getMenu().findItem(R.id.id_menu_password).setVisible(isGiantBaby);
     }
 
     private void updateBtnSign() {
@@ -228,5 +245,28 @@ public class MainActivity extends BaseActivity {
                         ToastUtil.show(MainActivity.this, toastStr);
                     }
                 });
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onChangePasswordFragmentEvent(ChangePasswordFragmentEvent event) {
+        Timber.e("change to password fragment: " + event.isToPassword());
+        if (event.isToPassword()) {
+            mFragmentManager.changeFragment(MainFragmentManager.KEY_FRAGMENT_PASSWORD, new PasswordFragment());
+        } else {
+            mFragmentManager.changeFragment(MainFragmentManager.KEY_FRAGMENT_PASSWORD, new UserVerifyFragment());
+        }
+        mFragmentManager.change2Fragment(MainFragmentManager.KEY_FRAGMENT_PASSWORD);
     }
 }

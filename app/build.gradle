@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "ssthouse.love.xinying"
@@ -25,17 +26,16 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:cardview-v7:25.1.1'
     //Log
     compile 'com.jakewharton.timber:timber:4.1.2'
     //图片加载
     compile 'com.squareup.picasso:picasso:2.5.2'
-    //ImageView
-    compile 'com.android.support:cardview-v7:23.0.+'
     //Rx
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
@@ -45,6 +45,7 @@ dependencies {
     compile 'com.vdurmont:emoji-java:3.1.3'
     //jump beans
     compile 'net.frakbot:jumpingbeans:1.3.0'
+    //Push service
     compile project(':PushSDK')
     //permission
     compile 'com.mylhyl:acp:1.1.6'
@@ -54,7 +55,7 @@ dependencies {
     compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
     //颜色拾取器
     compile 'com.github.QuadFlask:colorpicker:0.0.11'
-    //特效Edittext
+    //特效 EditText
     compile 'com.alimuzaffar.lib:animated-edit-text:1.0'
     //action button
     compile 'com.github.clans:fab:1.6.4'
