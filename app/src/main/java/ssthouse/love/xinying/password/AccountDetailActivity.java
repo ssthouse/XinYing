@@ -21,7 +21,6 @@ import ssthouse.love.xinying.password.bean.AccountBean;
 import ssthouse.love.xinying.password.bean.AccountChangeEvent;
 import ssthouse.love.xinying.password.dao.AccountDao;
 import ssthouse.love.xinying.utils.ToastUtil;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 23/03/2017.
@@ -86,8 +85,8 @@ public class AccountDetailActivity extends BaseActivity {
                     public void execute(Realm realm) {
                         mAccountBean.deleteFromRealm();
                         ToastUtil.show(AccountDetailActivity.this, "成功移除账号 :)");
-                        EventBus.getDefault().post(new AccountChangeEvent());
                         finish();
+                        EventBus.getDefault().post(new AccountChangeEvent());
                     }
                 });
             }
@@ -157,7 +156,6 @@ public class AccountDetailActivity extends BaseActivity {
         mAccountBean.setDescription(mEtDescription.getText().toString());
         mAccountBean.setUsername(mEtUsername.getText().toString());
         mAccountBean.setPassword(mEtPassword.getText().toString());
-        Timber.e(mAccountBean.getServiceName() + mAccountBean.getDescription() + mAccountBean.getUsername() + mAccountBean.getPassword());
         return mAccountBean;
     }
 

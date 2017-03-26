@@ -13,7 +13,7 @@ import ssthouse.love.xinying.joke.JokeFragment;
 import ssthouse.love.xinying.jokebackup.JokeBackupFragment;
 import ssthouse.love.xinying.msg.LeaveMsgFragment;
 import ssthouse.love.xinying.note.sharenote.ShareNoteFragment;
-import ssthouse.love.xinying.password.PasswordFragment;
+import ssthouse.love.xinying.password.UserVerifyFragment;
 import ssthouse.love.xinying.time.TodoFragment;
 
 /**
@@ -38,21 +38,19 @@ public class MainFragmentManager extends BaseFragmentManager {
             KEY_FRAGMENT_PASSWORD
     };
 
-    private List<Fragment> fragmentList;
-
     public MainFragmentManager(FragmentManager mFragmentManager, int fragmentId) {
         super(mFragmentManager, fragmentId);
     }
 
     @Override
     protected Map<String, Fragment> initFragmentManager() {
-        fragmentList = new ArrayList<>();
+        List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new TodoFragment());
         fragmentList.add(new ShareNoteFragment());
         fragmentList.add(new LeaveMsgFragment());
         fragmentList.add(new JokeFragment());
         fragmentList.add(new JokeBackupFragment());
-        fragmentList.add(new PasswordFragment());
+        fragmentList.add(new UserVerifyFragment());
         Map<String, Fragment> fragmentMap = new HashMap<>();
         for (int i = 0; i < fragmentList.size(); i++) {
             fragmentMap.put(FRAGMENT_ARRAY[i], fragmentList.get(i));

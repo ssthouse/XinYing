@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,7 +29,6 @@ import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.password.bean.AccountBean;
 import ssthouse.love.xinying.password.bean.AccountChangeEvent;
 import ssthouse.love.xinying.password.dao.AccountDao;
-import timber.log.Timber;
 
 /**
  * Created by ssthouse on 23/03/2017.
@@ -80,7 +78,6 @@ public class PasswordFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                //TODO filter the display list
                 //clear former list
                 mDisplayAccountBeanList.clear();
                 //judge every account
@@ -95,12 +92,6 @@ public class PasswordFragment extends BaseFragment {
         });
 
         mLvAccount.setAdapter(mAccountAdapter);
-        mLvAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Timber.e("**************on item clicked");
-            }
-        });
     }
 
     private BaseAdapter mAccountAdapter = new BaseAdapter() {
@@ -158,7 +149,7 @@ public class PasswordFragment extends BaseFragment {
         mEtSearchAccount.getText().clear();
         mDisplayAccountBeanList.clear();
         mDisplayAccountBeanList.addAll(mAccountBeanList);
-        Timber.e("update account!!!!!!!!!!!!!!!!!!");
+        mAccountAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -167,9 +158,4 @@ public class PasswordFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
 }
