@@ -172,6 +172,9 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_password:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_PASSWORD;
                         break;
+                    case R.id.id_menu_vue:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_VUE;
+                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                         break;

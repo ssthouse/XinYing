@@ -33,6 +33,10 @@
             android:visible="false" />
 
         <item
+            android:id="@+id/id_menu_vue"
+            android:title="Vue" />
+
+        <item
             android:id="@+id/id_menu_fist_impression"
             android:title="Setting">
             <menu>
