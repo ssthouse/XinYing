@@ -40,6 +40,7 @@ import ssthouse.love.xinying.utils.PermissionUtil;
 import ssthouse.love.xinying.utils.PreferUtil;
 import ssthouse.love.xinying.utils.TimeUtil;
 import ssthouse.love.xinying.utils.ToastUtil;
+import ssthouse.love.xinying.vue.event.VueRefreshEvent;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
@@ -80,14 +81,22 @@ public class MainActivity extends BaseActivity {
         initDrawerNameAndAvatar();
         initDrawerItem();
         initSignInButton();
+        initRefreshBtn();
+    }
+
+    private void initRefreshBtn() {
+        navigationView.getHeaderView(0).findViewById(R.id.id_btn_refresh)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new VueRefreshEvent());
+                    }
+                });
     }
 
     private void initDrawerNameAndAvatar() {
         TextView tvName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.id_tv_name);
         ImageView ivAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.id_iv_avatar);
-        if (ivAvatar == null) {
-            Timber.e("what the fuck!!!!!!!!!!!!!!!!!!!!!!!!");
-        }
         int drawableId;
         String nameStr;
         if (PreferUtil.getInstance(this).isCony()) {
