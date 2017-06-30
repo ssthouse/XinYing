@@ -1,6 +1,5 @@
 package ssthouse.love.xinying;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import ssthouse.love.xinying.base.BaseActivity;
-import ssthouse.love.xinying.note.FastNoteConfigUtil;
 import ssthouse.love.xinying.utils.ToastUtil;
 import ssthouse.love.xinying.vue.VueConfig;
 
@@ -22,8 +20,8 @@ public class SettingActivity extends BaseActivity {
     @Bind(R.id.id_tb)
     Toolbar toolbar;
 
-    @Bind(R.id.id_cv_pull_my_note)
-    CardView cvPullFastNote;
+//    @Bind(R.id.id_cv_pull_my_note)
+//    CardView cvPullFastNote;
 
     @Bind(R.id.id_et_vue_url)
     EditText etVueUrl;
@@ -35,12 +33,12 @@ public class SettingActivity extends BaseActivity {
     public void init() {
         initToolbar();
 
-        cvPullFastNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FastNoteConfigUtil.getInstance(SettingActivity.this).pullFastNoteFromCloud();
-            }
-        });
+//        cvPullFastNote.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FastNoteConfigUtil.getInstance(SettingActivity.this).pullFastNoteFromCloud();
+//            }
+//        });
 
         etVueUrl.setText(new VueConfig(this).getURL());
 

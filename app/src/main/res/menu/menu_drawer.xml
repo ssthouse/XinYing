@@ -7,9 +7,12 @@
             android:checked="true"
             android:title="Time" />
 
-        <item
-            android:id="@+id/id_menu_note_into"
-            android:title="FastNote" />
+
+        <!--改为在Vue中实现, depresdepresed-->
+        <!--<item-->
+            <!--android:id="@+id/id_menu_note_into"-->
+            <!--android:title="FastNote"-->
+            <!--android:visible="false" />-->
 
         <item
             android:id="@+id/id_menu_joke"
