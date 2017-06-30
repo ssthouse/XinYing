@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,8 +47,8 @@ public class MainActivity extends BaseActivity {
     private Button btnSign;
 
     //main
-    @Bind(R.id.id_tb)
-    Toolbar toolbar;
+//    @Bind(R.id.id_tb)
+//    Toolbar toolbar;
 
     @Bind(R.id.id_navigation)
     NavigationView navigationView;
@@ -70,7 +67,6 @@ public class MainActivity extends BaseActivity {
         mPushAgent.enable();
         mFragmentManager = new MainFragmentManager(getSupportFragmentManager(), R.id.id_fragment_container);
         //初始化view
-        initActionbar();
         initDrawer();
         initFragment();
     }
@@ -78,16 +74,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getContentView() {
         return R.layout.activity_main;
-    }
-
-    private void initActionbar() {
-        setSupportActionBar(toolbar);
-        String title = "love you so much :kissing_heart::kissing_heart::kissing_heart:";
-        title = EmojiParser.parseToUnicode(title);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initDrawer() {
@@ -142,12 +128,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDrawerItem() {
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.str_drawer_open,
-                R.string.str_drawer_close);
-        mDrawerToggle.syncState();
-        drawerLayout.addDrawerListener(mDrawerToggle);
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
