@@ -22,7 +22,7 @@ import ssthouse.love.xinying.note.FastNoteConfigUtil;
  */
 public class SplashActivity extends BaseActivity {
 
-    private static final int ANIMATION_TIME = 1500;
+    private static final int ANIMATION_TIME = 800;
 
     @Bind(R.id.id_tv_hello)
     public TextView tvHello;
@@ -39,9 +39,9 @@ public class SplashActivity extends BaseActivity {
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
 
         //开始动画
-        Animator animatorX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1.0f, 1.15f)
+        Animator animatorX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1.0f, 1.1f)
                 .setDuration(ANIMATION_TIME);
-        Animator animatorY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1.0f, 1.15f)
+        Animator animatorY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1.0f, 1.1f)
                 .setDuration(ANIMATION_TIME);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
