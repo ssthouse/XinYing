@@ -49,10 +49,6 @@ public class MainActivity extends BaseActivity {
 
     private Button btnSign;
 
-    //main
-//    @Bind(R.id.id_tb)
-//    Toolbar toolbar;
-
     @Bind(R.id.id_navigation)
     NavigationView navigationView;
 
@@ -146,11 +142,8 @@ public class MainActivity extends BaseActivity {
                 drawerLayout.closeDrawers();
                 String toFragmentKey = "";
                 switch (item.getItemId()) {
-                    case R.id.id_menu_main:
-                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
-                        break;
-                    case R.id.id_menu_leave_msg:
-                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_LEAVE_MSG;
+                    case R.id.id_menu_vue:
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_VUE;
                         break;
                     case R.id.id_menu_joke:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_JOKE;
@@ -161,14 +154,11 @@ public class MainActivity extends BaseActivity {
                     case R.id.id_menu_password:
                         toFragmentKey = MainFragmentManager.KEY_FRAGMENT_PASSWORD;
                         break;
-                    case R.id.id_menu_vue:
-                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_VUE;
-                        break;
                     case R.id.id_menu_setting:
                         ActivityUtil.startAty(MainActivity.this, SettingActivity.class);
                         break;
                     default:
-                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_TODO;
+                        toFragmentKey = MainFragmentManager.KEY_FRAGMENT_VUE;
                         break;
                 }
                 mFragmentManager.change2Fragment(toFragmentKey);
@@ -193,7 +183,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initFragment() {
-        mFragmentManager.initFragment(MainFragmentManager.KEY_FRAGMENT_TODO);
+        mFragmentManager.initFragment(MainFragmentManager.KEY_FRAGMENT_VUE);
     }
 
     /**

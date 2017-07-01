@@ -2,26 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/id_menu_main"
-            android:checked="true"
-            android:title="Time" />
+
+        <!--改为在Vue中实现, depresdepresed-->
+        <!--<item-->
+        <!--android:id="@+id/id_menu_main"-->
+        <!--android:checked="true"-->
+        <!--android:title="Time" />-->
 
 
         <!--改为在Vue中实现, depresdepresed-->
         <!--<item-->
-            <!--android:id="@+id/id_menu_note_into"-->
-            <!--android:title="FastNote"-->
-            <!--android:visible="false" />-->
+        <!--android:id="@+id/id_menu_note_into"-->
+        <!--android:title="FastNote"-->
+        <!--android:visible="false" />-->
+
+        <!--使用vue当做主页!!!-->
+        <item
+            android:id="@+id/id_menu_vue"
+            android:title="Vue" />
 
         <item
             android:id="@+id/id_menu_joke"
             android:title="For fun" />
-
-        <item
-            android:id="@+id/id_menu_leave_msg"
-            android:title="Leave msg"
-            android:visible="false" />
 
         <!--only for giant baby to see-->
         <item
@@ -35,9 +37,6 @@
             android:title="Password"
             android:visible="false" />
 
-        <item
-            android:id="@+id/id_menu_vue"
-            android:title="Vue" />
 
         <item
             android:id="@+id/id_menu_fist_impression"
