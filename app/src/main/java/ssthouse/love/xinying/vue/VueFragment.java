@@ -10,6 +10,7 @@ import butterknife.Bind;
 import ssthouse.love.xinying.R;
 import ssthouse.love.xinying.base.BaseFragment;
 import ssthouse.love.xinying.vue.event.VueRefreshEvent;
+import ssthouse.love.xinying.vue.java_interface.JavaInterface;
 
 /**
  * Created by ssthouse on 22/04/2017.
@@ -36,6 +37,8 @@ public class VueFragment extends BaseFragment {
     private void initView() {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(mVueConfig.getURL());
+
+        mWebView.addJavascriptInterface(new JavaInterface(getActivity()), "java");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
